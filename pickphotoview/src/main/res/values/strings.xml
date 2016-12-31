@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PickPhotoView</string>
+    <string name="all_photo">所有照片</string>
+    <string name="pick_cancel">取消</string>
+    <string name="preview">预览</string>
+    <string name="pick">选取</string>
+    <string name="permissionRefuse">权限拒绝</string>
+    <string name="menu_cancel">取消</string>
+</resources>
