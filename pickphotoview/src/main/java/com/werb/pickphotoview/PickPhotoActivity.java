@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -88,7 +89,7 @@ public class PickPhotoActivity extends AppCompatActivity {
             @Override
             public void call(ImageLoadOkEvent imageLoadOkEvent) {
                 List<String> photos = helper.mGroupMap.get(PickConfig.ALL_PHOTOS);
-                System.out.println(photos.size() + "");
+                Log.d("All photos size:",photos.size() + "");
             }
         });
     }
