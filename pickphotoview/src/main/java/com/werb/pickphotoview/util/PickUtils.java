@@ -2,6 +2,8 @@ package com.werb.pickphotoview.util;
 
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
@@ -21,7 +23,7 @@ public class PickUtils {
         }
     }
 
-    public static int getWidthPixels(){
+    public static int getWidthPixels() {
         DisplayMetrics displayMetrics = MyApp.getApp().getResources().getDisplayMetrics();
         Configuration cf = MyApp.getApp().getResources().getConfiguration();
         int ori = cf.orientation;
@@ -33,7 +35,7 @@ public class PickUtils {
         return 0;
     }
 
-    public static int getHeightPixels(){
+    public static int getHeightPixels() {
         DisplayMetrics displayMetrics = MyApp.getApp().getResources().getDisplayMetrics();
         Configuration cf = MyApp.getApp().getResources().getConfiguration();
         int ori = cf.orientation;
@@ -55,33 +57,4 @@ public class PickUtils {
         return (int) (pxValue / scale + 0.5f);
     }
 
-
-
-    public static Bitmap centerSquareScaleBitmap(Bitmap bitmap) {
-
-        int edgeLength = getWidthPixels();
-
-        if (null == bitmap || edgeLength <= 0) {
-            return null;
-        }
-
-        Bitmap result = bitmap;
-        int widthOrg = bitmap.getWidth();
-        int heightOrg = bitmap.getHeight();
-
-        if (widthOrg >= 0 && heightOrg >= 0) {
-            //从图中截取正中间的正方形部分。
-            int xTopLeft = 0;
-            int yTopLeft = (getHeightPixels()-getWidthPixels());
-            yTopLeft = yTopLeft/2;
-
-            try {
-                result = Bitmap.createBitmap(result, xTopLeft, yTopLeft, edgeLength, edgeLength);
-                bitmap.recycle();
-            } catch (Exception e) {
-                return null;
-            }
-        }
-        return result;
-    }
 }

@@ -1,7 +1,7 @@
 package com.werb.pickphotoview;
 
 import android.app.Application;
-import android.content.Context;
+
 
 /**
  * Created by wanbo on 2017/1/2.
