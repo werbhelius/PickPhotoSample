@@ -13,6 +13,10 @@ public class PickConfig {
     public static final String INTENT_PICK_DATA = "intent_pick_Data";
     // all photos
     public static final String ALL_PHOTOS = "All Photos";
+    // Camera type
+    public static final int CAMERA_TYPE = -1;
+    // space
+    public static final int ITEM_SPACE = 4;
     // intent requestCode
     public static final int PICK_PHOTO_DATA = 0x5521;
     // default size

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -29,52 +30,50 @@ public class PickPhotoHelper {
     }
 
     public void getImages() {
-        new Thread(new Runnable() {
+        new Thread(() -> {
+            Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            ContentResolver mContentResolver = activity.getContentResolver();
 
-            @Override
-            public void run() {
-                Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                ContentResolver mContentResolver = activity.getContentResolver();
+            //jpeg & png
+            Cursor mCursor = mContentResolver.query(mImageUri, null,
+                    MediaStore.Images.Media.MIME_TYPE + "=? or "
+                            + MediaStore.Images.Media.MIME_TYPE + "=?",
+                    new String[] { "image/jpeg", "image/png" }, MediaStore.Images.Media.DATE_MODIFIED);
 
-                //jpeg & png
-                Cursor mCursor = mContentResolver.query(mImageUri, null,
-                        MediaStore.Images.Media.MIME_TYPE + "=? or "
-                                + MediaStore.Images.Media.MIME_TYPE + "=?",
-                        new String[] { "image/jpeg", "image/png" }, MediaStore.Images.Media.DATE_MODIFIED);
-
-                if(mCursor == null){
-                    return;
-                }
-
-                while (mCursor.moveToNext()) {
-                    // get image path
-                    String path = mCursor.getString(mCursor
-                            .getColumnIndex(MediaStore.Images.Media.DATA));
-
-                    // get image parent name
-                    String parentName = new File(path).getParentFile().getName();
-                    Log.d(PickConfig.TAG, parentName + ":" + path);
-                    // save by parent name
-                    if (!mGroupMap.containsKey(parentName)) {
-                        List<String> chileList = new ArrayList<>();
-                        chileList.add(path);
-                        mGroupMap.put(parentName, chileList);
-                    } else {
-                        mGroupMap.get(parentName).add(path);
-                    }
-                    // save all Photo
-                    if (!mGroupMap.containsKey(PickConfig.ALL_PHOTOS)) {
-                        List<String> chileList = new ArrayList<>();
-                        chileList.add(path);
-                        mGroupMap.put(PickConfig.ALL_PHOTOS, chileList);
-                    } else {
-                        mGroupMap.get(PickConfig.ALL_PHOTOS).add(path);
-                    }
-                }
-                RxBus.getInstance().send(new ImageLoadOkEvent());
-                mCursor.close();
+            if(mCursor == null){
+                return;
             }
+
+            while (mCursor.moveToNext()) {
+                // get image path
+                String path = mCursor.getString(mCursor
+                        .getColumnIndex(MediaStore.Images.Media.DATA));
+
+                // get image parent name
+                String parentName = new File(path).getParentFile().getName();
+                Log.d(PickConfig.TAG, parentName + ":" + path);
+                // save by parent name
+                if (!mGroupMap.containsKey(parentName)) {
+                    List<String> chileList = new ArrayList<>();
+                    chileList.add(path);
+                    mGroupMap.put(parentName, chileList);
+                } else {
+                    mGroupMap.get(parentName).add(path);
+                }
+                // save all Photo
+                if (!mGroupMap.containsKey(PickConfig.ALL_PHOTOS)) {
+                    List<String> chileList = new ArrayList<>();
+                    chileList.add(path);
+                    mGroupMap.put(PickConfig.ALL_PHOTOS, chileList);
+                } else {
+                    mGroupMap.get(PickConfig.ALL_PHOTOS).add(path);
+                }
+            }
+            mCursor.close();
+            r.post(() -> RxBus.getInstance().send(new ImageLoadOkEvent()));
         }).start();
 
     }
+
+    static android.os.Handler r = new android.os.Handler(Looper.getMainLooper());
 }
