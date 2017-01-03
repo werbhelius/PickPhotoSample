@@ -1,7 +1,8 @@
-package com.werb.pickphotoview;
+package com.werb.pickphotoview.model;
 
-import android.graphics.Color;
 import android.util.Log;
+
+import com.werb.pickphotoview.util.PickConfig;
 
 import java.io.Serializable;
 

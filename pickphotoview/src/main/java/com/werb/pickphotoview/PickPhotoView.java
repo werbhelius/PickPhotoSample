@@ -3,6 +3,9 @@ package com.werb.pickphotoview;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.werb.pickphotoview.model.PickData;
+import com.werb.pickphotoview.util.PickConfig;
+
 /**
  * Created by wanbo on 2016/12/30.
  */

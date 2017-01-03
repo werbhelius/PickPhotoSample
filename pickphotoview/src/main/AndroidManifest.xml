@@ -7,6 +7,10 @@
         android:name=".MyApp"
         android:supportsRtl="true">
 
+        <activity android:name=".PickListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeList"/>
+
     </application>
 
 </manifest>

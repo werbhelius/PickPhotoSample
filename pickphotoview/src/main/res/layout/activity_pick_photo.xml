@@ -1,63 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.werb.pickphotoview.widget.MyToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/black">
-
-        <FrameLayout
-            android:id="@+id/toolbar_back"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="14dp"
-            android:background="@drawable/btn_bg">
-
-            <ImageView
-                android:id="@+id/toolbar_back_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:src="@mipmap/ic_back" />
-
-        </FrameLayout>
-
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="@string/all_photo"
-            android:textColor="@color/white" />
-
-
-        <FrameLayout
-            android:id="@+id/toolbar_cancel"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="14dp"
-            android:background="@drawable/btn_bg">
-
-            <ImageView
-                android:id="@+id/toolbarc_cancel_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:src="@mipmap/ic_close" />
-
-        </FrameLayout>
-
-
-    </RelativeLayout>
+        android:layout_height="?attr/actionBarSize"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/photo_list"
@@ -67,8 +17,10 @@
         android:background="@color/white" />
 
     <LinearLayout
+        android:id="@+id/select_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:visibility="gone"
         android:background="@drawable/pick_bg"
         android:orientation="horizontal">
 

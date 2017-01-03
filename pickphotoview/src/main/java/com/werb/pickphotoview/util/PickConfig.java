@@ -1,4 +1,6 @@
-package com.werb.pickphotoview;
+package com.werb.pickphotoview.util;
+
+import com.werb.pickphotoview.R;
 
 /**
  * Created by wanbo on 2016/12/30.
@@ -11,6 +13,8 @@ public class PickConfig {
     public static final String TAG = "PickPhotoView";
     // intent data
     public static final String INTENT_PICK_DATA = "intent_pick_Data";
+    // intent dirName
+    public static final String INTENT_DIR_NAME = "intent_dir_name";
     // all photos
     public static final String ALL_PHOTOS = "All Photos";
     // Camera type
