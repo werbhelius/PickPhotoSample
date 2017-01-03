@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import com.werb.pickphotoview.adapter.PickGridAdapter;
@@ -32,23 +35,24 @@ import java.util.List;
 public class PickPhotoActivity extends AppCompatActivity {
 
     private PickData pickData;
-    private String dirName;
     private RecyclerView photoList;
     private PickGridAdapter pickGridAdapter;
+    private MyToolbar myToolbar;
+    private TextView selectText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_photo);
         pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INTENT_PICK_DATA);
-        dirName = getIntent().getStringExtra(PickConfig.INTENT_DIR_NAME);
-        if(pickData != null){
+        if (pickData != null) {
             PickPreferences.getInstance().savePickData(pickData);
-        }else {
+        } else {
             pickData = PickPreferences.getInstance().getPickData();
         }
         initToolbar();
         initRecyclerView();
+        initSelectLayout();
         intiEvent();
     }
 
@@ -63,7 +67,8 @@ public class PickPhotoActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
-        MyToolbar myToolbar = (MyToolbar) findViewById(R.id.toolbar);
+        selectText = (TextView) findViewById(R.id.tv_pick_photo);
+        myToolbar = (MyToolbar) findViewById(R.id.toolbar);
         myToolbar.setLeftIcon(R.mipmap.ic_open);
         myToolbar.setRightIcon(R.mipmap.ic_close);
         myToolbar.setPhotoDirName(getString(R.string.all_photo));
@@ -75,16 +80,14 @@ public class PickPhotoActivity extends AppCompatActivity {
         photoList = (RecyclerView) findViewById(R.id.photo_list);
         GridLayoutManager layoutManager = new GridLayoutManager(this, pickData.getSpanCount());
         photoList.setLayoutManager(layoutManager);
-        photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.dp2px(PickConfig.ITEM_SPACE),pickData.getSpanCount()));
-        if(PickUtils.isEmpty(dirName)) {
-            PickPhotoHelper helper = new PickPhotoHelper(PickPhotoActivity.this);
-            helper.getImages();
-        }else {
-            GroupImage listImage = PickPreferences.getInstance().getListImage();
-            List<String> photos = listImage.mGroupMap.get(dirName);
-            pickGridAdapter = new PickGridAdapter(photos, pickData.isShowCamera(), pickData.getSpanCount());
-            photoList.setAdapter(pickGridAdapter);
-        }
+        photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.dp2px(PickConfig.ITEM_SPACE), pickData.getSpanCount()));
+        PickPhotoHelper helper = new PickPhotoHelper(PickPhotoActivity.this);
+        helper.getImages();
+    }
+
+    private void initSelectLayout(){
+        LinearLayout selectLayout = (LinearLayout) findViewById(R.id.select_layout);
+        selectLayout.setVisibility(View.VISIBLE);
     }
 
     private void intiEvent() {
@@ -92,16 +95,38 @@ public class PickPhotoActivity extends AppCompatActivity {
             GroupImage groupImage = PickPreferences.getInstance().getListImage();
             List<String> photos = groupImage.mGroupMap.get(PickConfig.ALL_PHOTOS);
             Log.d("All photos size:", photos.size() + "");
-            pickGridAdapter = new PickGridAdapter(photos, pickData.isShowCamera(), pickData.getSpanCount());
+            pickGridAdapter = new PickGridAdapter(this,photos, pickData.isShowCamera(), pickData.getSpanCount(),pickData.getPickPhotoSize());
             photoList.setAdapter(pickGridAdapter);
         });
     }
 
-    private void startPhotoListActivity(){
-        Intent intent = new Intent();
-        intent.setClass(PickPhotoActivity.this,PickListActivity.class);
-        startActivity(intent);
-        finish();
+    public void updateSelectText(String selectSize){
+        if(selectSize.equals("0")){
+            selectText.setText(getString(R.string.pick));
+            selectText.setTextColor(getResources().getColor(R.color.black));
+        }else {
+            selectText.setText(String.format(getString(R.string.pick_size), selectSize));
+            selectText.setTextColor(getResources().getColor(R.color.orange));
+        }
     }
 
+    private void startPhotoListActivity() {
+        Intent intent = new Intent();
+        intent.setClass(PickPhotoActivity.this, PickListActivity.class);
+        startActivityForResult(intent, PickConfig.LIST_PHOTO_DATA);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PickConfig.LIST_PHOTO_DATA) {
+            if(data != null) {
+                String dirName = data.getStringExtra(PickConfig.INTENT_DIR_NAME);
+                GroupImage listImage = PickPreferences.getInstance().getListImage();
+                List<String> photos = listImage.mGroupMap.get(dirName);
+                pickGridAdapter.updateData(photos);
+                myToolbar.setPhotoDirName(dirName);
+            }
+        }
+    }
 }

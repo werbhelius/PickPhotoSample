@@ -9,6 +9,7 @@
 
         <activity android:name=".PickListActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppThemeList"/>
 
     </application>

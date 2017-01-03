@@ -35,8 +35,8 @@ public class PickListActivity extends AppCompatActivity {
         }
         MyToolbar myToolbar = (MyToolbar) findViewById(R.id.toolbar);
         myToolbar.setPhotoDirName(getString(R.string.photos));
-        myToolbar.setRightIcon(R.mipmap.ic_back);
-        myToolbar.setRightLayoutOnClickListener(v -> finish());
+        myToolbar.setLeftIcon(R.mipmap.ic_back);
+        myToolbar.setLeftLayoutOnClickListener(v -> finish());
     }
 
     private void initRecyclerView(){
@@ -58,7 +58,15 @@ public class PickListActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setClass(PickListActivity.this,PickPhotoActivity.class);
         intent.putExtra(PickConfig.INTENT_DIR_NAME,dirName);
-        startActivity(intent);
+        setResult(PickConfig.LIST_PHOTO_DATA, intent);
         finish();
     };
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        if(intent.getComponent().getClassName().equals(PickPhotoActivity.class.getName())) {
+            overridePendingTransition(R.anim.start_slide_in_right, 0);
+        }
+    }
 }

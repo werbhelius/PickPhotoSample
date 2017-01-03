@@ -3,4 +3,5 @@
 
     <item name="image_path" type="id"/>
     <item name="dir_name" type="id"/>
+    <item name="is_select" type="id"/>
 </resources>
