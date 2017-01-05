@@ -20,12 +20,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.werb.pickphotoview.PickPhotoActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:theme="@style/AppThemeBottom"/>
-
-
     </application>
 
 </manifest>

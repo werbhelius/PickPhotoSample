@@ -57,4 +57,46 @@ public class PickUtils {
         return (int) (pxValue / scale + 0.5f);
     }
 
+    private static int computeScale(BitmapFactory.Options options, int dstw, int dsth) {
+        int inSampleSize = 1;
+        if (dstw == 0 || dsth == 0) {
+            return inSampleSize;
+        }
+        int width = options.outWidth;
+        int height = options.outHeight;
+
+        if (width > dstw || height > dsth) {
+            int heightRatio = Math.round((float) height / (float) dsth);
+            int widthRatio = Math.round((float) width / (float) dstw);
+            inSampleSize = Math.min(heightRatio, widthRatio);
+        }
+        return inSampleSize;
+    }
+
+    public static Bitmap loadBitmap(String path, int maxWidth, int maxHeight) {
+        if (!TextUtils.isEmpty(path)) {
+            try {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(path, options);
+                options.inSampleSize = computeScale(options, maxWidth, maxHeight);
+                options.inJustDecodeBounds = false;
+                Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+                return matrixBitmap(bitmap);
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private static Bitmap matrixBitmap(Bitmap bitmap){
+        Matrix matrix = new Matrix();
+        float scaleX = PickUtils.getWidthPixels() / (float) bitmap.getWidth();
+        float scaleY = PickUtils.getHeightPixels() / (float) bitmap.getHeight();
+        float originalScale = Math.min(scaleX, scaleY);
+        matrix.setScale(originalScale, originalScale);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+    }
+
 }

@@ -12,7 +12,7 @@
         <item name="android:windowEnterAnimation">@anim/start_slide_in_bottom</item>
     </style>
 
-    <style name="listAnim">
+    <style name="RightSlide">
         <item name="android:windowEnterAnimation">@anim/start_slide_in_right</item>
     </style>
 
@@ -20,8 +20,8 @@
         <item name="android:windowAnimationStyle">@style/BottomUp</item>
     </style>
 
-    <style name="AppThemeList" parent="BlackTheme">
-        <item name="android:windowAnimationStyle">@style/listAnim</item>
+    <style name="AppThemeRight" parent="BlackTheme">
+        <item name="android:windowAnimationStyle">@style/RightSlide</item>
     </style>
 
 </resources>

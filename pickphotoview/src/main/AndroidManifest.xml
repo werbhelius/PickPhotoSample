@@ -7,10 +7,20 @@
         android:name=".MyApp"
         android:supportsRtl="true">
 
+        <activity android:name="com.werb.pickphotoview.PickPhotoActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeBottom"/>
+
         <activity android:name=".PickListActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:theme="@style/AppThemeList"/>
+            android:theme="@style/AppThemeRight"/>
+
+        <activity android:name=".PickPhotoPreviewActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeRight"/>
 
     </application>
 

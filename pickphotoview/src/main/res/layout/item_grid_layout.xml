@@ -9,14 +9,22 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"/>
 
-    <ImageView
-        android:id="@+id/iv_select"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="3dp"
-        android:scaleType="centerCrop"
+    <FrameLayout
+        android:id="@+id/frame_select_layout"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/iv_select"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+
 
 </RelativeLayout>

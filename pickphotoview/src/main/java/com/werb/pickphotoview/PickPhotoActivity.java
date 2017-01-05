@@ -38,7 +38,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     private RecyclerView photoList;
     private PickGridAdapter pickGridAdapter;
     private MyToolbar myToolbar;
-    private TextView selectText;
+    private TextView selectText , previewText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,6 +68,7 @@ public class PickPhotoActivity extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
         selectText = (TextView) findViewById(R.id.tv_pick_photo);
+        previewText = (TextView) findViewById(R.id.tv_preview_photo);
         myToolbar = (MyToolbar) findViewById(R.id.toolbar);
         myToolbar.setLeftIcon(R.mipmap.ic_open);
         myToolbar.setRightIcon(R.mipmap.ic_close);
@@ -103,10 +104,12 @@ public class PickPhotoActivity extends AppCompatActivity {
     public void updateSelectText(String selectSize){
         if(selectSize.equals("0")){
             selectText.setText(getString(R.string.pick));
-            selectText.setTextColor(getResources().getColor(R.color.black));
+            selectText.setTextColor(getResources().getColor(R.color.gray));
+            previewText.setTextColor(getResources().getColor(R.color.gray));
         }else {
             selectText.setText(String.format(getString(R.string.pick_size), selectSize));
-            selectText.setTextColor(getResources().getColor(R.color.orange));
+            selectText.setTextColor(getResources().getColor(R.color.green));
+            previewText.setTextColor(getResources().getColor(R.color.black));
         }
     }
 
@@ -126,6 +129,8 @@ public class PickPhotoActivity extends AppCompatActivity {
                 List<String> photos = listImage.mGroupMap.get(dirName);
                 pickGridAdapter.updateData(photos);
                 myToolbar.setPhotoDirName(dirName);
+                selectText.setText(getString(R.string.pick));
+                selectText.setTextColor(getResources().getColor(R.color.black));
             }
         }
     }

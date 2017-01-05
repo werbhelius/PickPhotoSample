@@ -15,6 +15,10 @@ public class PickConfig {
     public static final String INTENT_PICK_DATA = "intent_pick_Data";
     // intent dirName
     public static final String INTENT_DIR_NAME = "intent_dir_name";
+    // intent img path
+    public static final String INTENT_IMG_PATH = "intent_img_path";
+    // intent img list
+    public static final String INTENT_IMG_LIST = "intent_img_list";
     // all photos
     public static final String ALL_PHOTOS = "All Photos";
     // Camera type
