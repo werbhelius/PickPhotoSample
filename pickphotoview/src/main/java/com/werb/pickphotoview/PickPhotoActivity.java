@@ -26,7 +26,11 @@ import com.werb.pickphotoview.util.RxBus;
 import com.werb.pickphotoview.util.event.ImageLoadOkEvent;
 import com.werb.pickphotoview.widget.MyToolbar;
 
+import java.io.Serializable;
 import java.util.List;
+
+import rx.functions.Action1;
+
 
 /**
  * Created by wanbo on 2016/12/30.
@@ -39,6 +43,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     private PickGridAdapter pickGridAdapter;
     private MyToolbar myToolbar;
     private TextView selectText , previewText;
+    private List<String> allPhotos;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,8 +78,18 @@ public class PickPhotoActivity extends AppCompatActivity {
         myToolbar.setLeftIcon(R.mipmap.ic_open);
         myToolbar.setRightIcon(R.mipmap.ic_close);
         myToolbar.setPhotoDirName(getString(R.string.all_photo));
-        myToolbar.setLeftLayoutOnClickListener(v -> startPhotoListActivity());
-        myToolbar.setRightLayoutOnClickListener(v -> finish());
+        myToolbar.setLeftLayoutOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickPhotoActivity.this.startPhotoListActivity();
+            }
+        });
+        myToolbar.setRightLayoutOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickPhotoActivity.this.finish();
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -92,12 +107,15 @@ public class PickPhotoActivity extends AppCompatActivity {
     }
 
     private void intiEvent() {
-        RxBus.getInstance().toObservable(ImageLoadOkEvent.class).subscribe(imageLoadOkEvent -> {
-            GroupImage groupImage = PickPreferences.getInstance().getListImage();
-            List<String> photos = groupImage.mGroupMap.get(PickConfig.ALL_PHOTOS);
-            Log.d("All photos size:", photos.size() + "");
-            pickGridAdapter = new PickGridAdapter(this,photos, pickData.isShowCamera(), pickData.getSpanCount(),pickData.getPickPhotoSize());
-            photoList.setAdapter(pickGridAdapter);
+        RxBus.getInstance().toObservable(ImageLoadOkEvent.class).subscribe(new Action1<ImageLoadOkEvent>() {
+            @Override
+            public void call(ImageLoadOkEvent imageLoadOkEvent) {
+                GroupImage groupImage = PickPreferences.getInstance().getListImage();
+                allPhotos = groupImage.mGroupMap.get(PickConfig.ALL_PHOTOS);
+                Log.d("All photos size:", allPhotos.size() + "");
+                pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, allPhotos, pickData.isShowCamera(), pickData.getSpanCount(), pickData.getPickPhotoSize(),imageClick);
+                photoList.setAdapter(pickGridAdapter);
+            }
         });
     }
 
@@ -110,6 +128,7 @@ public class PickPhotoActivity extends AppCompatActivity {
             selectText.setText(String.format(getString(R.string.pick_size), selectSize));
             selectText.setTextColor(getResources().getColor(R.color.green));
             previewText.setTextColor(getResources().getColor(R.color.black));
+            previewText.setOnClickListener(preClick);
         }
     }
 
@@ -134,4 +153,27 @@ public class PickPhotoActivity extends AppCompatActivity {
             }
         }
     }
+
+    View.OnClickListener imageClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String imgPath = (String) v.getTag(R.id.image_path);
+            Intent intent = new Intent();
+            intent.setClass(PickPhotoActivity.this, PickPhotoPreviewActivity.class);
+            intent.putExtra(PickConfig.INTENT_IMG_PATH, imgPath);
+            intent.putExtra(PickConfig.INTENT_IMG_LIST, (Serializable) allPhotos);
+            startActivity(intent);
+        }
+    };
+
+    View.OnClickListener preClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(PickPhotoActivity.this, PickPhotoPreviewActivity.class);
+            intent.putExtra(PickConfig.INTENT_IMG_PATH, pickGridAdapter.getSelectPath().get(0));
+            intent.putExtra(PickConfig.INTENT_IMG_LIST, (Serializable) allPhotos);
+            startActivity(intent);
+        }
+    };
 }

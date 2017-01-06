@@ -99,4 +99,33 @@ public class PickUtils {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
     }
 
+//    private String cacheExists(String url) {
+//        try {
+//            File fileDir = new File(mCacheRootPath);
+//            if(!fileDir.exists()) {
+//                fileDir.mkdirs();
+//            }
+//
+//            File file = new File(mCacheRootPath,new StringBuffer().append(MD5EncryptorUtils.md5Encryption(url)).toString());
+//            if(file.exists()) {
+//                return file.getAbsolutePath();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return "";
+//    }
+//
+//    public String getCacheNoExistsPath(String url) {
+//        File fileDir = new File(mCacheRootPath);
+//        if(!fileDir.exists()) {
+//            fileDir.mkdirs();
+//        }
+//
+//
+//        return new StringBuffer().append(mCacheRootPath)
+//                .append(MD5EncryptorUtils.md5Encryption(url)).toString();
+//    }
+
 }

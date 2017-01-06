@@ -36,7 +36,12 @@ public class PickListActivity extends AppCompatActivity {
         MyToolbar myToolbar = (MyToolbar) findViewById(R.id.toolbar);
         myToolbar.setPhotoDirName(getString(R.string.photos));
         myToolbar.setLeftIcon(R.mipmap.ic_back);
-        myToolbar.setLeftLayoutOnClickListener(v -> finish());
+        myToolbar.setLeftLayoutOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickListActivity.this.finish();
+            }
+        });
     }
 
     private void initRecyclerView(){
@@ -53,13 +58,16 @@ public class PickListActivity extends AppCompatActivity {
         overridePendingTransition(0,R.anim.finish_slide_out_left);
     }
 
-    private View.OnClickListener listener = v -> {
-        String dirName = (String) v.getTag(R.id.dir_name);
-        Intent intent = new Intent();
-        intent.setClass(PickListActivity.this,PickPhotoActivity.class);
-        intent.putExtra(PickConfig.INTENT_DIR_NAME,dirName);
-        setResult(PickConfig.LIST_PHOTO_DATA, intent);
-        finish();
+    private View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String dirName = (String) v.getTag(R.id.dir_name);
+            Intent intent = new Intent();
+            intent.setClass(PickListActivity.this, PickPhotoActivity.class);
+            intent.putExtra(PickConfig.INTENT_DIR_NAME, dirName);
+            PickListActivity.this.setResult(PickConfig.LIST_PHOTO_DATA, intent);
+            PickListActivity.this.finish();
+        }
     };
 
     @Override

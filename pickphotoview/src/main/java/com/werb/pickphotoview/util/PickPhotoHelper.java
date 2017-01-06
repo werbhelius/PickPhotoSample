@@ -32,55 +32,63 @@ public class PickPhotoHelper {
     }
 
     public void getImages() {
-        new Thread(() -> {
-            Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-            ContentResolver mContentResolver = activity.getContentResolver();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                ContentResolver mContentResolver = activity.getContentResolver();
 
-            //jpeg & png
-            Cursor mCursor = mContentResolver.query(mImageUri, null,
-                    MediaStore.Images.Media.MIME_TYPE + "=? or "
-                            + MediaStore.Images.Media.MIME_TYPE + "=?",
-                    new String[] { "image/jpeg", "image/png" }, MediaStore.Images.Media.DATE_MODIFIED);
+                //jpeg & png
+                Cursor mCursor = mContentResolver.query(mImageUri, null,
+                        MediaStore.Images.Media.MIME_TYPE + "=? or "
+                                + MediaStore.Images.Media.MIME_TYPE + "=?",
+                        new String[]{"image/jpeg", "image/png"}, MediaStore.Images.Media.DATE_MODIFIED);
 
-            if(mCursor == null){
-                return;
-            }
-            List<String> dirNames = new ArrayList<>();
-            while (mCursor.moveToNext()) {
-                // get image path
-                String path = mCursor.getString(mCursor
-                        .getColumnIndex(MediaStore.Images.Media.DATA));
-
-                // get image parent name
-                String parentName = new File(path).getParentFile().getName();
-                Log.d(PickConfig.TAG, parentName + ":" + path);
-                // save all Photo
-                if (!mGroupMap.containsKey(PickConfig.ALL_PHOTOS)) {
-                    dirNames.add(PickConfig.ALL_PHOTOS);
-                    List<String> chileList = new ArrayList<>();
-                    chileList.add(path);
-                    mGroupMap.put(PickConfig.ALL_PHOTOS, chileList);
-                } else {
-                    mGroupMap.get(PickConfig.ALL_PHOTOS).add(path);
+                if (mCursor == null) {
+                    return;
                 }
-                // save by parent name
-                if (!mGroupMap.containsKey(parentName)) {
-                    dirNames.add(parentName);
-                    List<String> chileList = new ArrayList<>();
-                    chileList.add(path);
-                    mGroupMap.put(parentName, chileList);
-                } else {
-                    mGroupMap.get(parentName).add(path);
+                List<String> dirNames = new ArrayList<>();
+                while (mCursor.moveToNext()) {
+                    // get image path
+                    String path = mCursor.getString(mCursor
+                            .getColumnIndex(MediaStore.Images.Media.DATA));
+
+                    // get image parent name
+                    String parentName = new File(path).getParentFile().getName();
+                    Log.d(PickConfig.TAG, parentName + ":" + path);
+                    // save all Photo
+                    if (!mGroupMap.containsKey(PickConfig.ALL_PHOTOS)) {
+                        dirNames.add(PickConfig.ALL_PHOTOS);
+                        List<String> chileList = new ArrayList<>();
+                        chileList.add(path);
+                        mGroupMap.put(PickConfig.ALL_PHOTOS, chileList);
+                    } else {
+                        mGroupMap.get(PickConfig.ALL_PHOTOS).add(path);
+                    }
+                    // save by parent name
+                    if (!mGroupMap.containsKey(parentName)) {
+                        dirNames.add(parentName);
+                        List<String> chileList = new ArrayList<>();
+                        chileList.add(path);
+                        mGroupMap.put(parentName, chileList);
+                    } else {
+                        mGroupMap.get(parentName).add(path);
+                    }
                 }
+                mCursor.close();
+                GroupImage groupImage = new GroupImage();
+                groupImage.mGroupMap = mGroupMap;
+                DirImage dirImage = new DirImage();
+                dirImage.dirName = dirNames;
+                PickPreferences.getInstance().saveImageList(groupImage);
+                PickPreferences.getInstance().saveDirNames(dirImage);
+                r.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        RxBus.getInstance().send(new ImageLoadOkEvent());
+                    }
+                });
             }
-            mCursor.close();
-            GroupImage groupImage = new GroupImage();
-            groupImage.mGroupMap = mGroupMap;
-            DirImage dirImage = new DirImage();
-            dirImage.dirName = dirNames;
-            PickPreferences.getInstance().saveImageList(groupImage);
-            PickPreferences.getInstance().saveDirNames(dirImage);
-            r.post(() -> RxBus.getInstance().send(new ImageLoadOkEvent()));
         }).start();
 
     }
