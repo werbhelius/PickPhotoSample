@@ -12,13 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.werb.pickphotoview.util.PickConfig;
 import com.werb.pickphotoview.util.PickUtils;
+import com.werb.pickphotoview.widget.MyToolbar;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by wanbo on 2017/1/4.
@@ -30,6 +33,8 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
     private String path;
     private ViewPager viewPager;
     private List<ImageView> imageViews;
+    private MyToolbar myToolbar;
+    private boolean mIsHidden;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,12 +46,26 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
         for (int i = 0; i < 4; i++) {
             ImageView imageView = new ImageView(this);
             imageViews.add(imageView);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hideOrShowToolbar();
+                }
+            });
         }
         initView();
         Log.d("image size", allImagePath.size() + "");
     }
 
     private void initView() {
+        myToolbar = (MyToolbar) findViewById(R.id.toolbar);
+        myToolbar.setLeftIcon(R.mipmap.ic_back);
+        myToolbar.setLeftLayoutOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         viewPager = (ViewPager) findViewById(R.id.image_vp);
         int indexOf = allImagePath.indexOf(path);
         viewPager.setAdapter(new listPageAdapter());
@@ -114,5 +133,11 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
         overridePendingTransition(0, R.anim.finish_slide_out_left);
     }
 
-
+    private void hideOrShowToolbar() {
+        myToolbar.animate()
+                .translationY(mIsHidden ? 0 : -myToolbar.getHeight())
+                .setInterpolator(new DecelerateInterpolator(2))
+                .start();
+        mIsHidden = !mIsHidden;
+    }
 }

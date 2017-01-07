@@ -47,6 +47,7 @@ public class PickListActivity extends AppCompatActivity {
     private void initRecyclerView(){
         RecyclerView listPhoto = (RecyclerView) findViewById(R.id.photo_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listPhoto.setLayoutManager(layoutManager);
         PickListAdapter listAdapter = new PickListAdapter(listener);
         listPhoto.setAdapter(listAdapter);

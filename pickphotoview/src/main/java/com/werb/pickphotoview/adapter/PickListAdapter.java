@@ -1,7 +1,5 @@
 package com.werb.pickphotoview.adapter;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -14,15 +12,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.werb.pickphotoview.MyApp;
-import com.werb.pickphotoview.PickPhotoActivity;
 import com.werb.pickphotoview.R;
 import com.werb.pickphotoview.model.DirImage;
 import com.werb.pickphotoview.model.GroupImage;
-import com.werb.pickphotoview.util.PickConfig;
 import com.werb.pickphotoview.util.PickPreferences;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by wanbo on 2017/1/3.
@@ -49,16 +44,22 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        String dirName = dirImage.dirName.get(position);
-        List<String> paths = groupImage.mGroupMap.get(dirName);
-        GroupImageViewHolder groupImageViewHolder = (GroupImageViewHolder) holder;
-        groupImageViewHolder.bindItem(dirName,paths);
+        if(dirImage != null) {
+            String dirName = dirImage.dirName.get(position);
+            List<String> paths = groupImage.mGroupMap.get(dirName);
+            GroupImageViewHolder groupImageViewHolder = (GroupImageViewHolder) holder;
+            groupImageViewHolder.bindItem(dirName, paths);
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return dirImage.dirName.size();
+        if(dirImage != null ) {
+            return dirImage.dirName.size();
+        }else {
+            return 0;
+        }
     }
 
     private class GroupImageViewHolder extends RecyclerView.ViewHolder{

@@ -45,7 +45,6 @@ public class MyToolbar extends RelativeLayout {
         photoDirName = (TextView) container.findViewById(R.id.tv_photo_type_name);
         leftIcon = (ImageView) container.findViewById(R.id.toolbar_left_icon);
         rightIcon = (ImageView) container.findViewById(R.id.toolbarc_right_icon);
-
         rightIcon.setColorFilter(getResources().getColor(R.color.white));
         addView(container);
     }

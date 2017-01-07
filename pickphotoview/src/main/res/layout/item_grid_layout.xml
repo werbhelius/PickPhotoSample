@@ -11,8 +11,8 @@
 
     <FrameLayout
         android:id="@+id/frame_select_layout"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true">
 
@@ -21,7 +21,9 @@
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:scaleType="centerCrop"
-            android:layout_gravity="center" />
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_gravity="right|top" />
 
     </FrameLayout>
 

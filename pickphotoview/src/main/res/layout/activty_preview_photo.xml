@@ -9,4 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <com.werb.pickphotoview.widget.MyToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
 </RelativeLayout>

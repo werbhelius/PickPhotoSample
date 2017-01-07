@@ -113,8 +113,10 @@ public class PickPhotoActivity extends AppCompatActivity {
                 GroupImage groupImage = PickPreferences.getInstance().getListImage();
                 allPhotos = groupImage.mGroupMap.get(PickConfig.ALL_PHOTOS);
                 Log.d("All photos size:", allPhotos.size() + "");
-                pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, allPhotos, pickData.isShowCamera(), pickData.getSpanCount(), pickData.getPickPhotoSize(),imageClick);
-                photoList.setAdapter(pickGridAdapter);
+                if(allPhotos != null && !allPhotos.isEmpty()) {
+                    pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, allPhotos, pickData.isShowCamera(), pickData.getSpanCount(), pickData.getPickPhotoSize(), imageClick);
+                    photoList.setAdapter(pickGridAdapter);
+                }
             }
         });
     }
@@ -124,11 +126,14 @@ public class PickPhotoActivity extends AppCompatActivity {
             selectText.setText(getString(R.string.pick));
             selectText.setTextColor(getResources().getColor(R.color.gray));
             previewText.setTextColor(getResources().getColor(R.color.gray));
+            previewText.setEnabled(false);
+            selectText.setEnabled(false);
         }else {
             selectText.setText(String.format(getString(R.string.pick_size), selectSize));
             selectText.setTextColor(getResources().getColor(R.color.green));
             previewText.setTextColor(getResources().getColor(R.color.black));
             previewText.setOnClickListener(preClick);
+            selectText.setOnClickListener(selectClick);
         }
     }
 
@@ -145,8 +150,8 @@ public class PickPhotoActivity extends AppCompatActivity {
             if(data != null) {
                 String dirName = data.getStringExtra(PickConfig.INTENT_DIR_NAME);
                 GroupImage listImage = PickPreferences.getInstance().getListImage();
-                List<String> photos = listImage.mGroupMap.get(dirName);
-                pickGridAdapter.updateData(photos);
+                allPhotos = listImage.mGroupMap.get(dirName);
+                pickGridAdapter.updateData(allPhotos);
                 myToolbar.setPhotoDirName(dirName);
                 selectText.setText(getString(R.string.pick));
                 selectText.setTextColor(getResources().getColor(R.color.black));
@@ -174,6 +179,16 @@ public class PickPhotoActivity extends AppCompatActivity {
             intent.putExtra(PickConfig.INTENT_IMG_PATH, pickGridAdapter.getSelectPath().get(0));
             intent.putExtra(PickConfig.INTENT_IMG_LIST, (Serializable) allPhotos);
             startActivity(intent);
+        }
+    };
+
+    View.OnClickListener selectClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) pickGridAdapter.getSelectPath());
+            setResult(PickConfig.PICK_PHOTO_DATA, intent);
+            finish();
         }
     };
 }

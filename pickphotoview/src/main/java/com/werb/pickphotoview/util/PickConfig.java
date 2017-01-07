@@ -19,6 +19,8 @@ public class PickConfig {
     public static final String INTENT_IMG_PATH = "intent_img_path";
     // intent img list
     public static final String INTENT_IMG_LIST = "intent_img_list";
+    // intent img select list
+    public static final String INTENT_IMG_LIST_SELECT = "intent_img_list_select";
     // all photos
     public static final String ALL_PHOTOS = "All Photos";
     // Camera type
@@ -36,7 +38,5 @@ public class PickConfig {
     // default span count
     public static final int DEFAULT_SPAN_COUNT = 4;
     // default cache Dir
-//    public static final int
-
 
 }
