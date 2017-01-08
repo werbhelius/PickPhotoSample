@@ -95,7 +95,7 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     String path = allImagePath.get(position);
-                    final Bitmap bitmap = PickUtils.loadBitmap(path, 1000, 1000);
+                    final Bitmap bitmap = PickUtils.getInstance(PickPhotoPreviewActivity.this).loadBitmap(path, 1000, 1000);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

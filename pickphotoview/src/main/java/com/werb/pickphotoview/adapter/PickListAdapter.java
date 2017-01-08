@@ -1,5 +1,6 @@
 package com.werb.pickphotoview.adapter;
 
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -11,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.werb.pickphotoview.MyApp;
 import com.werb.pickphotoview.R;
 import com.werb.pickphotoview.model.DirImage;
 import com.werb.pickphotoview.model.GroupImage;
@@ -28,16 +28,18 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private GroupImage groupImage;
     private DirImage dirImage;
     private View.OnClickListener listener;
+    private Context context;
 
-    public PickListAdapter(View.OnClickListener listener) {
-        this.groupImage = PickPreferences.getInstance().getListImage();
-        this.dirImage = PickPreferences.getInstance().getDirImage();
+    public PickListAdapter(Context c, View.OnClickListener listener) {
+        this.context = c;
+        this.groupImage = PickPreferences.getInstance(context).getListImage();
+        this.dirImage = PickPreferences.getInstance(context).getDirImage();
         this.listener = listener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        GroupImageViewHolder holder = new GroupImageViewHolder(LayoutInflater.from(MyApp.getApp()).inflate(R.layout.item_list_layout, parent, false));
+        GroupImageViewHolder holder = new GroupImageViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list_layout, parent, false));
         holder.itemView.setOnClickListener(listener);
         return holder;
     }
@@ -74,15 +76,15 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             dirNameText = (TextView) itemView.findViewById(R.id.tv_dir_name);
             photoSizeText = (TextView) itemView.findViewById(R.id.tv_photo_size);
 
-            Drawable drawable = MyApp.getApp().getResources().getDrawable(R.mipmap.list_open);
-            drawable.setColorFilter(MyApp.getApp().getResources().getColor(R.color.gray), PorterDuff.Mode.SRC_ATOP);
+            Drawable drawable = context.getResources().getDrawable(R.mipmap.list_open);
+            drawable.setColorFilter(context.getResources().getColor(R.color.gray), PorterDuff.Mode.SRC_ATOP);
             open.setBackgroundDrawable(drawable);
         }
 
         void bindItem(String dirName, List<String> paths){
             dirNameText.setText(dirName);
-            photoSizeText.setText(String.format(MyApp.getApp().getString(R.string.photo_size),paths.size() + ""));
-            Glide.with(MyApp.getApp()).load(Uri.parse("file://" + paths.get(0))).thumbnail(0.3f).into(cover);
+            photoSizeText.setText(String.format(context.getString(R.string.photo_size),paths.size() + ""));
+            Glide.with(context).load(Uri.parse("file://" + paths.get(0))).thumbnail(0.3f).into(cover);
             itemView.setTag(R.id.dir_name,dirName);
         }
 

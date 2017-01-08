@@ -45,7 +45,7 @@ public class PickListActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listPhoto.setLayoutManager(layoutManager);
-        PickListAdapter listAdapter = new PickListAdapter(listener);
+        PickListAdapter listAdapter = new PickListAdapter(PickListActivity.this,listener);
         listPhoto.setAdapter(listAdapter);
     }
 

@@ -1,5 +1,6 @@
 package com.werb.pickphotoview.util;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,15 +8,32 @@ import android.graphics.Matrix;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
-import com.werb.pickphotoview.MyApp;
-
 /**
  * Created by wanbo on 2016/12/30.
  */
 
 public class PickUtils {
 
-    public static boolean isEmpty(String src) {
+    private static PickUtils mInstance = null;
+    private  Context context;
+
+    public static PickUtils getInstance(Context context) {
+        if (mInstance == null) {
+            synchronized (PickPreferences.class) {
+                if (mInstance == null) {
+                    mInstance = new PickUtils(context);
+                }
+            }
+        }
+        return mInstance;
+    }
+
+    private PickUtils(Context context) {
+        this.context = context;
+    }
+
+
+    public  boolean isEmpty(String src) {
         if (TextUtils.isEmpty(src)) {
             return true;
         } else {
@@ -23,9 +41,9 @@ public class PickUtils {
         }
     }
 
-    public static int getWidthPixels() {
-        DisplayMetrics displayMetrics = MyApp.getApp().getResources().getDisplayMetrics();
-        Configuration cf = MyApp.getApp().getResources().getConfiguration();
+    public  int getWidthPixels() {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        Configuration cf = context.getResources().getConfiguration();
         int ori = cf.orientation;
         if (ori == Configuration.ORIENTATION_LANDSCAPE) {// 横屏
             return displayMetrics.heightPixels;
@@ -35,9 +53,9 @@ public class PickUtils {
         return 0;
     }
 
-    public static int getHeightPixels() {
-        DisplayMetrics displayMetrics = MyApp.getApp().getResources().getDisplayMetrics();
-        Configuration cf = MyApp.getApp().getResources().getConfiguration();
+    public int getHeightPixels() {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        Configuration cf = context.getResources().getConfiguration();
         int ori = cf.orientation;
         if (ori == Configuration.ORIENTATION_LANDSCAPE) {// 横屏
             return displayMetrics.widthPixels;
@@ -47,17 +65,17 @@ public class PickUtils {
         return 0;
     }
 
-    public static int dp2px(float dpValue) {
-        final float scale = MyApp.getApp().getResources().getDisplayMetrics().density;
+    public int dp2px(float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
-    public static int px2dp(float pxValue) {
-        final float scale = MyApp.getApp().getResources().getDisplayMetrics().density;
+    public int px2dp(float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
-    private static int computeScale(BitmapFactory.Options options, int dstw, int dsth) {
+    private int computeScale(BitmapFactory.Options options, int dstw, int dsth) {
         int inSampleSize = 1;
         if (dstw == 0 || dsth == 0) {
             return inSampleSize;
@@ -73,7 +91,7 @@ public class PickUtils {
         return inSampleSize;
     }
 
-    public static Bitmap loadBitmap(String path, int maxWidth, int maxHeight) {
+    public Bitmap loadBitmap(String path, int maxWidth, int maxHeight) {
         if (!TextUtils.isEmpty(path)) {
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
@@ -90,42 +108,13 @@ public class PickUtils {
         return null;
     }
 
-    private static Bitmap matrixBitmap(Bitmap bitmap){
+    private  Bitmap matrixBitmap(Bitmap bitmap){
         Matrix matrix = new Matrix();
-        float scaleX = PickUtils.getWidthPixels() / (float) bitmap.getWidth();
-        float scaleY = PickUtils.getHeightPixels() / (float) bitmap.getHeight();
+        float scaleX = getWidthPixels() / (float) bitmap.getWidth();
+        float scaleY = getHeightPixels() / (float) bitmap.getHeight();
         float originalScale = Math.min(scaleX, scaleY);
         matrix.setScale(originalScale, originalScale);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
     }
-
-//    private String cacheExists(String url) {
-//        try {
-//            File fileDir = new File(mCacheRootPath);
-//            if(!fileDir.exists()) {
-//                fileDir.mkdirs();
-//            }
-//
-//            File file = new File(mCacheRootPath,new StringBuffer().append(MD5EncryptorUtils.md5Encryption(url)).toString());
-//            if(file.exists()) {
-//                return file.getAbsolutePath();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return "";
-//    }
-//
-//    public String getCacheNoExistsPath(String url) {
-//        File fileDir = new File(mCacheRootPath);
-//        if(!fileDir.exists()) {
-//            fileDir.mkdirs();
-//        }
-//
-//
-//        return new StringBuffer().append(mCacheRootPath)
-//                .append(MD5EncryptorUtils.md5Encryption(url)).toString();
-//    }
 
 }

@@ -1,9 +1,10 @@
 package com.werb.pickphotoview.util;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.content.SharedPreferences.Editor;
-import com.werb.pickphotoview.MyApp;
+
 import com.werb.pickphotoview.model.DirImage;
 import com.werb.pickphotoview.model.GroupImage;
 import com.werb.pickphotoview.model.PickData;
@@ -16,6 +17,7 @@ public class PickPreferences {
 
     private static PickPreferences mInstance = null;
     private final SharedPreferences mSharedPreferences;
+    private Context context;
 
     private static final String IMAGE_LIST = "image_list";
     private static final String DIR_NAMES = "dir_names";
@@ -24,19 +26,20 @@ public class PickPreferences {
     private DirImage dirImage;
     private PickData pickData;
 
-    public static PickPreferences getInstance() {
+    public static PickPreferences getInstance(Context context) {
         if (mInstance == null) {
             synchronized (PickPreferences.class) {
                 if (mInstance == null) {
-                    mInstance = new PickPreferences();
+                    mInstance = new PickPreferences(context);
                 }
             }
         }
         return mInstance;
     }
 
-    private PickPreferences() {
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(MyApp.getApp());
+    private PickPreferences(Context context) {
+        this.context = context;
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public boolean saveImageList(GroupImage images){
@@ -50,7 +53,7 @@ public class PickPreferences {
     public GroupImage getListImage(){
         if(listImage == null) {
             String ss = mSharedPreferences.getString(IMAGE_LIST, "");
-            if(PickUtils.isEmpty(ss)) {
+            if(PickUtils.getInstance(context).isEmpty(ss)) {
                 return null;
             } else {
                 listImage = PickGson.fromJson(GroupImage.class, ss);
@@ -70,7 +73,7 @@ public class PickPreferences {
     public DirImage getDirImage(){
         if(dirImage == null) {
             String ss = mSharedPreferences.getString(DIR_NAMES, "");
-            if(PickUtils.isEmpty(ss)) {
+            if(PickUtils.getInstance(context).isEmpty(ss)) {
                 return null;
             } else {
                 dirImage = PickGson.fromJson(DirImage.class, ss);
@@ -90,7 +93,7 @@ public class PickPreferences {
     public PickData getPickData(){
         if(pickData == null) {
             String ss = mSharedPreferences.getString(PICK_DATA, "");
-            if(PickUtils.isEmpty(ss)) {
+            if(PickUtils.getInstance(context).isEmpty(ss)) {
                 return null;
             } else {
                 pickData = PickGson.fromJson(PickData.class, ss);

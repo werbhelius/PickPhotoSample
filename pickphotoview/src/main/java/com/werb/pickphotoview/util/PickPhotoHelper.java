@@ -80,8 +80,8 @@ public class PickPhotoHelper {
                 groupImage.mGroupMap = mGroupMap;
                 DirImage dirImage = new DirImage();
                 dirImage.dirName = dirNames;
-                PickPreferences.getInstance().saveImageList(groupImage);
-                PickPreferences.getInstance().saveDirNames(dirImage);
+                PickPreferences.getInstance(activity).saveImageList(groupImage);
+                PickPreferences.getInstance(activity).saveDirNames(dirImage);
                 r.post(new Runnable() {
                     @Override
                     public void run() {

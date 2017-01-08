@@ -51,9 +51,9 @@ public class PickPhotoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pick_photo);
         pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INTENT_PICK_DATA);
         if (pickData != null) {
-            PickPreferences.getInstance().savePickData(pickData);
+            PickPreferences.getInstance(PickPhotoActivity.this).savePickData(pickData);
         } else {
-            pickData = PickPreferences.getInstance().getPickData();
+            pickData = PickPreferences.getInstance(PickPhotoActivity.this).getPickData();
         }
         initToolbar();
         initRecyclerView();
@@ -99,7 +99,7 @@ public class PickPhotoActivity extends AppCompatActivity {
         photoList = (RecyclerView) findViewById(R.id.photo_list);
         GridLayoutManager layoutManager = new GridLayoutManager(this, pickData.getSpanCount());
         photoList.setLayoutManager(layoutManager);
-        photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.dp2px(PickConfig.ITEM_SPACE), pickData.getSpanCount()));
+        photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.getInstance(PickPhotoActivity.this).dp2px(PickConfig.ITEM_SPACE), pickData.getSpanCount()));
         PickPhotoHelper helper = new PickPhotoHelper(PickPhotoActivity.this);
         helper.getImages();
     }
@@ -113,7 +113,7 @@ public class PickPhotoActivity extends AppCompatActivity {
         RxBus.getInstance().toObservable(ImageLoadOkEvent.class).subscribe(new Action1<ImageLoadOkEvent>() {
             @Override
             public void call(ImageLoadOkEvent imageLoadOkEvent) {
-                GroupImage groupImage = PickPreferences.getInstance().getListImage();
+                GroupImage groupImage = PickPreferences.getInstance(PickPhotoActivity.this).getListImage();
                 allPhotos = groupImage.mGroupMap.get(PickConfig.ALL_PHOTOS);
                 Log.d("All photos size:", allPhotos.size() + "");
                 if(allPhotos != null && !allPhotos.isEmpty()) {
@@ -150,7 +150,7 @@ public class PickPhotoActivity extends AppCompatActivity {
         if (requestCode == PickConfig.LIST_PHOTO_DATA) {
             if(data != null) {
                 String dirName = data.getStringExtra(PickConfig.INTENT_DIR_NAME);
-                GroupImage listImage = PickPreferences.getInstance().getListImage();
+                GroupImage listImage = PickPreferences.getInstance(PickPhotoActivity.this).getListImage();
                 allPhotos = listImage.mGroupMap.get(dirName);
                 pickGridAdapter.updateData(allPhotos);
                 myToolbar.setPhotoDirName(dirName);
