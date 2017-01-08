@@ -29,10 +29,6 @@ public class PickListActivity extends AppCompatActivity {
     }
 
     private void initToolbar(){
-        Window window = getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.black));
-        }
         MyToolbar myToolbar = (MyToolbar) findViewById(R.id.toolbar);
         myToolbar.setPhotoDirName(getString(R.string.photos));
         myToolbar.setLeftIcon(R.mipmap.ic_back);
