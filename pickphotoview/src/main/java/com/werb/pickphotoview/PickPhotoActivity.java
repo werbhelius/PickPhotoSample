@@ -90,6 +90,9 @@ public class PickPhotoActivity extends AppCompatActivity {
                 PickPhotoActivity.this.finish();
             }
         });
+
+        previewText.setOnClickListener(preClick);
+        selectText.setOnClickListener(selectClick);
     }
 
     private void initRecyclerView() {
@@ -132,8 +135,6 @@ public class PickPhotoActivity extends AppCompatActivity {
             selectText.setText(String.format(getString(R.string.pick_size), selectSize));
             selectText.setTextColor(getResources().getColor(R.color.green));
             previewText.setTextColor(getResources().getColor(R.color.black));
-            previewText.setOnClickListener(preClick);
-            selectText.setOnClickListener(selectClick);
         }
     }
 
