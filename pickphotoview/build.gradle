@@ -40,10 +40,10 @@ dependencies {
 
 apply plugin: 'com.novoda.bintray-release'
 publish {
-    userOrg = 'werb'
+    userOrg = 'werbhelius'
     groupId = 'com.werb.pickphotoview'
-    artifactId = 'PickPhoto'
+    artifactId = 'pickphotoview'
     publishVersion = '0.0.1-beta'
-    desc = 'Photo Picker'
+    desc = 'Photo Picker Of Android Library'
     website = 'https://github.com/Werb/PickPhotoSample'
 }
