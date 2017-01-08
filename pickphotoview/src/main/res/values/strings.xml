@@ -1,5 +1,5 @@
 <resources>
-    <string name="pick_app_name">PickPhotoView</string>
+    <string name="app_name">PickPhotoView</string>
     <string name="pick_all_photo">All Photos</string>
     <string name="pick_photos">照片</string>
     <string name="pick_pick_cancel">取消</string>
