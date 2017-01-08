@@ -34,9 +34,8 @@ public class PickConfig {
     // default size
     public static final int DEFAULT_PICK_SIZE = 9;
     // default theme color
-    public static final int DEFAULT_THEME_COLOR = R.color.black;
+    public static final int DEFAULT_THEME_COLOR = R.color.pick_black;
     // default span count
     public static final int DEFAULT_SPAN_COUNT = 4;
-    // default cache Dir
 
 }

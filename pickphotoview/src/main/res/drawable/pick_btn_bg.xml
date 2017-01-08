@@ -3,8 +3,8 @@
     android:exitFadeDuration="@android:integer/config_shortAnimTime"
     android:enterFadeDuration="@android:integer/config_shortAnimTime">
 
-    <item android:state_pressed="true" android:drawable="@drawable/circle" />
-    <item android:state_focused="true" android:drawable="@drawable/circle"/>
+    <item android:state_pressed="true" android:drawable="@drawable/pick_circle" />
+    <item android:state_focused="true" android:drawable="@drawable/pick_circle"/>
     <item android:drawable="@android:color/transparent"/>
 
 </selector>

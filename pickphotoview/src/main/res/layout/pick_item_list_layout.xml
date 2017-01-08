@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@drawable/list_bg"
+    android:background="@drawable/pick_list_bg"
     android:orientation="horizontal">
 
     <ImageView
@@ -17,7 +17,7 @@
         android:layout_height="60dp"
         android:layout_marginLeft="20dp"
         android:text="all"
-        android:textColor="@color/black"
+        android:textColor="@color/pick_black"
         android:gravity="center"/>
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_height="60dp"
         android:layout_marginLeft="20dp"
         android:gravity="center_vertical|left"
-        android:textColor="@color/gray"
+        android:textColor="@color/pick_gray"
         android:text="(100)"/>
 
     <ImageView

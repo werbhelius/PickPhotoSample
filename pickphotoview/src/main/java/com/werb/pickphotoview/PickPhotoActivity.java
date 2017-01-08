@@ -48,7 +48,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pick_photo);
+        setContentView(R.layout.pick_activity_pick_photo);
         pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INTENT_PICK_DATA);
         if (pickData != null) {
             PickPreferences.getInstance(PickPhotoActivity.this).savePickData(pickData);
@@ -64,20 +64,20 @@ public class PickPhotoActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0, R.anim.finish_slide_out_bottom);
+        overridePendingTransition(0, R.anim.pick_finish_slide_out_bottom);
     }
 
     private void initToolbar() {
         Window window = getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.black));
+            window.setStatusBarColor(getResources().getColor(R.color.pick_black));
         }
         selectText = (TextView) findViewById(R.id.tv_pick_photo);
         previewText = (TextView) findViewById(R.id.tv_preview_photo);
         myToolbar = (MyToolbar) findViewById(R.id.toolbar);
-        myToolbar.setLeftIcon(R.mipmap.ic_open);
-        myToolbar.setRightIcon(R.mipmap.ic_close);
-        myToolbar.setPhotoDirName(getString(R.string.all_photo));
+        myToolbar.setLeftIcon(R.mipmap.pick_ic_open);
+        myToolbar.setRightIcon(R.mipmap.pick_ic_close);
+        myToolbar.setPhotoDirName(getString(R.string.pick_all_photo));
         myToolbar.setLeftLayoutOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,15 +126,15 @@ public class PickPhotoActivity extends AppCompatActivity {
 
     public void updateSelectText(String selectSize){
         if(selectSize.equals("0")){
-            selectText.setText(getString(R.string.pick));
-            selectText.setTextColor(getResources().getColor(R.color.gray));
-            previewText.setTextColor(getResources().getColor(R.color.gray));
+            selectText.setText(getString(R.string.pick_pick));
+            selectText.setTextColor(getResources().getColor(R.color.pick_gray));
+            previewText.setTextColor(getResources().getColor(R.color.pick_gray));
             previewText.setEnabled(false);
             selectText.setEnabled(false);
         }else {
-            selectText.setText(String.format(getString(R.string.pick_size), selectSize));
-            selectText.setTextColor(getResources().getColor(R.color.green));
-            previewText.setTextColor(getResources().getColor(R.color.black));
+            selectText.setText(String.format(getString(R.string.pick_pick_size), selectSize));
+            selectText.setTextColor(getResources().getColor(R.color.pick_green));
+            previewText.setTextColor(getResources().getColor(R.color.pick_black));
         }
     }
 
@@ -154,8 +154,8 @@ public class PickPhotoActivity extends AppCompatActivity {
                 allPhotos = listImage.mGroupMap.get(dirName);
                 pickGridAdapter.updateData(allPhotos);
                 myToolbar.setPhotoDirName(dirName);
-                selectText.setText(getString(R.string.pick));
-                selectText.setTextColor(getResources().getColor(R.color.black));
+                selectText.setText(getString(R.string.pick_pick));
+                selectText.setTextColor(getResources().getColor(R.color.pick_black));
             }
         }
     }
@@ -163,7 +163,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     View.OnClickListener imageClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String imgPath = (String) v.getTag(R.id.image_path);
+            String imgPath = (String) v.getTag(R.id.pick_image_path);
             Intent intent = new Intent();
             intent.setClass(PickPhotoActivity.this, PickPhotoPreviewActivity.class);
             intent.putExtra(PickConfig.INTENT_IMG_PATH, imgPath);

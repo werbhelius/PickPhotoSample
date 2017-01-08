@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#191919</color>
-    <color name="light">#E6E7EB</color>
-    <color name="white">#FFFFFF</color>
-    <color name="parse">#c8454444</color>
-    <color name="gray">#AFB0B3</color>
-    <color name="green">#00C07F</color>
+    <color name="pick_black">#191919</color>
+    <color name="pick_light">#E6E7EB</color>
+    <color name="pick_white">#FFFFFF</color>
+    <color name="pick_parse">#c8454444</color>
+    <color name="pick_gray">#AFB0B3</color>
+    <color name="pick_green">#00C07F</color>
 </resources>

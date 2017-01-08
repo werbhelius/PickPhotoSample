@@ -39,7 +39,7 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activty_preview_photo);
+        setContentView(R.layout.pick_activty_preview_photo);
         path = getIntent().getStringExtra(PickConfig.INTENT_IMG_PATH);
         allImagePath = (List<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST);
         imageViews = new ArrayList<>();
@@ -59,7 +59,7 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
 
     private void initView() {
         myToolbar = (MyToolbar) findViewById(R.id.toolbar);
-        myToolbar.setLeftIcon(R.mipmap.ic_back);
+        myToolbar.setLeftIcon(R.mipmap.pick_ic_back);
         myToolbar.setLeftLayoutOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,7 +130,7 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
     public void finish() {
         super.finish();
         viewPager = null;
-        overridePendingTransition(0, R.anim.finish_slide_out_left);
+        overridePendingTransition(0, R.anim.pick_finish_slide_out_left);
     }
 
     private void hideOrShowToolbar() {

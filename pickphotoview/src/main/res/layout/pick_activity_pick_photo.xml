@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/white" />
+        android:background="@color/pick_white" />
 
     <LinearLayout
         android:id="@+id/select_layout"
@@ -30,8 +30,8 @@
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:gravity="center"
-            android:text="@string/preview"
-            android:textColor="@color/gray" />
+            android:text="@string/pick_preview"
+            android:textColor="@color/pick_gray" />
 
         <View
             android:layout_width="0dp"
@@ -45,8 +45,8 @@
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:gravity="center"
-            android:text="@string/pick"
-            android:textColor="@color/gray" />
+            android:text="@string/pick_pick"
+            android:textColor="@color/pick_gray" />
 
     </LinearLayout>
 
