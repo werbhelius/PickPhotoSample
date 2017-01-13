@@ -1,12 +1,15 @@
 package com.werb.pickphotosample;
 
+import android.Manifest;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.werb.permissionschecker.PermissionChecker;
 import com.werb.pickphotoview.PickPhotoView;
 import com.werb.pickphotoview.adapter.SpaceItemDecoration;
 import com.werb.pickphotoview.util.PickConfig;
@@ -18,15 +21,27 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private SampleAdapter adapter;
+    private PermissionChecker permissionChecker;
+    private String[] PERMISSIONS = new String[]{
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        permissionChecker = new PermissionChecker(this);
+
         findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startPickPhoto();
+                if(permissionChecker.isLackPermissions(PERMISSIONS)){
+                    permissionChecker.requestPermissions();
+                }else {
+                    startPickPhoto();
+                }
             }
         });
 
@@ -58,6 +73,19 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == PickConfig.PICK_PHOTO_DATA) {
             List<String> selectPaths = (List<String>) data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
             adapter.updateData(selectPaths);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PermissionChecker.PERMISSION_REQUEST_CODE:
+                if (permissionChecker.hasAllPermissionsGranted(grantResults)) {
+                    startPickPhoto();
+                } else {
+                    permissionChecker.showDialog();
+                }
+                break;
         }
     }
 }
