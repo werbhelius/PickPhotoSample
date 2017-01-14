@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.werb.pickphotoview">
 
     <application
@@ -22,11 +23,13 @@
             android:theme="@style/PickAppThemeRight"/>
 
         <provider
+            tools:replace="android:authorities"
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.werb.pickphotoview"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
+                tools:replace="android:resource"
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/pick_file_paths"></meta-data>
         </provider>
