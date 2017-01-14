@@ -31,6 +31,8 @@ public class PickConfig {
     public static final int PICK_PHOTO_DATA = 0x5521;
     // intent requestCode
     public static final int LIST_PHOTO_DATA = 0x0821;
+    // intent requestCode
+    public static final int CAMERA_PHOTO_DATA = 0x9949;
     // default size
     public static final int DEFAULT_PICK_SIZE = 9;
     // default theme color

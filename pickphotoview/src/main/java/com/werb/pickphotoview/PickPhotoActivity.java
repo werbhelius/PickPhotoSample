@@ -1,10 +1,12 @@
 package com.werb.pickphotoview;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,7 +28,9 @@ import com.werb.pickphotoview.util.RxBus;
 import com.werb.pickphotoview.util.event.ImageLoadOkEvent;
 import com.werb.pickphotoview.widget.MyToolbar;
 
+import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.functions.Action1;
@@ -42,7 +46,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     private RecyclerView photoList;
     private PickGridAdapter pickGridAdapter;
     private MyToolbar myToolbar;
-    private TextView selectText , previewText;
+    private TextView selectText, previewText;
     private List<String> allPhotos;
 
     @Override
@@ -97,6 +101,7 @@ public class PickPhotoActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         photoList = (RecyclerView) findViewById(R.id.photo_list);
+        photoList.setItemAnimator(new DefaultItemAnimator());
         GridLayoutManager layoutManager = new GridLayoutManager(this, pickData.getSpanCount());
         photoList.setLayoutManager(layoutManager);
         photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.getInstance(PickPhotoActivity.this).dp2px(PickConfig.ITEM_SPACE), pickData.getSpanCount()));
@@ -104,7 +109,7 @@ public class PickPhotoActivity extends AppCompatActivity {
         helper.getImages();
     }
 
-    private void initSelectLayout(){
+    private void initSelectLayout() {
         LinearLayout selectLayout = (LinearLayout) findViewById(R.id.select_layout);
         selectLayout.setVisibility(View.VISIBLE);
     }
@@ -116,7 +121,7 @@ public class PickPhotoActivity extends AppCompatActivity {
                 GroupImage groupImage = PickPreferences.getInstance(PickPhotoActivity.this).getListImage();
                 allPhotos = groupImage.mGroupMap.get(PickConfig.ALL_PHOTOS);
                 Log.d("All photos size:", allPhotos.size() + "");
-                if(allPhotos != null && !allPhotos.isEmpty()) {
+                if (allPhotos != null && !allPhotos.isEmpty()) {
                     pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, allPhotos, pickData.isShowCamera(), pickData.getSpanCount(), pickData.getPickPhotoSize(), imageClick);
                     photoList.setAdapter(pickGridAdapter);
                 }
@@ -124,14 +129,16 @@ public class PickPhotoActivity extends AppCompatActivity {
         });
     }
 
-    public void updateSelectText(String selectSize){
-        if(selectSize.equals("0")){
+    public void updateSelectText(String selectSize) {
+        if (selectSize.equals("0")) {
             selectText.setText(getString(R.string.pick_pick));
             selectText.setTextColor(getResources().getColor(R.color.pick_gray));
             previewText.setTextColor(getResources().getColor(R.color.pick_gray));
             previewText.setEnabled(false);
             selectText.setEnabled(false);
-        }else {
+        } else {
+            previewText.setEnabled(true);
+            selectText.setEnabled(true);
             selectText.setText(String.format(getString(R.string.pick_pick_size), selectSize));
             selectText.setTextColor(getResources().getColor(R.color.pick_green));
             previewText.setTextColor(getResources().getColor(R.color.pick_black));
@@ -147,16 +154,31 @@ public class PickPhotoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 0) {
+            return;
+        }
+        if (data == null) {
+            return;
+        }
         if (requestCode == PickConfig.LIST_PHOTO_DATA) {
-            if(data != null) {
-                String dirName = data.getStringExtra(PickConfig.INTENT_DIR_NAME);
-                GroupImage listImage = PickPreferences.getInstance(PickPhotoActivity.this).getListImage();
-                allPhotos = listImage.mGroupMap.get(dirName);
-                pickGridAdapter.updateData(allPhotos);
-                myToolbar.setPhotoDirName(dirName);
-                selectText.setText(getString(R.string.pick_pick));
-                selectText.setTextColor(getResources().getColor(R.color.pick_black));
+            String dirName = data.getStringExtra(PickConfig.INTENT_DIR_NAME);
+            GroupImage listImage = PickPreferences.getInstance(PickPhotoActivity.this).getListImage();
+            allPhotos = listImage.mGroupMap.get(dirName);
+            pickGridAdapter.updateData(allPhotos);
+            myToolbar.setPhotoDirName(dirName);
+            selectText.setText(getString(R.string.pick_pick));
+            selectText.setTextColor(getResources().getColor(R.color.pick_black));
+        } else if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
+            String path = data.getData().getPath();
+            if(path.contains("/pick_camera")) {
+                path = path.replace("/pick_camera", "Camera:/storage/emulated/0/DCIM/Camera");
             }
+            Intent intent = new Intent();
+            List<String> list = new ArrayList<>();
+            list.add(path);
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) list);
+            setResult(PickConfig.PICK_PHOTO_DATA, intent);
+            finish();
         }
     }
 

@@ -5,8 +5,15 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by wanbo on 2016/12/30.
@@ -15,7 +22,7 @@ import android.util.DisplayMetrics;
 public class PickUtils {
 
     private static PickUtils mInstance = null;
-    private  Context context;
+    private Context context;
 
     public static PickUtils getInstance(Context context) {
         if (mInstance == null) {
@@ -33,7 +40,7 @@ public class PickUtils {
     }
 
 
-    public  boolean isEmpty(String src) {
+    public boolean isEmpty(String src) {
         if (TextUtils.isEmpty(src)) {
             return true;
         } else {
@@ -41,7 +48,7 @@ public class PickUtils {
         }
     }
 
-    public  int getWidthPixels() {
+    public int getWidthPixels() {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         Configuration cf = context.getResources().getConfiguration();
         int ori = cf.orientation;
@@ -108,13 +115,26 @@ public class PickUtils {
         return null;
     }
 
-    private  Bitmap matrixBitmap(Bitmap bitmap){
+    private Bitmap matrixBitmap(Bitmap bitmap) {
         Matrix matrix = new Matrix();
         float scaleX = getWidthPixels() / (float) bitmap.getWidth();
         float scaleY = getHeightPixels() / (float) bitmap.getHeight();
         float originalScale = Math.min(scaleX, scaleY);
         matrix.setScale(originalScale, originalScale);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+    }
+
+    public Uri getUri(File file) {
+        try {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                return FileProvider.getUriForFile(context, "com.werb.pickphotoview", file);
+            } else {
+                return Uri.fromFile(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
