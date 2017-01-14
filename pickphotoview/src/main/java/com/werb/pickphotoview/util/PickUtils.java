@@ -127,7 +127,8 @@ public class PickUtils {
     public Uri getUri(File file) {
         try {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-                return FileProvider.getUriForFile(context, "com.werb.pickphotoview", file);
+                String authority = context.getApplicationInfo().packageName + ".provider";
+                return  FileProvider.getUriForFile(context.getApplicationContext(), authority, file);
             } else {
                 return Uri.fromFile(file);
             }
