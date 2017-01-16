@@ -172,7 +172,7 @@ public class PickPhotoActivity extends AppCompatActivity {
             if(data.getData() != null) {
                 String path = data.getData().getPath();
                 if (path.contains("/pick_camera")) {
-                    path = path.replace("/pick_camera", "Camera:/storage/emulated/0/DCIM/Camera");
+                    path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera");
                 }
                 Intent intent = new Intent();
                 List<String> list = new ArrayList<>();
