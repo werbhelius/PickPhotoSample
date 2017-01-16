@@ -174,6 +174,7 @@ public class PickPhotoActivity extends AppCompatActivity {
                 if (path.contains("/pick_camera")) {
                     path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera");
                 }
+                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
                 Intent intent = new Intent();
                 List<String> list = new ArrayList<>();
                 list.add(path);

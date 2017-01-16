@@ -1,20 +1,21 @@
 package com.werb.pickphotoview.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.FileNotFoundException;
 
 /**
  * Created by wanbo on 2016/12/30.
@@ -129,7 +130,7 @@ public class PickUtils {
         try {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 String authority = context.getApplicationInfo().packageName + ".provider";
-                Log.d(PickConfig.TAG,"authority:" + authority);
+                Log.d(PickConfig.TAG, "authority:" + authority);
                 return FileProvider.getUriForFile(context.getApplicationContext(), authority, file);
             } else {
                 return Uri.fromFile(file);
