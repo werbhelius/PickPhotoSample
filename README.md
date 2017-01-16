@@ -1,8 +1,5 @@
 # PickPhotoView
 
-[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://github.com/Werb/PickPhotoSample/blob/master/LICENSE)
-[![Download](https://api.bintray.com/packages/werbhelius/maven/pickphotoview/images/download.svg) ](https://bintray.com/werbhelius/maven/pickphotoview/_latestVersion)
-
 A Library help u to pick photos.
 
 ## Screenshot
@@ -16,6 +13,10 @@ A Library help u to pick photos.
 <img src="/screenshots/camera.png" alt="screenshot" title="camera" width="260" height="500" /> <img src="/screenshots/callback.png" alt="screenshot" title="callback" width="260" height="500" />
 
 ## Usage
+
+[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://github.com/Werb/PickPhotoSample/blob/master/LICENSE)
+[![last-version](https://api.bintray.com/packages/werbhelius/maven/pickphotoview/images/download.svg) ](https://bintray.com/werbhelius/maven/pickphotoview/_latestVersion)
+
 #### Gradle
 
 ```
