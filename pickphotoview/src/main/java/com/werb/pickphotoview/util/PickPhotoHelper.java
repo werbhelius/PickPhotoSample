@@ -53,6 +53,11 @@ public class PickPhotoHelper {
                     String path = mCursor.getString(mCursor
                             .getColumnIndex(MediaStore.Images.Media.DATA));
 
+                    File file = new File(path);
+                    if(!file.exists()){
+                        continue;
+                    }
+
                     // get image parent name
                     String parentName = new File(path).getParentFile().getName();
                     Log.d(PickConfig.TAG, parentName + ":" + path);

@@ -26,13 +26,13 @@
             android:theme="@style/PickAppThemeRight"/>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name=".provider.PickProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/pick_file_paths"></meta-data>
+                android:resource="@xml/pick_file_paths"/>
         </provider>
     </application>
 

@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -127,7 +128,9 @@ public class PickUtils {
     public Uri getUri(File file) {
         try {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-                return FileProvider.getUriForFile(context, "com.werb.pickphotoview", file);
+                String authority = context.getApplicationInfo().packageName + ".provider";
+                Log.d(PickConfig.TAG,"authority:" + authority);
+                return FileProvider.getUriForFile(context.getApplicationContext(), authority, file);
             } else {
                 return Uri.fromFile(file);
             }

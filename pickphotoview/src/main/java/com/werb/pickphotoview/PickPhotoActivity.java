@@ -169,16 +169,18 @@ public class PickPhotoActivity extends AppCompatActivity {
             selectText.setText(getString(R.string.pick_pick));
             selectText.setTextColor(getResources().getColor(R.color.pick_black));
         } else if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
-            String path = data.getData().getPath();
-            if(path.contains("/pick_camera")) {
-                path = path.replace("/pick_camera", "Camera:/storage/emulated/0/DCIM/Camera");
+            if(data.getData() != null) {
+                String path = data.getData().getPath();
+                if (path.contains("/pick_camera")) {
+                    path = path.replace("/pick_camera", "Camera:/storage/emulated/0/DCIM/Camera");
+                }
+                Intent intent = new Intent();
+                List<String> list = new ArrayList<>();
+                list.add(path);
+                intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) list);
+                setResult(PickConfig.PICK_PHOTO_DATA, intent);
+                finish();
             }
-            Intent intent = new Intent();
-            List<String> list = new ArrayList<>();
-            list.add(path);
-            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) list);
-            setResult(PickConfig.PICK_PHOTO_DATA, intent);
-            finish();
         }
     }
 
