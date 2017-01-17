@@ -28,7 +28,6 @@ import com.werb.pickphotoview.util.RxBus;
 import com.werb.pickphotoview.util.event.ImageLoadOkEvent;
 import com.werb.pickphotoview.widget.MyToolbar;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -157,31 +156,33 @@ public class PickPhotoActivity extends AppCompatActivity {
         if (resultCode == 0) {
             return;
         }
-        if (data == null) {
-            return;
-        }
         if (requestCode == PickConfig.LIST_PHOTO_DATA) {
-            String dirName = data.getStringExtra(PickConfig.INTENT_DIR_NAME);
-            GroupImage listImage = PickPreferences.getInstance(PickPhotoActivity.this).getListImage();
-            allPhotos = listImage.mGroupMap.get(dirName);
-            pickGridAdapter.updateData(allPhotos);
-            myToolbar.setPhotoDirName(dirName);
-            selectText.setText(getString(R.string.pick_pick));
-            selectText.setTextColor(getResources().getColor(R.color.pick_black));
+            if (data != null) {
+                String dirName = data.getStringExtra(PickConfig.INTENT_DIR_NAME);
+                GroupImage listImage = PickPreferences.getInstance(PickPhotoActivity.this).getListImage();
+                allPhotos = listImage.mGroupMap.get(dirName);
+                pickGridAdapter.updateData(allPhotos);
+                myToolbar.setPhotoDirName(dirName);
+                selectText.setText(getString(R.string.pick_pick));
+                selectText.setTextColor(getResources().getColor(R.color.pick_black));
+            }
         } else if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
-            if (data.getData() != null) {
-                String path = data.getData().getPath();
+            String path;
+            if (data != null) {
+                path = data.getData().getPath();
                 if (path.contains("/pick_camera")) {
                     path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera");
                 }
-                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
-                Intent intent = new Intent();
-                List<String> list = new ArrayList<>();
-                list.add(path);
-                intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) list);
-                setResult(PickConfig.PICK_PHOTO_DATA, intent);
-                finish();
+            } else {
+                path = PickUtils.getInstance(PickPhotoActivity.this).getFilePath();
             }
+            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
+            Intent intent = new Intent();
+            List<String> list = new ArrayList<>();
+            list.add(path);
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) list);
+            setResult(PickConfig.PICK_PHOTO_DATA, intent);
+            finish();
         }
     }
 
@@ -213,10 +214,12 @@ public class PickPhotoActivity extends AppCompatActivity {
     View.OnClickListener selectClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) pickGridAdapter.getSelectPath());
-            setResult(PickConfig.PICK_PHOTO_DATA, intent);
-            finish();
+            if (!pickGridAdapter.getSelectPath().isEmpty()) {
+                Intent intent = new Intent();
+                intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) pickGridAdapter.getSelectPath());
+                setResult(PickConfig.PICK_PHOTO_DATA, intent);
+                finish();
+            }
         }
     };
 }

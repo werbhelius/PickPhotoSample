@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
@@ -15,7 +16,14 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by wanbo on 2016/12/30.
@@ -137,6 +145,51 @@ public class PickUtils {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public File getPhotoFile(){
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File newFile = new File(dir + File.separator + "Camera", "capture.jpg");
+        return newFile;
+    }
+
+    private String getPhotoFileName() {
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
+        return dateFormat.format(date) + ".jpg";
+    }
+
+    public String getFilePath(){
+        File oldFile = getPhotoFile();
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File newFile = new File(dir + File.separator + "Camera", getPhotoFileName());
+        // 复制文件
+        int byteread ; // 读取的字节数
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = new FileInputStream(oldFile);
+            out = new FileOutputStream(newFile);
+            byte[] buffer = new byte[1024];
+
+            while ((byteread = in.read(buffer)) != -1) {
+                out.write(buffer, 0, byteread);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) out.close();
+                if (in != null) in.close();
+                if (oldFile.exists()){
+                    oldFile.delete();
+                }
+                return newFile.getPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

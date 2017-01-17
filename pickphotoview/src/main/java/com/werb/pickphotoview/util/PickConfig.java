@@ -19,6 +19,8 @@ public class PickConfig {
     public static final String INTENT_IMG_PATH = "intent_img_path";
     // intent img list
     public static final String INTENT_IMG_LIST = "intent_img_list";
+    // intent camera uri
+    public static final String INTENT_CAMERA_URI = "intent_camera_uri";
     // intent img select list
     public static final String INTENT_IMG_LIST_SELECT = "intent_img_list_select";
     // all photos
