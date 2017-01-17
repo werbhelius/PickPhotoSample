@@ -2,6 +2,10 @@
 
 A Library help u to pick photos.
 
+Click to download lastest demo ⬇️ or select [Release Version](https://github.com/Werb/PickPhotoSample/releases)
+
+[![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
+
 ## Screenshot
 
 <img src="/screenshots/home.png" alt="screenshot" title="home" width="270" height="480" /> <img src="/screenshots/select.png" alt="screenshot" title="select" width="270" height="480" />
