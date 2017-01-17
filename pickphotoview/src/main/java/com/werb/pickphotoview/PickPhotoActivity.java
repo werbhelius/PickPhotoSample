@@ -169,7 +169,7 @@ public class PickPhotoActivity extends AppCompatActivity {
             selectText.setText(getString(R.string.pick_pick));
             selectText.setTextColor(getResources().getColor(R.color.pick_black));
         } else if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
-            if(data.getData() != null) {
+            if (data.getData() != null) {
                 String path = data.getData().getPath();
                 if (path.contains("/pick_camera")) {
                     path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera");
@@ -200,11 +200,13 @@ public class PickPhotoActivity extends AppCompatActivity {
     View.OnClickListener preClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.setClass(PickPhotoActivity.this, PickPhotoPreviewActivity.class);
-            intent.putExtra(PickConfig.INTENT_IMG_PATH, pickGridAdapter.getSelectPath().get(0));
-            intent.putExtra(PickConfig.INTENT_IMG_LIST, (Serializable) allPhotos);
-            startActivity(intent);
+            if (!pickGridAdapter.getSelectPath().isEmpty()) {
+                Intent intent = new Intent();
+                intent.setClass(PickPhotoActivity.this, PickPhotoPreviewActivity.class);
+                intent.putExtra(PickConfig.INTENT_IMG_PATH, pickGridAdapter.getSelectPath().get(0));
+                intent.putExtra(PickConfig.INTENT_IMG_LIST, (Serializable) allPhotos);
+                startActivity(intent);
+            }
         }
     };
 
