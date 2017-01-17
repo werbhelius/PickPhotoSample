@@ -46,6 +46,8 @@ Sorry ，You are out !
 
 Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE before use
 
+[PermissionsChecker : A Library help u to check permissions on Android M.](https://github.com/Werb/PermissionsCheckerSample)
+
 #### Initialize PickPhotoView
 
 ```
