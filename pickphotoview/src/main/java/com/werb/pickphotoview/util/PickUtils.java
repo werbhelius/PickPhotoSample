@@ -36,7 +36,7 @@ public class PickUtils {
 
     public static PickUtils getInstance(Context context) {
         if (mInstance == null) {
-            synchronized (PickPreferences.class) {
+            synchronized (PickUtils.class) {
                 if (mInstance == null) {
                     mInstance = new PickUtils(context);
                 }
