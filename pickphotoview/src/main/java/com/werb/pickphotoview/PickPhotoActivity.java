@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.werb.pickphotoview.adapter.PickGridAdapter;
 import com.werb.pickphotoview.adapter.SpaceItemDecoration;
 import com.werb.pickphotoview.model.GroupImage;
@@ -67,6 +68,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
+        pickGridAdapter.clear();
         overridePendingTransition(0, R.anim.pick_finish_slide_out_bottom);
     }
 

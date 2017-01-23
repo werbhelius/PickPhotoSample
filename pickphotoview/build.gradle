@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -43,7 +43,7 @@ publish {
     userOrg = 'werbhelius'
     groupId = 'com.werb.pickphotoview'
     artifactId = 'pickphotoview'
-    publishVersion = '0.0.4-beta9'
+    publishVersion = '0.0.5-beta1'
     desc = 'Photo Picker Of Android Library'
     website = 'https://github.com/Werb/PickPhotoSample'
 }
