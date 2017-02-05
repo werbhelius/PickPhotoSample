@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.werb.pickphotoview.adapter.PickGridAdapter;
 import com.werb.pickphotoview.adapter.SpaceItemDecoration;
 import com.werb.pickphotoview.model.GroupImage;
@@ -48,11 +49,13 @@ public class PickPhotoActivity extends AppCompatActivity {
     private MyToolbar myToolbar;
     private TextView selectText, previewText;
     private List<String> allPhotos;
+    private RequestManager manager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pick_activity_pick_photo);
+        manager = Glide.with(this);
         pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INTENT_PICK_DATA);
         if (pickData != null) {
             PickPreferences.getInstance(PickPhotoActivity.this).savePickData(pickData);
@@ -68,7 +71,6 @@ public class PickPhotoActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        pickGridAdapter.clear();
         overridePendingTransition(0, R.anim.pick_finish_slide_out_bottom);
     }
 
@@ -106,6 +108,7 @@ public class PickPhotoActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, pickData.getSpanCount());
         photoList.setLayoutManager(layoutManager);
         photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.getInstance(PickPhotoActivity.this).dp2px(PickConfig.ITEM_SPACE), pickData.getSpanCount()));
+        photoList.addOnScrollListener(scrollListener);
         PickPhotoHelper helper = new PickPhotoHelper(PickPhotoActivity.this);
         helper.getImages();
     }
@@ -123,7 +126,7 @@ public class PickPhotoActivity extends AppCompatActivity {
                 allPhotos = groupImage.mGroupMap.get(PickConfig.ALL_PHOTOS);
                 Log.d("All photos size:", allPhotos.size() + "");
                 if (allPhotos != null && !allPhotos.isEmpty()) {
-                    pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, allPhotos, pickData.isShowCamera(), pickData.getSpanCount(), pickData.getPickPhotoSize(), imageClick);
+                    pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, manager, allPhotos, pickData.isShowCamera(), pickData.getSpanCount(), pickData.getPickPhotoSize(), imageClick);
                     photoList.setAdapter(pickGridAdapter);
                 }
             }
@@ -221,6 +224,25 @@ public class PickPhotoActivity extends AppCompatActivity {
                 intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) pickGridAdapter.getSelectPath());
                 setResult(PickConfig.PICK_PHOTO_DATA, intent);
                 finish();
+            }
+        }
+    };
+
+    RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            if (Math.abs(dy) > PickConfig.SCROLL_THRESHOLD) {
+                manager.pauseRequests();
+            } else {
+                manager.resumeRequests();
+            }
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                manager.resumeRequests();
             }
         }
     };

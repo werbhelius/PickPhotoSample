@@ -2,6 +2,7 @@ package com.werb.pickphotoview;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.werb.pickphotoview.util.PickConfig;
 import com.werb.pickphotoview.util.PickUtils;
 import com.werb.pickphotoview.widget.MyToolbar;
@@ -35,11 +38,13 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
     private List<ImageView> imageViews;
     private MyToolbar myToolbar;
     private boolean mIsHidden;
+    private RequestManager manager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pick_activty_preview_photo);
+        manager = Glide.with(this);
         path = getIntent().getStringExtra(PickConfig.INTENT_IMG_PATH);
         allImagePath = (List<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST);
         imageViews = new ArrayList<>();
@@ -72,6 +77,8 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
         viewPager.setCurrentItem(indexOf);
     }
 
+
+
     //通过ViewPager实现滑动的图片
     class listPageAdapter extends PagerAdapter {
 
@@ -91,19 +98,22 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
             int i = position % 4;
             final ImageView pic = imageViews.get(i);
             container.addView(pic);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    String path = allImagePath.get(position);
-                    final Bitmap bitmap = PickUtils.getInstance(PickPhotoPreviewActivity.this).loadBitmap(path, 1000, 1000);
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            pic.setImageBitmap(bitmap);
-                        }
-                    });
-                }
-            }).start();
+            String path = allImagePath.get(position);
+            manager.load(Uri.parse("file://" + path)).dontAnimate().into(pic);
+            // 暂时保留
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    String path = allImagePath.get(position);
+//                    final Bitmap bitmap = PickUtils.getInstance(PickPhotoPreviewActivity.this).loadBitmap(path, 1000, 1000);
+//                    handler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            pic.setImageBitmap(bitmap);
+//                        }
+//                    });
+//                }
+//            }).start();
             return pic;
         }
 
@@ -113,15 +123,17 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
         public void destroyItem(ViewGroup container, int position, Object object) {
             int i = position % 4;
             final ImageView imageView = imageViews.get(i);
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
-            if (bitmapDrawable != null) {
-                Bitmap bm = bitmapDrawable.getBitmap();
-                if (bm != null && !bm.isRecycled()) {
-                    Log.d("...desimg..", "被回收了" + bm.getByteCount());
-                    imageView.setImageResource(0);
-                    bm.recycle();
-                }
-            }
+            // 暂时保留
+//            BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+//            if (bitmapDrawable != null) {
+//                Bitmap bm = bitmapDrawable.getBitmap();
+//                if (bm != null && !bm.isRecycled()) {
+//                    Log.d("...desimg..", "被回收了" + bm.getByteCount());
+//                    imageView.setImageResource(0);
+//                    bm.recycle();
+//                }
+//            }
+            Glide.clear(imageView);
             container.removeView(imageView);
         }
     }

@@ -41,5 +41,7 @@ public class PickConfig {
     public static final int DEFAULT_THEME_COLOR = R.color.pick_black;
     // default span count
     public static final int DEFAULT_SPAN_COUNT = 4;
+    // list scroll threshold
+    public static final int SCROLL_THRESHOLD = 30;
 
 }

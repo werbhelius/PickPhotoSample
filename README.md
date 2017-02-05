@@ -34,7 +34,7 @@ the last-version is this ⬆️
   <dependency>
     <groupId>com.werb.pickphotoview</groupId>
     <artifactId>pickphotoview</artifactId>
-    <version>0.0.4-beta8</version>
+    <version>last-version</version>
     <type>pom</type>
   </dependency>
 ```

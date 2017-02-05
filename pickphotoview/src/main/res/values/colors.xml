@@ -6,4 +6,5 @@
     <color name="pick_parse">#c8454444</color>
     <color name="pick_gray">#AFB0B3</color>
     <color name="pick_green">#00C07F</color>
+    <color name="pick_placeholder">#c5e1e1e1</color>
 </resources>
