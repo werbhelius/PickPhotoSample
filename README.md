@@ -28,6 +28,23 @@ the last-version is this ⬆️
   compile 'com.werb.pickphotoview:pickphotoview:last-version'
 ```
 
+some Library already dependency
+
+* Glide
+* Recyclerview
+* Rxandroid
+* Gson
+
+If you don't want to dependency this Library version , you can replace it just like
+
+```
+  compile ('com.werb.pickphotoview:pickphotoview:last-version',{
+        exclude group: 'com.google.code.gson'
+  })
+  //
+  compile 'com.google.code.gson:gson:XXXX'
+```
+
 #### Maven
 
 ```
