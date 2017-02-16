@@ -41,7 +41,6 @@ If you don't want to dependency this Library version , you can replace it just l
   compile ('com.werb.pickphotoview:pickphotoview:last-version',{
         exclude group: 'com.google.code.gson'
   })
-  //
   compile 'com.google.code.gson:gson:XXXX'
 ```
 
