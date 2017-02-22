@@ -12,17 +12,14 @@
 
         <activity android:name="com.werb.pickphotoview.PickPhotoActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"
             android:theme="@style/PickAppThemeBottom"/>
 
         <activity android:name=".PickListActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"
             android:theme="@style/PickAppThemeRight"/>
 
         <activity android:name=".PickPhotoPreviewActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"
             android:theme="@style/PickAppThemeRight"/>
 
         <provider
