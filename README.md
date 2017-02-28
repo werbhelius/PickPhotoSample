@@ -97,10 +97,9 @@ Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE be
 
 [Apache2.0](https://github.com/Werb/PickPhotoSample/blob/master/LICENSE)
 
-## Last Update (2017.2.5)
+## Last Update (2017.2.28)
 
-#### [v0.0.5-beta5](https://github.com/Werb/PickPhotoSample/releases/tag/v0.0.5-beta5)
+#### [v0.0.5-beta7](https://github.com/Werb/PickPhotoSample/releases/tag/v0.0.5-beta7)
 
-1. update image load strategy
-2. update image preview strategy
-3. optimize memory when load a lot of image
+1. change activity launchmode
+2. change cursor photo by DATE_MODIFIED desc
