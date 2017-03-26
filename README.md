@@ -6,17 +6,21 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
-## Last Update (2017.2.28)
+## Last Update (2017.3.26)
 
-#### [v0.0.5-beta7](https://github.com/Werb/PickPhotoSample/releases/tag/v0.0.5-beta7)
+#### [v0.1.0](https://github.com/Werb/PickPhotoSample/releases/tag/v0.0.5-beta7)
 
-1. change activity launchmode
-2. change cursor photo by DATE_MODIFIED desc
+1. support to custom theme
+2. support to select in preview
+3. support to zoom in preview
+4. adjust UI
 
 ## Screenshot
+<img src="/screenshots/custom_1.png" alt="screenshot" title="home" width="270" height="180" /> <img src="/screenshots/custom_2.png" alt="screenshot" title="select" width="270" height="180" /><img src="/screenshots/custom_3.png" alt="screenshot" title="select" width="270" height="180" />
 
-<img src="/screenshots/home.png" alt="screenshot" title="home" width="270" height="480" /> <img src="/screenshots/select.png" alt="screenshot" title="select" width="270" height="480" />
-<img src="/screenshots/preview.png" alt="screenshot" title="select" width="270" height="480" />
+
+<img src="/screenshots/home.png" alt="screenshot" title="home" width="270" height="480" /> <img src="/screenshots/new_home.png" alt="screenshot" title="select" width="270" height="480" />
+<img src="/screenshots/new_preview.png" alt="screenshot" title="select" width="270" height="480" />
 
 <img src="/screenshots/list.png" alt="screenshot" title="preview" width="270" height="480" />
 <img src="/screenshots/camera.png" alt="screenshot" title="group" width="270" height="480" /> <img src="/screenshots/show.png" alt="screenshot" title="group2" width="270" height="480" />
