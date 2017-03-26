@@ -6,6 +6,13 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
+## Last Update (2017.2.28)
+
+#### [v0.0.5-beta7](https://github.com/Werb/PickPhotoSample/releases/tag/v0.0.5-beta7)
+
+1. change activity launchmode
+2. change cursor photo by DATE_MODIFIED desc
+
 ## Screenshot
 
 <img src="/screenshots/home.png" alt="screenshot" title="home" width="270" height="480" /> <img src="/screenshots/select.png" alt="screenshot" title="select" width="270" height="480" />
@@ -96,10 +103,3 @@ Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE be
 ## License
 
 [Apache2.0](https://github.com/Werb/PickPhotoSample/blob/master/LICENSE)
-
-## Last Update (2017.2.28)
-
-#### [v0.0.5-beta7](https://github.com/Werb/PickPhotoSample/releases/tag/v0.0.5-beta7)
-
-1. change activity launchmode
-2. change cursor photo by DATE_MODIFIED desc
