@@ -33,11 +33,9 @@ Add Four new Method
 <img src="/screenshots/custom_1.png" alt="screenshot" title="home" width="270" height="160" /> <img src="/screenshots/custom_2.png" alt="screenshot" title="select" width="270" height="160" /><img src="/screenshots/custom_3.png" alt="screenshot" title="select" width="270" height="160" />
 
 
-<img src="/screenshots/home.png" alt="screenshot" title="home" width="270" height="480" /> <img src="/screenshots/new_home.png" alt="screenshot" title="select" width="270" height="480" />
-<img src="/screenshots/new_preview.png" alt="screenshot" title="select" width="270" height="480" />
+<img src="/screenshots/home.png" alt="screenshot" title="home" width="270" height="480" /> <img src="/screenshots/new_home.png" alt="screenshot" title="select" width="270" height="480" /><img src="/screenshots/new_preview.png" alt="screenshot" title="select" width="270" height="480" />
 
-<img src="/screenshots/list.png" alt="screenshot" title="preview" width="270" height="480" />
-<img src="/screenshots/camera.png" alt="screenshot" title="group" width="270" height="480" /> <img src="/screenshots/show.png" alt="screenshot" title="group2" width="270" height="480" />
+<img src="/screenshots/list.png" alt="screenshot" title="preview" width="270" height="480" /><img src="/screenshots/camera.png" alt="screenshot" title="group" width="270" height="480" /><img src="/screenshots/show.png" alt="screenshot" title="group2" width="270" height="480" />
 
 
 ## Dependency
