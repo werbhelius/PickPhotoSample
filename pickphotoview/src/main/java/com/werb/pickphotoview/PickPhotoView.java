@@ -15,7 +15,7 @@ public class PickPhotoView {
     private PickData pickData;
     private Activity activity;
 
-    PickPhotoView(Builder builder){
+    private PickPhotoView(Builder builder){
         pickData = builder.pickData;
         activity = builder.activity;
     }
@@ -42,11 +42,6 @@ public class PickPhotoView {
             return this;
         }
 
-        private Builder setThemeColor(int themeColor) {
-            pickData.setThemeColor(themeColor);
-            return this;
-        }
-
         public Builder setSpanCount(int spanCount) {
             pickData.setSpanCount(spanCount);
             return this;
@@ -54,6 +49,26 @@ public class PickPhotoView {
 
         public Builder setShowCamera(boolean showCamera) {
             pickData.setShowCamera(showCamera);
+            return this;
+        }
+
+        public Builder setToolbarColor(String toolbarColor){
+            pickData.setToolbarColor(toolbarColor);
+            return this;
+        }
+
+        public Builder setStatusBarColor(String statusBarColor){
+            pickData.setStatusBarColor(statusBarColor);
+            return this;
+        }
+
+        public Builder setToolbarIconColor(String toolbarIconColor){
+            pickData.setToolbarIconColor(toolbarIconColor);
+            return this;
+        }
+
+        public Builder setLightStatusBar(boolean lightStatusBar){
+            pickData.setLightStatusBar(lightStatusBar);
             return this;
         }
 

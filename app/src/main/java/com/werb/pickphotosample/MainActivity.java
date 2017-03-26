@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 .setPickPhotoSize(9)
                 .setShowCamera(true)
                 .setSpanCount(5)
+                .setLightStatusBar(false)
+                .setStatusBarColor("#d01716")
+                .setToolbarColor("#e51c23")
+                .setToolbarIconColor("#ffffff")
                 .start();
     }
 

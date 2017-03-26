@@ -77,11 +77,18 @@ public class PickPhotoActivity extends AppCompatActivity {
     private void initToolbar() {
         Window window = getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.pick_black));
+            window.setStatusBarColor(pickData.getStatusBarColor());
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(pickData.isLightStatusBar()) {
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
         }
         selectText = (TextView) findViewById(R.id.tv_pick_photo);
         previewText = (TextView) findViewById(R.id.tv_preview_photo);
         myToolbar = (MyToolbar) findViewById(R.id.toolbar);
+        myToolbar.setBackgroundColor(pickData.getToolbarColor());
+        myToolbar.setIconColor(pickData.getToolbarIconColor());
         myToolbar.setLeftIcon(R.mipmap.pick_ic_open);
         myToolbar.setRightIcon(R.mipmap.pick_ic_close);
         myToolbar.setPhotoDirName(getString(R.string.pick_all_photo));
@@ -152,6 +159,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     private void startPhotoListActivity() {
         Intent intent = new Intent();
         intent.setClass(PickPhotoActivity.this, PickListActivity.class);
+        intent.putExtra(PickConfig.INTENT_PICK_DATA,pickData);
         startActivityForResult(intent, PickConfig.LIST_PHOTO_DATA);
     }
 

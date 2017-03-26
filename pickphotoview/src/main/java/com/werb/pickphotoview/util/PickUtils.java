@@ -49,15 +49,6 @@ public class PickUtils {
         this.context = context;
     }
 
-
-    public boolean isEmpty(String src) {
-        if (TextUtils.isEmpty(src)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public int getWidthPixels() {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         Configuration cf = context.getResources().getConfiguration();

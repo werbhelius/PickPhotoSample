@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.werb.pickphotoview.R;
+import com.werb.pickphotoview.util.PickConfig;
 
 /**
  * Created by wanbo on 2017/1/3.
@@ -19,9 +20,10 @@ import com.werb.pickphotoview.R;
 
 public class MyToolbar extends RelativeLayout {
 
-    public FrameLayout leftLayout, rightLayout;
+    public FrameLayout leftLayout, rightLayout,container;
     private TextView photoDirName;
     private ImageView leftIcon, rightIcon;
+    private int iconColor;
 
     public MyToolbar(Context context) {
         super(context);
@@ -38,8 +40,7 @@ public class MyToolbar extends RelativeLayout {
     }
 
     private void init(Context context){
-        setBackgroundColor(getResources().getColor(R.color.pick_black));
-        FrameLayout container = (FrameLayout) LayoutInflater.from(context).inflate(R.layout.pick_widget_my_toolbar, null, false);
+        container = (FrameLayout) LayoutInflater.from(context).inflate(R.layout.pick_widget_my_toolbar, null, false);
         leftLayout = (FrameLayout) container.findViewById(R.id.toolbar_left_layout);
         rightLayout = (FrameLayout) container.findViewById(R.id.toolbar_right_layout);
         photoDirName = (TextView) container.findViewById(R.id.tv_photo_type_name);
@@ -63,14 +64,23 @@ public class MyToolbar extends RelativeLayout {
 
     public void setLeftIcon(int drawableId){
         Drawable drawable = getResources().getDrawable(drawableId);
-        drawable.setColorFilter(getResources().getColor(R.color.pick_white), PorterDuff.Mode.SRC_ATOP);
+        drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP);
         leftIcon.setBackgroundDrawable(drawable);
     }
 
     public void setRightIcon(int drawableId){
         Drawable drawable = getResources().getDrawable(drawableId);
-        drawable.setColorFilter(getResources().getColor(R.color.pick_white), PorterDuff.Mode.SRC_ATOP);
+        drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP);
         rightIcon.setBackgroundDrawable(drawable);
+    }
+
+    public void setBackgroundColor(int backgroundColor){
+        container.setBackgroundColor(backgroundColor);
+    }
+
+    public void setIconColor(int iconColor){
+        this.iconColor = iconColor;
+        photoDirName.setTextColor(iconColor);
     }
 
 }

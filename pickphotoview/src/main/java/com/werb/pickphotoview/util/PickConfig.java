@@ -37,11 +37,12 @@ public class PickConfig {
     public static final int CAMERA_PHOTO_DATA = 0x9949;
     // default size
     public static final int DEFAULT_PICK_SIZE = 9;
-    // default theme color
-    public static final int DEFAULT_THEME_COLOR = R.color.pick_black;
     // default span count
     public static final int DEFAULT_SPAN_COUNT = 4;
     // list scroll threshold
     public static final int SCROLL_THRESHOLD = 30;
+    // toolbar icon color
+    public static final int PICK_BLACK_COLOR = R.color.pick_black;
+    public static final int PICK_WHITE_COLOR = R.color.pick_white;
 
 }

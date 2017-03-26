@@ -29,8 +29,7 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:textColor="@color/pick_white" />
+            android:gravity="center" />
 
 
         <FrameLayout
