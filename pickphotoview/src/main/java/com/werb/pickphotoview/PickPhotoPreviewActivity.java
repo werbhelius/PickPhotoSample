@@ -165,17 +165,12 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
     }
 
     private void judgeSelect(final String path){
-        if(selectImagePath.isEmpty()){
-            myToolbar.setRightIconDefault(R.mipmap.pick_ic_un_select_black);
-            misSelect = false;
-            return;
-        }
         int indexOf = selectImagePath.indexOf(path);
         if(indexOf != -1){
             myToolbar.setRightIconDefault(R.mipmap.pick_ic_select);
             misSelect = true;
         }else {
-            myToolbar.setRightIconDefault(R.mipmap.pick_ic_un_select_black);
+            myToolbar.setRightIcon(R.mipmap.pick_ic_un_select_black);
             misSelect = false;
         }
 
@@ -183,7 +178,7 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(misSelect){
-                    myToolbar.setRightIconDefault(R.mipmap.pick_ic_un_select_black);
+                    myToolbar.setRightIcon(R.mipmap.pick_ic_un_select_black);
                     selectImagePath.remove(path);
                     misSelect = false;
                 }else {
