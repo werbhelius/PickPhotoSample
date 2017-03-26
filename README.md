@@ -8,7 +8,7 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 ## Last Update (2017.3.26)
 
-#### [v0.1.0](https://github.com/Werb/PickPhotoSample/releases/tag/v0.0.5-beta7)
+#### [v0.1.0](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.0)
 
 1. support to custom theme
 2. support to select in preview
