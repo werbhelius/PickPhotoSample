@@ -47,7 +47,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     private RecyclerView photoList;
     private PickGridAdapter pickGridAdapter;
     private MyToolbar myToolbar;
-    private TextView selectText, previewText;
+    private TextView selectText, selectImageSize;
     private List<String> allPhotos;
     private RequestManager manager;
 
@@ -85,7 +85,8 @@ public class PickPhotoActivity extends AppCompatActivity {
             }
         }
         selectText = (TextView) findViewById(R.id.tv_pick_photo);
-        previewText = (TextView) findViewById(R.id.tv_preview_photo);
+        selectImageSize = (TextView) findViewById(R.id.tv_preview_photo);
+        selectImageSize.setText(String.valueOf("0"));
         myToolbar = (MyToolbar) findViewById(R.id.toolbar);
         myToolbar.setBackgroundColor(pickData.getToolbarColor());
         myToolbar.setIconColor(pickData.getToolbarIconColor());
@@ -105,7 +106,6 @@ public class PickPhotoActivity extends AppCompatActivity {
             }
         });
 
-        previewText.setOnClickListener(preClick);
         selectText.setOnClickListener(selectClick);
     }
 
@@ -142,17 +142,13 @@ public class PickPhotoActivity extends AppCompatActivity {
 
     public void updateSelectText(String selectSize) {
         if (selectSize.equals("0")) {
-            selectText.setText(getString(R.string.pick_pick));
+            selectImageSize.setText(String.valueOf(0));
             selectText.setTextColor(getResources().getColor(R.color.pick_gray));
-            previewText.setTextColor(getResources().getColor(R.color.pick_gray));
-            previewText.setEnabled(false);
             selectText.setEnabled(false);
         } else {
-            previewText.setEnabled(true);
+            selectImageSize.setText(String.valueOf(selectSize));
+            selectText.setTextColor(getResources().getColor(R.color.pick_blue));
             selectText.setEnabled(true);
-            selectText.setText(String.format(getString(R.string.pick_pick_size), selectSize));
-            selectText.setTextColor(getResources().getColor(R.color.pick_green));
-            previewText.setTextColor(getResources().getColor(R.color.pick_black));
         }
     }
 
@@ -196,6 +192,13 @@ public class PickPhotoActivity extends AppCompatActivity {
             intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) list);
             setResult(PickConfig.PICK_PHOTO_DATA, intent);
             finish();
+        }else if(requestCode == PickConfig.PREVIEW_PHOTO_DATA){
+            if (data != null) {
+                List<String> selectPath = (List<String>) data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
+                pickGridAdapter.setSelectPath(selectPath);
+                pickGridAdapter.notifyDataSetChanged();
+                updateSelectText(String.valueOf(selectPath.size()));
+            }
         }
     }
 
@@ -207,20 +210,9 @@ public class PickPhotoActivity extends AppCompatActivity {
             intent.setClass(PickPhotoActivity.this, PickPhotoPreviewActivity.class);
             intent.putExtra(PickConfig.INTENT_IMG_PATH, imgPath);
             intent.putExtra(PickConfig.INTENT_IMG_LIST, (Serializable) allPhotos);
-            startActivity(intent);
-        }
-    };
-
-    View.OnClickListener preClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (!pickGridAdapter.getSelectPath().isEmpty()) {
-                Intent intent = new Intent();
-                intent.setClass(PickPhotoActivity.this, PickPhotoPreviewActivity.class);
-                intent.putExtra(PickConfig.INTENT_IMG_PATH, pickGridAdapter.getSelectPath().get(0));
-                intent.putExtra(PickConfig.INTENT_IMG_LIST, (Serializable) allPhotos);
-                startActivity(intent);
-            }
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) pickGridAdapter.getSelectPath());
+            intent.putExtra(PickConfig.INTENT_PICK_DATA,pickData);
+            startActivityForResult(intent,PickConfig.PREVIEW_PHOTO_DATA);
         }
     };
 

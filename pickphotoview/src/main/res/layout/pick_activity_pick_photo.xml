@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <com.werb.pickphotoview.widget.MyToolbar
@@ -20,18 +21,26 @@
         android:id="@+id/select_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:visibility="gone"
         android:background="@drawable/pick_bg"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_preview_photo"
+        <FrameLayout
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:text="@string/pick_preview"
-            android:textColor="@color/pick_gray" />
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:id="@+id/tv_preview_photo"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                tools:text="1"
+                android:gravity="center"
+                android:textColor="@color/pick_white"
+                android:textSize="14sp"
+                android:background="@drawable/pick_pre_size_bg"/>
+
+        </FrameLayout>
 
         <View
             android:layout_width="0dp"
@@ -45,6 +54,7 @@
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:gravity="center"
+            android:textSize="16sp"
             android:text="@string/pick_pick"
             android:textColor="@color/pick_gray" />
 

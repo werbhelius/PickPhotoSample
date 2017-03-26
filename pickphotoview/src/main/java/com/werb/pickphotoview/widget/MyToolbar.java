@@ -23,6 +23,7 @@ public class MyToolbar extends RelativeLayout {
     public FrameLayout leftLayout, rightLayout,container;
     private TextView photoDirName;
     private ImageView leftIcon, rightIcon;
+    private View slider;
     private int iconColor;
 
     public MyToolbar(Context context) {
@@ -47,6 +48,7 @@ public class MyToolbar extends RelativeLayout {
         leftIcon = (ImageView) container.findViewById(R.id.toolbar_left_icon);
         rightIcon = (ImageView) container.findViewById(R.id.toolbarc_right_icon);
         rightIcon.setColorFilter(getResources().getColor(R.color.pick_white));
+        slider = container.findViewById(R.id.bottom_slider);
         addView(container);
     }
 
@@ -62,6 +64,10 @@ public class MyToolbar extends RelativeLayout {
         rightLayout.setOnClickListener(clickListener);
     }
 
+    public FrameLayout getRightLayout() {
+        return rightLayout;
+    }
+
     public void setLeftIcon(int drawableId){
         Drawable drawable = getResources().getDrawable(drawableId);
         drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP);
@@ -74,6 +80,11 @@ public class MyToolbar extends RelativeLayout {
         rightIcon.setBackgroundDrawable(drawable);
     }
 
+    public void setRightIconDefault(int drawableId){
+        Drawable drawable = getResources().getDrawable(drawableId);
+        rightIcon.setBackgroundDrawable(drawable);
+    }
+
     public void setBackgroundColor(int backgroundColor){
         container.setBackgroundColor(backgroundColor);
     }
@@ -81,6 +92,10 @@ public class MyToolbar extends RelativeLayout {
     public void setIconColor(int iconColor){
         this.iconColor = iconColor;
         photoDirName.setTextColor(iconColor);
+    }
+
+    public void hideSlider(){
+        slider.setVisibility(GONE);
     }
 
 }

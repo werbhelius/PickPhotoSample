@@ -1,11 +1,10 @@
 package com.werb.pickphotoview;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -13,15 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.shizhefei.view.largeimage.LargeImageView;
+import com.shizhefei.view.largeimage.factory.FileBitmapDecoderFactory;
+import com.werb.pickphotoview.model.PickData;
 import com.werb.pickphotoview.util.PickConfig;
-import com.werb.pickphotoview.util.PickUtils;
 import com.werb.pickphotoview.widget.MyToolbar;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,54 +36,87 @@ import java.util.List;
 public class PickPhotoPreviewActivity extends AppCompatActivity {
 
     private List<String> allImagePath;
+    private List<String> selectImagePath;
     private String path;
     private ViewPager viewPager;
-    private List<ImageView> imageViews;
+    private List<LargeImageView> imageViews;
     private MyToolbar myToolbar;
-    private boolean mIsHidden;
-    private RequestManager manager;
+    private boolean mIsHidden,misSelect;
+    private PickData pickData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pick_activty_preview_photo);
-        manager = Glide.with(this);
+        pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INTENT_PICK_DATA);
         path = getIntent().getStringExtra(PickConfig.INTENT_IMG_PATH);
         allImagePath = (List<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST);
+        selectImagePath = (List<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
         imageViews = new ArrayList<>();
+        if(selectImagePath == null){
+            selectImagePath = new ArrayList<>();
+        }
         for (int i = 0; i < 4; i++) {
-            ImageView imageView = new ImageView(this);
-            imageViews.add(imageView);
+            LargeImageView imageView = new LargeImageView(this);
+            imageView.setEnabled(true);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     hideOrShowToolbar();
                 }
             });
+            imageViews.add(imageView);
         }
         initView();
         Log.d("image size", allImagePath.size() + "");
     }
 
     private void initView() {
+        Window window = getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(pickData.getStatusBarColor());
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(pickData.isLightStatusBar()) {
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        }
         myToolbar = (MyToolbar) findViewById(R.id.toolbar);
+        myToolbar.setBackgroundColor(pickData.getToolbarColor());
+        myToolbar.setIconColor(pickData.getToolbarIconColor());
         myToolbar.setLeftIcon(R.mipmap.pick_ic_back);
         myToolbar.setLeftLayoutOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                finishForResult();
             }
         });
         viewPager = (ViewPager) findViewById(R.id.image_vp);
         int indexOf = allImagePath.indexOf(path);
+        judgeSelect(allImagePath.get(indexOf));
         viewPager.setAdapter(new listPageAdapter());
         viewPager.setCurrentItem(indexOf);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                String path = allImagePath.get(position);
+                judgeSelect(path);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-
-
     //通过ViewPager实现滑动的图片
-    class listPageAdapter extends PagerAdapter {
+    private class listPageAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
@@ -96,44 +132,18 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
 
         public Object instantiateItem(ViewGroup container, final int position) {
             int i = position % 4;
-            final ImageView pic = imageViews.get(i);
-            container.addView(pic);
+            final LargeImageView pic = imageViews.get(i);
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            container.addView(pic,params);
             String path = allImagePath.get(position);
-            manager.load(Uri.parse("file://" + path)).dontAnimate().into(pic);
-            // 暂时保留
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    String path = allImagePath.get(position);
-//                    final Bitmap bitmap = PickUtils.getInstance(PickPhotoPreviewActivity.this).loadBitmap(path, 1000, 1000);
-//                    handler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            pic.setImageBitmap(bitmap);
-//                        }
-//                    });
-//                }
-//            }).start();
+            pic.setImage(new FileBitmapDecoderFactory(new File(path)));
             return pic;
         }
-
-        Handler handler = new Handler(Looper.getMainLooper());
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             int i = position % 4;
-            final ImageView imageView = imageViews.get(i);
-            // 暂时保留
-//            BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
-//            if (bitmapDrawable != null) {
-//                Bitmap bm = bitmapDrawable.getBitmap();
-//                if (bm != null && !bm.isRecycled()) {
-//                    Log.d("...desimg..", "被回收了" + bm.getByteCount());
-//                    imageView.setImageResource(0);
-//                    bm.recycle();
-//                }
-//            }
-            Glide.clear(imageView);
+            final LargeImageView imageView = imageViews.get(i);
             container.removeView(imageView);
         }
     }
@@ -145,11 +155,51 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
         overridePendingTransition(0, R.anim.pick_finish_slide_out_left);
     }
 
+    //固定 toolbar
     private void hideOrShowToolbar() {
         myToolbar.animate()
                 .translationY(mIsHidden ? 0 : -myToolbar.getHeight())
                 .setInterpolator(new DecelerateInterpolator(2))
                 .start();
         mIsHidden = !mIsHidden;
+    }
+
+    private void judgeSelect(final String path){
+        if(selectImagePath.isEmpty()){
+            myToolbar.setRightIconDefault(R.mipmap.pick_ic_un_select_black);
+            misSelect = false;
+            return;
+        }
+        int indexOf = selectImagePath.indexOf(path);
+        if(indexOf != -1){
+            myToolbar.setRightIconDefault(R.mipmap.pick_ic_select);
+            misSelect = true;
+        }else {
+            myToolbar.setRightIconDefault(R.mipmap.pick_ic_un_select_black);
+            misSelect = false;
+        }
+
+        myToolbar.setRightLayoutOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(misSelect){
+                    myToolbar.setRightIconDefault(R.mipmap.pick_ic_un_select_black);
+                    selectImagePath.remove(path);
+                    misSelect = false;
+                }else {
+                    myToolbar.setRightIconDefault(R.mipmap.pick_ic_select);
+                    selectImagePath.add(path);
+                    misSelect = true;
+                }
+            }
+        });
+    }
+
+    private void finishForResult(){
+        Intent intent = new Intent();
+        intent.setClass(PickPhotoPreviewActivity.this, PickPhotoActivity.class);
+        intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) selectImagePath);
+        setResult(PickConfig.PREVIEW_PHOTO_DATA,intent);
+        finish();
     }
 }
