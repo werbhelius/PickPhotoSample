@@ -43,12 +43,12 @@ Add Four new Method
 [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://github.com/Werb/PickPhotoSample/blob/master/LICENSE)
 [![last-version](https://api.bintray.com/packages/werbhelius/maven/pickphotoview/images/download.svg) ](https://bintray.com/werbhelius/maven/pickphotoview/_latestVersion)
 
-the last-version is this ⬆️
+the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/releases)️
 
 #### Gradle
 
 ```
-  compile 'com.werb.pickphotoview:pickphotoview:last-version'
+  compile 'com.werb.pickphotoview:pickphotoview:0.1.0'
 ```
 
 some Library already dependency
