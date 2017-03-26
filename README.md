@@ -15,6 +15,20 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 3. support to zoom in preview
 4. adjust UI
 
+
+Add Four new Method
+```
+  new PickPhotoView.Builder(context)
+        .setPickPhotoSize(9)   //select max size
+        .setShowCamera(true)   //is show camera
+        .setSpanCount(4)       //SpanCount
+        .setLightStatusBar(true)  // custom theme
+        .setStatusBarColor("#ffffff")   // custom statusBar
+        .setToolbarColor("#ffffff")   // custom toolbar
+        .setToolbarIconColor("#000000")   // custom toolbar icon
+        .start();
+```
+
 ## Screenshot
 <img src="/screenshots/custom_1.png" alt="screenshot" title="home" width="270" height="160" /> <img src="/screenshots/custom_2.png" alt="screenshot" title="select" width="270" height="160" /><img src="/screenshots/custom_3.png" alt="screenshot" title="select" width="270" height="160" />
 
@@ -82,6 +96,10 @@ Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE be
         .setPickPhotoSize(9)   //select max size
         .setShowCamera(true)   //is show camera
         .setSpanCount(4)       //SpanCount
+        .setLightStatusBar(true)  // custom theme
+        .setStatusBarColor("#ffffff")   // custom statusBar
+        .setToolbarColor("#ffffff")   // custom toolbar
+        .setToolbarIconColor("#000000")   // custom toolbar icon
         .start();
 ```
 
