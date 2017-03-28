@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -182,12 +183,21 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
                     selectImagePath.remove(path);
                     misSelect = false;
                 }else {
-                    myToolbar.setRightIconDefault(R.mipmap.pick_ic_select);
-                    selectImagePath.add(path);
-                    misSelect = true;
+                    if(selectImagePath.size() < pickData.getPickPhotoSize()) {
+                        myToolbar.setRightIconDefault(R.mipmap.pick_ic_select);
+                        selectImagePath.add(path);
+                        misSelect = true;
+                    }else {
+                        Toast.makeText(PickPhotoPreviewActivity.this, String.format(v.getContext().getString(R.string.pick_photo_size_limit), String.valueOf(pickData.getPickPhotoSize())), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishForResult();
     }
 
     private void finishForResult(){
