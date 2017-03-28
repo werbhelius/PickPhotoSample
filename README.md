@@ -8,7 +8,7 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 ## Last Update (2017.3.28)
 
-#### [v0.1.1](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.0)
+#### [v0.1.1](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.1)
 
 1. fix bug in preview
 2. listener to onBackPressed in preview
@@ -55,7 +55,7 @@ the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/r
 #### Gradle
 
 ```
-  compile 'com.werb.pickphotoview:pickphotoview:0.1.0'
+  compile 'com.werb.pickphotoview:pickphotoview:0.1.1'  // Last Version
 ```
 
 some Library already dependency
