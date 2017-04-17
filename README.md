@@ -8,10 +8,10 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 ## Update (2017.4.17)
 
-#### [v0.1.2](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.1)
+#### [v0.1.2](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.2)
 
 1. fix bug in when select image size is empty
-2. update gradle version to 3.3 
+2. update gradle version to 3.3
 
 ## Update (2017.3.28)
 
