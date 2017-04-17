@@ -131,7 +131,11 @@ public class PickPhotoActivity extends AppCompatActivity {
             public void call(ImageLoadOkEvent imageLoadOkEvent) {
                 GroupImage groupImage = PickPreferences.getInstance(PickPhotoActivity.this).getListImage();
                 allPhotos = groupImage.mGroupMap.get(PickConfig.ALL_PHOTOS);
-                Log.d("All photos size:", allPhotos.size() + "");
+                if(allPhotos == null){
+                    Log.d("PickPhotoView","Image is Empty");
+                }else {
+                    Log.d("All photos size:", String.valueOf(allPhotos.size()));
+                }
                 if (allPhotos != null && !allPhotos.isEmpty()) {
                     pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, manager, allPhotos, pickData.isShowCamera(), pickData.getSpanCount(), pickData.getPickPhotoSize(), imageClick);
                     photoList.setAdapter(pickGridAdapter);
@@ -219,6 +223,10 @@ public class PickPhotoActivity extends AppCompatActivity {
     View.OnClickListener selectClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if(pickGridAdapter == null){
+                return;
+            }
+
             if (!pickGridAdapter.getSelectPath().isEmpty()) {
                 Intent intent = new Intent();
                 intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) pickGridAdapter.getSelectPath());
