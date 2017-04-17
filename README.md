@@ -6,7 +6,14 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
-## Last Update (2017.3.28)
+## Update (2017.4.17)
+
+#### [v0.1.2](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.1)
+
+1. fix bug in when select image size is empty
+2. update gradle version to 3.3 
+
+## Update (2017.3.28)
 
 #### [v0.1.1](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.1)
 
