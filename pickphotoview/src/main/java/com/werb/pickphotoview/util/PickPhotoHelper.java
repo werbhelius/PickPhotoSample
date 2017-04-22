@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -25,10 +27,12 @@ import java.util.List;
 public class PickPhotoHelper {
 
     private Activity activity;
-    public HashMap<String, List<String>> mGroupMap = new LinkedHashMap<>();
+    private static PickPhotoListener listener;
+    private HashMap<String, List<String>> mGroupMap = new LinkedHashMap<>();
 
-    public PickPhotoHelper(Activity activity) {
+    public PickPhotoHelper(Activity activity, PickPhotoListener listener) {
         this.activity = activity;
+        this.listener = listener;
     }
 
     public void getImages() {
@@ -87,16 +91,18 @@ public class PickPhotoHelper {
                 dirImage.dirName = dirNames;
                 PickPreferences.getInstance(activity).saveImageList(groupImage);
                 PickPreferences.getInstance(activity).saveDirNames(dirImage);
-                r.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        RxBus.getInstance().send(new ImageLoadOkEvent());
-                    }
-                });
+                r.sendEmptyMessage(0);
             }
         }).start();
 
     }
 
-    static android.os.Handler r = new android.os.Handler(Looper.getMainLooper());
+    private static Handler r = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what == 0){
+                listener.pickSuccess();
+            }
+        }
+    };
 }
