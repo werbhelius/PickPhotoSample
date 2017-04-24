@@ -53,7 +53,7 @@ the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/r
 #### Gradle
 
 ```
-  compile 'com.werb.pickphotoview:pickphotoview:0.1.2'  // Last Version
+  compile 'com.werb.pickphotoview:pickphotoview:0.1.4'  // Last Version
 ```
 
 some Library already dependency
