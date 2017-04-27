@@ -12,7 +12,7 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 1. remove Provider in lib Manifest
 
-so you must register Manifest this code in your AndroidManifest
+so you must register Manifest this code in your app AndroidManifest
 ```
     <provider
         android:name="com.werb.pickphotoview.provider.PickProvider"
@@ -64,7 +64,7 @@ the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/r
 #### Gradle
 
 ```
-  compile 'com.werb.pickphotoview:pickphotoview:0.1.4'  // Last Version
+  compile 'com.werb.pickphotoview:pickphotoview:0.1.5'  // Last Version
 ```
 
 some Library already dependency
@@ -103,7 +103,7 @@ Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE be
 
 [PermissionsChecker : A Library help u to check permissions on Android M.](https://github.com/Werb/PermissionsCheckerSample)
 
-#### Register Provider in AndroidManifest.xml
+#### Register Provider in your app AndroidManifest.xml
 
 ```
     <provider
