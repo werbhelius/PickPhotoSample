@@ -71,7 +71,6 @@ some Library already dependency
 
 * Glide
 * Recyclerview
-* Rxandroid
 * Gson
 
 If you don't want to dependency this Library version , you can replace it just like
