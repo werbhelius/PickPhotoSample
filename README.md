@@ -6,13 +6,24 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
-## Last Update (2017.4.24)
+## Last Update (2017.4.27)
 
-#### [v0.1.4](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.4)
+#### [v0.1.5](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.5)
 
-1. remove RxJava
-2. adjust single choose
-3. adjust camera UI
+1. remove Provider in lib Manifest
+
+so you must register Manifest this code in your AndroidManifest
+```
+    <provider
+        android:name="com.werb.pickphotoview.provider.PickProvider"
+        android:authorities="${applicationId}.provider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/pick_file_paths"/>
+    </provider>
+```
 
 ## Update (2017.4.17)
 
@@ -91,6 +102,20 @@ Sorry ，You are out !
 Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE before use
 
 [PermissionsChecker : A Library help u to check permissions on Android M.](https://github.com/Werb/PermissionsCheckerSample)
+
+#### Register Provider in AndroidManifest.xml
+
+```
+    <provider
+        android:name="com.werb.pickphotoview.provider.PickProvider"
+        android:authorities="${applicationId}.provider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/pick_file_paths"/>
+    </provider>
+```
 
 #### Initialize PickPhotoView
 
