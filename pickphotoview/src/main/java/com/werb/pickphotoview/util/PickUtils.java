@@ -140,10 +140,28 @@ public class PickUtils {
         return null;
     }
 
-    public File getPhotoFile(){
+    private String getSavePhotoDir(Context context){
+        return context.getPackageName() + File.separator + "Photo";
+    }
+
+    private  File createDir(String directory) {
+        File createDir = new File(Environment.getExternalStorageDirectory() + File.separator + directory);
+        if (!createDir.exists()) {
+            if (createDir.mkdirs()) {
+                return createDir;
+            }
+        } else {
+            return createDir;
+        }
+        return null;
+    }
+
+    public File getPhotoFile(Context context){
         File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-        File newFile = new File(dir + File.separator + "Camera", "capture.jpg");
-        return newFile;
+        if(!dir.exists()){
+            dir = createDir(getSavePhotoDir(context));
+        }
+        return new File(dir, "capture.jpg");
     }
 
     private String getPhotoFileName() {
@@ -152,10 +170,10 @@ public class PickUtils {
         return dateFormat.format(date) + ".jpg";
     }
 
-    public String getFilePath(){
-        File oldFile = getPhotoFile();
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-        File newFile = new File(dir + File.separator + "Camera", getPhotoFileName());
+    public String getFilePath(Context context){
+        File oldFile = getPhotoFile(context);
+        File dir = createDir(getSavePhotoDir(context));
+        File newFile = new File(dir , getPhotoFileName());
         // 复制文件
         int byteread ; // 读取的字节数
         InputStream in = null;

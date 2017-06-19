@@ -178,7 +178,7 @@ public class PickPhotoActivity extends AppCompatActivity {
                     path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera");
                 }
             } else {
-                path = PickUtils.getInstance(PickPhotoActivity.this).getFilePath();
+                path = PickUtils.getInstance(PickPhotoActivity.this).getFilePath(PickPhotoActivity.this);
             }
             sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
             Intent intent = new Intent();
