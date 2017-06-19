@@ -7,7 +7,7 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
 ## Last Update (2017.6.19)
-#### [v0.2.0](https://github.com/Werb/PickPhotoSample/releases/tag/v0.2.0)
+#### [v0.2.1](https://github.com/Werb/PickPhotoSample/releases/tag/v0.2.1)
 
 1. fix bug when single choose picture
 2. fix bug when photo dir not exist
@@ -52,7 +52,7 @@ the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/r
 #### Gradle
 
 ```
-  compile 'com.werb.pickphotoview:pickphotoview:0.2.0'  // Last Version
+  compile 'com.werb.pickphotoview:pickphotoview:0.2.1'  // Last Version
 ```
 
 some Library already dependency
