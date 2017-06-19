@@ -1,0 +1,13 @@
+<resources>
+    <string name="pick_all_photo">所有图片</string>
+    <string name="pick_photos">照片</string>
+    <string name="pick_pick_cancel">取消</string>
+    <string name="pick_preview">预览</string>
+    <string name="pick_pick">选取</string>
+    <string name="pick_pick_size">选取(%1$s)</string>
+    <string name="pick_permissionRefuse">权限拒绝</string>
+    <string name="pick_menu_cancel">取消</string>
+    <string name="pick_photo_size">(%1$s)</string>
+    <string name="pick_photo_size_limit">最多选择%1$s张图片</string>
+    <string name="pick_select">确定</string>
+</resources>
