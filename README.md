@@ -6,7 +6,15 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
-## Last Update (2017.4.27)
+## Last Update (2017.6.19)
+#### [v0.2.0](https://github.com/Werb/PickPhotoSample/releases/tag/v0.2.0)
+
+1. fix bug when single choose picture
+2. fix bug when photo dir not exist
+3. add english support
+
+
+## Update (2017.4.27)
 
 #### [v0.1.5](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.5)
 
@@ -23,26 +31,6 @@ so you must register Manifest this code in your app AndroidManifest
             android:name="android.support.FILE_PROVIDER_PATHS"
             android:resource="@xml/pick_file_paths"/>
     </provider>
-```
-
-## Update (2017.4.17)
-
-#### [v0.1.2](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.2)
-
-1. fix bug in when select image size is empty
-2. update gradle version to 3.3
-
-Add Four new Method
-```
-  new PickPhotoView.Builder(context)
-        .setPickPhotoSize(9)   //select max size
-        .setShowCamera(true)   //is show camera
-        .setSpanCount(4)       //SpanCount
-        .setLightStatusBar(true)  // custom theme
-        .setStatusBarColor("#ffffff")   // custom statusBar
-        .setToolbarColor("#ffffff")   // custom toolbar
-        .setToolbarIconColor("#000000")   // custom toolbar icon
-        .start();
 ```
 
 ## Screenshot
