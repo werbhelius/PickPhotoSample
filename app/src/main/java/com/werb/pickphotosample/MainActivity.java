@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void startPickPhoto(){
         new PickPhotoView.Builder(MainActivity.this)
-                .setPickPhotoSize(1)
+                .setPickPhotoSize(3)
                 .setShowCamera(true)
-                .setSpanCount(4)
+                .setSpanCount(3)
                 .setLightStatusBar(true)
                 .setStatusBarColor("#ffffff")
                 .setToolbarColor("#ffffff")

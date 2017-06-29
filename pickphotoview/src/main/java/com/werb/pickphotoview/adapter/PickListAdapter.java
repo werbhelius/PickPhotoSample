@@ -84,7 +84,7 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         void bindItem(String dirName, List<String> paths){
             dirNameText.setText(dirName);
             photoSizeText.setText(String.format(context.getString(R.string.pick_photo_size),paths.size() + ""));
-            Glide.with(context).load(Uri.parse("file://" + paths.get(0))).thumbnail(0.3f).into(cover);
+            Glide.with(context).load(Uri.parse("file://" + paths.get(0))).into(cover);
             itemView.setTag(R.id.pick_dir_name,dirName);
         }
 
