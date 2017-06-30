@@ -18,6 +18,7 @@ public class PickData implements Serializable{
     private int pickPhotoSize;
     private int spanCount;
     private boolean isShowCamera;
+    private boolean isClickSelectable;
     private String toolbarColor;
     private String statusBarColor;
     private String toolbarIconColor;
@@ -55,6 +56,14 @@ public class PickData implements Serializable{
 
     public void setShowCamera(boolean showCamera) {
         isShowCamera = showCamera;
+    }
+
+    public boolean isClickSelectable() {
+        return isClickSelectable;
+    }
+
+    public void setClickSelectable(boolean clickSelectable) {
+        isClickSelectable = clickSelectable;
     }
 
     public int getToolbarColor() {

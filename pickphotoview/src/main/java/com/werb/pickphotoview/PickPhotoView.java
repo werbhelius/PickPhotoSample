@@ -52,6 +52,11 @@ public class PickPhotoView {
             return this;
         }
 
+        public Builder setClickSelectable(boolean showCamera) {
+            pickData.setClickSelectable(showCamera);
+            return this;
+        }
+
         public Builder setToolbarColor(String toolbarColor){
             pickData.setToolbarColor(toolbarColor);
             return this;

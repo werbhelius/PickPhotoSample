@@ -122,7 +122,7 @@ public class PickPhotoActivity extends AppCompatActivity {
                     Log.d("All photos size:", String.valueOf(allPhotos.size()));
                 }
                 if (allPhotos != null && !allPhotos.isEmpty()) {
-                    pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, manager, allPhotos, pickData.isShowCamera(), pickData.getSpanCount(), pickData.getPickPhotoSize(), imageClick);
+                    pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, manager, allPhotos, pickData.isShowCamera(), pickData.getSpanCount(), pickData.getPickPhotoSize(), pickData.isClickSelectable(), imageClick);
                     photoList.setAdapter(pickGridAdapter);
                 }
             }
