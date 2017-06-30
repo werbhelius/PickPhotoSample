@@ -13,7 +13,7 @@
     </style>
 
     <style name="PickRightSlide">
-        <item name="android:windowEnterAnimation">@anim/pick_start_slide_in_right</item>
+        <item name="android:windowEnterAnimation">@anim/pick_start_slide_in_left</item>
     </style>
 
     <style name="PickAppThemeBottom" parent="PickBlackTheme" >
