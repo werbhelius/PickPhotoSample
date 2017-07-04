@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <item name="pick_image_path" type="id"/>
     <item name="pick_dir_name" type="id"/>
     <item name="pick_is_select" type="id"/>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="PickBlackTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/pick_black</item>
         <item name="colorPrimaryDark">@color/pick_black</item>
@@ -23,5 +22,4 @@
     <style name="PickAppThemeRight" parent="PickBlackTheme">
         <item name="android:windowAnimationStyle">@style/PickRightSlide</item>
     </style>
-
 </resources>
