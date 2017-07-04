@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,18 +30,18 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private GroupImage groupImage;
     private DirImage dirImage;
     private View.OnClickListener listener;
-    private Context context;
+    private Context mContext;
 
     public PickListAdapter(Context c, View.OnClickListener listener) {
-        this.context = c;
-        this.groupImage = PickPreferences.getInstance(context).getListImage();
-        this.dirImage = PickPreferences.getInstance(context).getDirImage();
+        this.mContext = c;
+        this.groupImage = PickPreferences.getInstance(mContext).getListImage();
+        this.dirImage = PickPreferences.getInstance(mContext).getDirImage();
         this.listener = listener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        GroupImageViewHolder holder = new GroupImageViewHolder(LayoutInflater.from(context).inflate(R.layout.pick_item_list_layout, parent, false));
+        GroupImageViewHolder holder = new GroupImageViewHolder(LayoutInflater.from(mContext).inflate(R.layout.pick_item_list_layout, parent, false));
         holder.itemView.setOnClickListener(listener);
         return holder;
     }
@@ -76,19 +78,24 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             dirNameText = (TextView) itemView.findViewById(R.id.tv_dir_name);
             photoSizeText = (TextView) itemView.findViewById(R.id.tv_photo_size);
 
-            Drawable drawable = context.getResources().getDrawable(R.mipmap.pick_list_open);
-            drawable.setColorFilter(context.getResources().getColor(R.color.pick_gray), PorterDuff.Mode.SRC_ATOP);
-            open.setBackgroundDrawable(drawable);
+            Drawable drawable = ContextCompat.getDrawable(mContext, R.mipmap.pick_list_open);
+            drawable.setColorFilter(ContextCompat.getColor(mContext, R.color.pick_gray), PorterDuff.Mode.SRC_ATOP);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                open.setBackground(drawable);
+            }
+            else
+            {
+                //noinspection deprecation
+                open.setBackgroundDrawable(drawable);
+            }
         }
 
         void bindItem(String dirName, List<String> paths){
             dirNameText.setText(dirName);
-            photoSizeText.setText(String.format(context.getString(R.string.pick_photo_size),paths.size() + ""));
-            Glide.with(context).load(Uri.parse("file://" + paths.get(0))).into(cover);
+            photoSizeText.setText(String.format(mContext.getString(R.string.pick_photo_size),paths.size() + ""));
+            Glide.with(mContext).load(Uri.parse("file://" + paths.get(0))).into(cover);
             itemView.setTag(R.id.pick_dir_name,dirName);
         }
 
     }
-
-
 }
