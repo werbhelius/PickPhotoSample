@@ -1,11 +1,11 @@
 package com.werb.pickphotoview.model;
 
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.werb.pickphotoview.R;
 import com.werb.pickphotoview.util.PickConfig;
-import com.werb.pickphotoview.util.SoleUtils;
 
 import java.io.Serializable;
 
@@ -22,6 +22,7 @@ public class PickData implements Serializable {
     private String toolbarColor;
     private String statusBarColor;
     private String toolbarIconColor;
+    private String selectIconColor;
     private boolean lightStatusBar;
 
     public int getPickPhotoSize() {
@@ -67,7 +68,7 @@ public class PickData implements Serializable {
     }
 
     public int getToolbarColor() {
-        if(SoleUtils.isEmpty(toolbarColor)) {
+        if(TextUtils.isEmpty(toolbarColor)) {
             return Color.parseColor("#191919");
         }
         return Color.parseColor(toolbarColor);
@@ -78,7 +79,7 @@ public class PickData implements Serializable {
     }
 
     public int getStatusBarColor() {
-        if(SoleUtils.isEmpty(statusBarColor)) {
+        if(TextUtils.isEmpty(statusBarColor)) {
             return Color.parseColor("#191919");
         }
         return Color.parseColor(statusBarColor);
@@ -89,7 +90,7 @@ public class PickData implements Serializable {
     }
 
     public int getToolbarIconColor() {
-        if(SoleUtils.isEmpty(toolbarIconColor)) {
+        if(TextUtils.isEmpty(toolbarIconColor)) {
             return Color.parseColor("#FFFFFF");
         }
         return Color.parseColor(toolbarIconColor);
@@ -97,6 +98,17 @@ public class PickData implements Serializable {
 
     public void setToolbarIconColor(String toolbarIconColor) {
         this.toolbarIconColor = toolbarIconColor;
+    }
+
+    public int getSelectIconColor() {
+        if(TextUtils.isEmpty(selectIconColor)) {
+            return R.color.pick_blue;
+        }
+        return Color.parseColor(selectIconColor);
+    }
+
+    public void setSelectIconColor(String selectIconColor) {
+        this.selectIconColor = selectIconColor;
     }
 
     public boolean isLightStatusBar() {

@@ -2,6 +2,7 @@ package com.werb.pickphotoview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -126,7 +127,7 @@ public class PickPhotoActivity extends AppCompatActivity {
                     Log.d("All photos size:", String.valueOf(allPhotos.size()));
                 }
                 if (allPhotos != null && !allPhotos.isEmpty()) {
-                    pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, allPhotos, pickData.isShowCamera(), pickData.getSpanCount(), pickData.getPickPhotoSize(), pickData.isClickSelectable(), imageClick);
+                    pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, allPhotos, pickData, imageClick);
                     photoList.setAdapter(pickGridAdapter);
                 }
             }
@@ -146,7 +147,7 @@ public class PickPhotoActivity extends AppCompatActivity {
             selectText.setEnabled(false);
         } else {
             selectImageSize.setText(String.valueOf(selectSize));
-            selectText.setTextColor(ContextCompat.getColor(mContext, R.color.pick_blue));
+            selectText.setTextColor(pickData.getSelectIconColor());
             selectText.setEnabled(true);
         }
     }

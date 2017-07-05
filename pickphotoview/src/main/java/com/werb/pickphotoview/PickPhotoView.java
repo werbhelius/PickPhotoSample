@@ -72,6 +72,11 @@ public class PickPhotoView {
             return this;
         }
 
+        public Builder setSelectIconColor(String selectIconColor){
+            pickData.setSelectIconColor(selectIconColor);
+            return this;
+        }
+
         public Builder setLightStatusBar(boolean lightStatusBar){
             pickData.setLightStatusBar(lightStatusBar);
             return this;

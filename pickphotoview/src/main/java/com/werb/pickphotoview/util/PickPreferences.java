@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.content.SharedPreferences.Editor;
+import android.text.TextUtils;
 
 import com.werb.pickphotoview.model.DirImage;
 import com.werb.pickphotoview.model.GroupImage;
@@ -53,7 +54,7 @@ public class PickPreferences {
     public GroupImage getListImage(){
         if(listImage == null) {
             String ss = mSharedPreferences.getString(IMAGE_LIST, "");
-            if(SoleUtils.isEmpty(ss)) {
+            if(TextUtils.isEmpty(ss)) {
                 return null;
             } else {
                 listImage = PickGson.fromJson(GroupImage.class, ss);
@@ -73,7 +74,7 @@ public class PickPreferences {
     public DirImage getDirImage(){
         if(dirImage == null) {
             String ss = mSharedPreferences.getString(DIR_NAMES, "");
-            if(SoleUtils.isEmpty(ss)) {
+            if(TextUtils.isEmpty(ss)) {
                 return null;
             } else {
                 dirImage = PickGson.fromJson(DirImage.class, ss);
@@ -93,7 +94,7 @@ public class PickPreferences {
     public PickData getPickData(){
         if(pickData == null) {
             String ss = mSharedPreferences.getString(PICK_DATA, "");
-            if(SoleUtils.isEmpty(ss)) {
+            if(TextUtils.isEmpty(ss)) {
                 return null;
             } else {
                 pickData = PickGson.fromJson(PickData.class, ss);

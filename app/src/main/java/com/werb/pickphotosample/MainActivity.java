@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         .setStatusBarColor("#ffffff")
                         .setToolbarColor("#ffffff")
                         .setToolbarIconColor("#000000")
+                        .setSelectIconColor("#00C07F")
                         .setClickSelectable(true)
                         .start();
             }
