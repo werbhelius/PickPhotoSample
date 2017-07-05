@@ -11,7 +11,9 @@ public class PickHolder {
 
     public static PickHolder newInstance()
     {
-        return new PickHolder();
+        stringPaths = null;
+        holder = new PickHolder();
+        return holder;
     }
 
     public static ArrayList<String> getStringPaths()

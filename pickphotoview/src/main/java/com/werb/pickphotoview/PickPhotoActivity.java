@@ -70,6 +70,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
+        PickHolder.newInstance(); //Reset stored selected image paths.
         overridePendingTransition(0, R.anim.pick_finish_slide_out_bottom);
     }
 
@@ -231,7 +232,6 @@ public class PickPhotoActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, pickGridAdapter.getSelectPath());
             setResult(PickConfig.PICK_PHOTO_DATA, intent);
-            PickHolder.newInstance(); //Reset stored selected image paths.
             finish();
         }
     }
