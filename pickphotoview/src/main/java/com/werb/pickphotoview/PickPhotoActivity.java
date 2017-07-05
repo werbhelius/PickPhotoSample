@@ -31,7 +31,6 @@ import com.werb.pickphotoview.util.PickPreferences;
 import com.werb.pickphotoview.util.PickUtils;
 import com.werb.pickphotoview.widget.MyToolbar;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
