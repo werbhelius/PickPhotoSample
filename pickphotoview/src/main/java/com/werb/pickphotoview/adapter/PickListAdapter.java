@@ -19,7 +19,7 @@ import com.werb.pickphotoview.model.DirImage;
 import com.werb.pickphotoview.model.GroupImage;
 import com.werb.pickphotoview.util.PickPreferences;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by wanbo on 2017/1/3.
@@ -50,7 +50,7 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(dirImage != null) {
             String dirName = dirImage.dirName.get(position);
-            List<String> paths = groupImage.mGroupMap.get(dirName);
+            ArrayList<String> paths = groupImage.mGroupMap.get(dirName);
             GroupImageViewHolder groupImageViewHolder = (GroupImageViewHolder) holder;
             groupImageViewHolder.bindItem(dirName, paths);
         }
@@ -90,7 +90,7 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         }
 
-        void bindItem(String dirName, List<String> paths){
+        void bindItem(String dirName, ArrayList<String> paths){
             dirNameText.setText(dirName);
             photoSizeText.setText(String.format(mContext.getString(R.string.pick_photo_size),paths.size() + ""));
             Glide.with(mContext).load(Uri.parse("file://" + paths.get(0))).into(cover);

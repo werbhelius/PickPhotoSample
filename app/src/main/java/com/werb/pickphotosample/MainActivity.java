@@ -2,10 +2,9 @@ package com.werb.pickphotosample;
 
 import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,9 +15,7 @@ import com.werb.pickphotoview.adapter.SpaceItemDecoration;
 import com.werb.pickphotoview.util.PickConfig;
 import com.werb.pickphotoview.util.PickUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         if (requestCode == PickConfig.PICK_PHOTO_DATA) {
-            List<String> selectPaths = (List<String>) data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
+            ArrayList<String> selectPaths = (ArrayList<String>) data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
             adapter.updateData(selectPaths);
         }
     }

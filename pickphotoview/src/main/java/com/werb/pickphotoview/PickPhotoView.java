@@ -52,8 +52,8 @@ public class PickPhotoView {
             return this;
         }
 
-        public Builder setClickSelectable(boolean showCamera) {
-            pickData.setClickSelectable(showCamera);
+        public Builder setClickSelectable(boolean clickSelectable) {
+            pickData.setClickSelectable(clickSelectable);
             return this;
         }
 

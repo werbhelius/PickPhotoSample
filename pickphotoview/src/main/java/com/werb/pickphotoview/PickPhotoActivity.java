@@ -23,6 +23,7 @@ import com.werb.pickphotoview.adapter.PickGridAdapter;
 import com.werb.pickphotoview.adapter.SpaceItemDecoration;
 import com.werb.pickphotoview.model.GroupImage;
 import com.werb.pickphotoview.model.PickData;
+import com.werb.pickphotoview.model.PickHolder;
 import com.werb.pickphotoview.util.PickConfig;
 import com.werb.pickphotoview.util.PickPhotoHelper;
 import com.werb.pickphotoview.util.PickPhotoListener;
@@ -32,7 +33,6 @@ import com.werb.pickphotoview.widget.MyToolbar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -46,7 +46,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     private PickGridAdapter pickGridAdapter;
     private MyToolbar myToolbar;
     private TextView selectText, selectImageSize;
-    private List<String> allPhotos;
+    private ArrayList<String> allPhotos;
     private RequestManager manager;
     private Context mContext;
 
@@ -186,14 +186,14 @@ public class PickPhotoActivity extends AppCompatActivity {
             }
             sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
             Intent intent = new Intent();
-            List<String> list = new ArrayList<>();
+            ArrayList<String> list = new ArrayList<>();
             list.add(path);
             intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) list);
             setResult(PickConfig.PICK_PHOTO_DATA, intent);
             finish();
         }else if(requestCode == PickConfig.PREVIEW_PHOTO_DATA){
             if (data != null) {
-                List<String> selectPath = (List<String>) data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
+                ArrayList<String> selectPath = (ArrayList<String>) data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
                 pickGridAdapter.setSelectPath(selectPath);
                 pickGridAdapter.notifyDataSetChanged();
                 updateSelectText(String.valueOf(selectPath.size()));
@@ -208,10 +208,10 @@ public class PickPhotoActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setClass(PickPhotoActivity.this, PickPhotoPreviewActivity.class);
             intent.putExtra(PickConfig.INTENT_IMG_PATH, imgPath);
-            intent.putExtra(PickConfig.INTENT_IMG_LIST, (Serializable) allPhotos);
-            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) pickGridAdapter.getSelectPath());
-            intent.putExtra(PickConfig.INTENT_PICK_DATA,pickData);
-            startActivityForResult(intent,PickConfig.PREVIEW_PHOTO_DATA);
+            intent.putExtra(PickConfig.INTENT_IMG_LIST, allPhotos);
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, pickGridAdapter.getSelectPath());
+            intent.putExtra(PickConfig.INTENT_PICK_DATA, pickData);
+            startActivityForResult(intent, PickConfig.PREVIEW_PHOTO_DATA);
         }
     };
 
@@ -229,8 +229,9 @@ public class PickPhotoActivity extends AppCompatActivity {
 
         if (!pickGridAdapter.getSelectPath().isEmpty()) {
             Intent intent = new Intent();
-            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) pickGridAdapter.getSelectPath());
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, pickGridAdapter.getSelectPath());
             setResult(PickConfig.PICK_PHOTO_DATA, intent);
+            PickHolder.newInstance(); //Reset stored selected image paths.
             finish();
         }
     }

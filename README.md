@@ -131,7 +131,7 @@ Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE be
             return;
         }
         if (requestCode == PickConfig.PICK_PHOTO_DATA) {
-            List<String> selectPaths = (List<String>) data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
+            ArrayList<String> selectPaths = (ArrayList<String>) data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
             // do something u want
         }
     }

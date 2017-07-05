@@ -1,7 +1,7 @@
 package com.werb.pickphotoview.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by wanbo on 2017/1/3.
@@ -9,6 +9,6 @@ import java.util.List;
 
 public class DirImage implements Serializable {
 
-    public List<String> dirName;
+    public ArrayList<String> dirName;
 
 }

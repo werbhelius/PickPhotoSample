@@ -1,8 +1,6 @@
 package com.werb.pickphotoview;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,8 +14,6 @@ import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.shizhefei.view.largeimage.LargeImageView;
 import com.shizhefei.view.largeimage.factory.FileBitmapDecoderFactory;
 import com.werb.pickphotoview.model.PickData;
@@ -25,9 +21,7 @@ import com.werb.pickphotoview.util.PickConfig;
 import com.werb.pickphotoview.widget.MyToolbar;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -36,11 +30,11 @@ import java.util.List;
 
 public class PickPhotoPreviewActivity extends AppCompatActivity {
 
-    private List<String> allImagePath;
-    private List<String> selectImagePath;
+    private ArrayList<String> allImagePath;
+    private ArrayList<String> selectImagePath;
     private String path;
     private ViewPager viewPager;
-    private List<LargeImageView> imageViews;
+    private ArrayList<LargeImageView> imageViews;
     private MyToolbar myToolbar;
     private boolean mIsHidden,misSelect;
     private PickData pickData;
@@ -51,8 +45,8 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
         setContentView(R.layout.pick_activty_preview_photo);
         pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INTENT_PICK_DATA);
         path = getIntent().getStringExtra(PickConfig.INTENT_IMG_PATH);
-        allImagePath = (List<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST);
-        selectImagePath = (List<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
+        allImagePath = (ArrayList<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST);
+        selectImagePath = (ArrayList<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
         imageViews = new ArrayList<>();
         if(selectImagePath == null){
             selectImagePath = new ArrayList<>();
@@ -203,7 +197,7 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
     private void finishForResult(){
         Intent intent = new Intent();
         intent.setClass(PickPhotoPreviewActivity.this, PickPhotoActivity.class);
-        intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) selectImagePath);
+        intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, selectImagePath);
         setResult(PickConfig.PREVIEW_PHOTO_DATA,intent);
         finish();
     }
