@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.shizhefei.view.largeimage.LargeImageView;
 import com.shizhefei.view.largeimage.factory.FileBitmapDecoderFactory;
 import com.werb.pickphotoview.model.PickData;
+import com.werb.pickphotoview.model.PickHolder;
 import com.werb.pickphotoview.util.PickConfig;
 import com.werb.pickphotoview.widget.MyToolbar;
 
@@ -46,11 +47,8 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
         pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INTENT_PICK_DATA);
         path = getIntent().getStringExtra(PickConfig.INTENT_IMG_PATH);
         allImagePath = (ArrayList<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST);
-        selectImagePath = (ArrayList<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
         imageViews = new ArrayList<>();
-        if(selectImagePath == null){
-            selectImagePath = new ArrayList<>();
-        }
+        selectImagePath = PickHolder.getStringPaths();
         for (int i = 0; i < 4; i++) {
             LargeImageView imageView = new LargeImageView(this);
             imageView.setEnabled(true);
@@ -175,11 +173,13 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
                 if(misSelect){
                     myToolbar.setRightIcon(R.mipmap.pick_ic_un_select_black);
                     selectImagePath.remove(path);
+                    PickHolder.setStringPaths(selectImagePath);
                     misSelect = false;
                 }else {
                     if(selectImagePath.size() < pickData.getPickPhotoSize()) {
                         myToolbar.setRightIconDefault(R.mipmap.pick_ic_select);
                         selectImagePath.add(path);
+                        PickHolder.setStringPaths(selectImagePath);
                         misSelect = true;
                     }else {
                         Toast.makeText(PickPhotoPreviewActivity.this, String.format(v.getContext().getString(R.string.pick_photo_size_limit), String.valueOf(pickData.getPickPhotoSize())), Toast.LENGTH_SHORT).show();

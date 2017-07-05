@@ -188,7 +188,7 @@ public class PickPhotoActivity extends AppCompatActivity {
             Intent intent = new Intent();
             ArrayList<String> list = new ArrayList<>();
             list.add(path);
-            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, (Serializable) list);
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, list);
             setResult(PickConfig.PICK_PHOTO_DATA, intent);
             finish();
         }else if(requestCode == PickConfig.PREVIEW_PHOTO_DATA){
