@@ -1,8 +1,8 @@
 package com.werb.pickphotoview.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by wanbo on 2017/1/3.
@@ -10,6 +10,6 @@ import java.util.List;
 
 public class GroupImage implements Serializable {
 
-    public HashMap<String, List<String>> mGroupMap;
+    public HashMap<String, ArrayList<String>> mGroupMap;
 
 }

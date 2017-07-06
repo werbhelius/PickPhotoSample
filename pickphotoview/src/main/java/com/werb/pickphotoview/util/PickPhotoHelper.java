@@ -5,20 +5,17 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 
 import com.werb.pickphotoview.model.DirImage;
 import com.werb.pickphotoview.model.GroupImage;
-import com.werb.pickphotoview.util.event.ImageLoadOkEvent;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * Created by wanbo on 2016/12/31.
@@ -28,7 +25,7 @@ public class PickPhotoHelper {
 
     private Activity activity;
     private static PickPhotoListener listener;
-    private HashMap<String, List<String>> mGroupMap = new LinkedHashMap<>();
+    private HashMap<String, ArrayList<String>> mGroupMap = new LinkedHashMap<>();
 
     public PickPhotoHelper(Activity activity, PickPhotoListener listener) {
         this.activity = activity;
@@ -45,13 +42,14 @@ public class PickPhotoHelper {
                 //jpeg & png
                 Cursor mCursor = mContentResolver.query(mImageUri, null,
                         MediaStore.Images.Media.MIME_TYPE + "=? or "
+                                + MediaStore.Images.Media.MIME_TYPE + "=? or "
                                 + MediaStore.Images.Media.MIME_TYPE + "=?",
-                        new String[]{"image/jpeg", "image/png"}, MediaStore.Images.Media.DATE_MODIFIED + " desc");
+                        new String[]{"image/jpeg", "image/png", "image/gif"}, MediaStore.Images.Media.DATE_MODIFIED + " desc");
 
                 if (mCursor == null) {
                     return;
                 }
-                List<String> dirNames = new ArrayList<>();
+                ArrayList<String> dirNames = new ArrayList<>();
                 while (mCursor.moveToNext()) {
                     // get image path
                     String path = mCursor.getString(mCursor
@@ -68,7 +66,7 @@ public class PickPhotoHelper {
                     // save all Photo
                     if (!mGroupMap.containsKey(PickConfig.ALL_PHOTOS)) {
                         dirNames.add(PickConfig.ALL_PHOTOS);
-                        List<String> chileList = new ArrayList<>();
+                        ArrayList<String> chileList = new ArrayList<>();
                         chileList.add(path);
                         mGroupMap.put(PickConfig.ALL_PHOTOS, chileList);
                     } else {
@@ -77,7 +75,7 @@ public class PickPhotoHelper {
                     // save by parent name
                     if (!mGroupMap.containsKey(parentName)) {
                         dirNames.add(parentName);
-                        List<String> chileList = new ArrayList<>();
+                        ArrayList<String> chileList = new ArrayList<>();
                         chileList.add(path);
                         mGroupMap.put(parentName, chileList);
                     } else {
