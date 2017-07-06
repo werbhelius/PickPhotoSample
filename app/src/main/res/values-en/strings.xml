@@ -1,7 +1,3 @@
 <resources>
     <string name="app_name">PickPhotoSample</string>
-    <string name="warning">Waring</string>
-    <string name="warning_authority">required basic permissions to run the application, please open the permissions in the settings and then use</string>
-    <string name="exit">Exit</string>
-    <string name="setting">Setting</string>
 </resources>

@@ -52,6 +52,11 @@ public class PickPhotoView {
             return this;
         }
 
+        public Builder setClickSelectable(boolean clickSelectable) {
+            pickData.setClickSelectable(clickSelectable);
+            return this;
+        }
+
         public Builder setToolbarColor(String toolbarColor){
             pickData.setToolbarColor(toolbarColor);
             return this;
@@ -64,6 +69,11 @@ public class PickPhotoView {
 
         public Builder setToolbarIconColor(String toolbarIconColor){
             pickData.setToolbarIconColor(toolbarIconColor);
+            return this;
+        }
+
+        public Builder setSelectIconColor(String selectIconColor){
+            pickData.setSelectIconColor(selectIconColor);
             return this;
         }
 
