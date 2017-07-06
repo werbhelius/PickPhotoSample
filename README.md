@@ -6,40 +6,22 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
-## Last Update (2017.6.19)
-#### [v0.2.1](https://github.com/Werb/PickPhotoSample/releases/tag/v0.2.1)
+## Last Update (2017.7.6)
+#### [v0.3.0](https://github.com/Werb/PickPhotoSample/releases/tag/v0.3.0)
+1. support select gif
+2. update image preview and select logic
+3. optimize UI
 
-1. fix bug when single choose picture
-2. fix bug when photo dir not exist
-3. add english support
+Thanks [Ray Li](https://github.com/searchy2) Pull requests
 
-
-## Update (2017.4.27)
-
-#### [v0.1.5](https://github.com/Werb/PickPhotoSample/releases/tag/v0.1.5)
-
-1. remove Provider in lib Manifest
-
-so you must register Manifest this code in your app AndroidManifest
-```
-    <provider
-        android:name="com.werb.pickphotoview.provider.PickProvider"
-        android:authorities="${applicationId}.provider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-        <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/pick_file_paths"/>
-    </provider>
-```
 
 ## Screenshot
-<img src="/screenshots/custom_1.png" alt="screenshot" title="home" width="270" height="160" /> <img src="/screenshots/custom_2.png" alt="screenshot" title="select" width="270" height="160" /><img src="/screenshots/custom_3.png" alt="screenshot" title="select" width="270" height="160" />
+ <img src="/screenshots/custom_2.png" alt="screenshot" title="select" width="270" height="160" /><img src="/screenshots/custom_3.png" alt="screenshot" title="select" width="270" height="160" />
 
 
-<img src="/screenshots/home.png" alt="screenshot" title="home" width="270" height="480" /> <img src="/screenshots/new_home.png" alt="screenshot" title="select" width="270" height="480" /><img src="/screenshots/new_preview.png" alt="screenshot" title="select" width="270" height="480" />
+<img src="/screenshots/pick.png" alt="screenshot" title="home" width="270" height="480" /> <img src="/screenshots/new_home.png" alt="screenshot" title="select" width="270" height="480" /><img src="/screenshots/new_preview.png" alt="screenshot" title="select" width="270" height="480" />
 
-<img src="/screenshots/list.png" alt="screenshot" title="preview" width="270" height="480" /><img src="/screenshots/camera.png" alt="screenshot" title="group" width="270" height="480" /><img src="/screenshots/show.png" alt="screenshot" title="group2" width="270" height="480" />
+<img src="/screenshots/list.png" alt="screenshot" title="preview" width="270" height="480" /><img src="/screenshots/camera.png" alt="screenshot" title="group" width="270" height="480" />
 
 
 ## Dependency
@@ -52,7 +34,7 @@ the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/r
 #### Gradle
 
 ```
-  compile 'com.werb.pickphotoview:pickphotoview:0.2.1'  // Last Version
+  compile 'com.werb.pickphotoview:pickphotoview:last.release.here'  // Last Version
 ```
 
 some Library already dependency
@@ -115,6 +97,7 @@ Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE be
         .setStatusBarColor("#ffffff")   // custom statusBar
         .setToolbarColor("#ffffff")   // custom toolbar
         .setToolbarIconColor("#000000")   // custom toolbar icon
+        .setSelectIconColor("#00C07F")  // custom select icon
         .start();
 ```
 
