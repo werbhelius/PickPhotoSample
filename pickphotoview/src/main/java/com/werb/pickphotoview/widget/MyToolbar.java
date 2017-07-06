@@ -26,7 +26,7 @@ public class MyToolbar extends RelativeLayout {
     private TextView photoDirName;
     private ImageView leftIcon, rightIcon;
     private View slider;
-    private int iconColor;
+    private int iconColor, selectColor;
     private Context mContext;
 
     public MyToolbar(Context context) {
@@ -100,6 +100,8 @@ public class MyToolbar extends RelativeLayout {
 
     public void setRightIconDefault(int drawableId){
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableId);
+        drawable.clearColorFilter();
+        drawable.setColorFilter(selectColor, PorterDuff.Mode.SRC_ATOP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             rightIcon.setBackground(drawable);
         }
@@ -117,6 +119,10 @@ public class MyToolbar extends RelativeLayout {
     public void setIconColor(int iconColor){
         this.iconColor = iconColor;
         photoDirName.setTextColor(iconColor);
+    }
+
+    public void setSelectColor(int selectColor){
+        this.selectColor = selectColor;
     }
 
     public void hideSlider(){

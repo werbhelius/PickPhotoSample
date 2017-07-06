@@ -102,7 +102,7 @@ public class PickData implements Serializable {
 
     public int getSelectIconColor() {
         if(TextUtils.isEmpty(selectIconColor)) {
-            return R.color.pick_blue;
+            return Color.parseColor("#00C07F");
         }
         return Color.parseColor(selectIconColor);
     }

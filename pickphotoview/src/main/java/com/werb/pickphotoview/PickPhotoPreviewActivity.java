@@ -79,6 +79,7 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
         myToolbar = (MyToolbar) findViewById(R.id.toolbar);
         myToolbar.setBackgroundColor(pickData.getToolbarColor());
         myToolbar.setIconColor(pickData.getToolbarIconColor());
+        myToolbar.setSelectColor(pickData.getSelectIconColor());
         myToolbar.setLeftIcon(R.mipmap.pick_ic_back);
         myToolbar.setLeftLayoutOnClickListener(new View.OnClickListener() {
             @Override
