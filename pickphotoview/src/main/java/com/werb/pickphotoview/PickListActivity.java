@@ -86,7 +86,7 @@ public class PickListActivity extends AppCompatActivity {
     public void startActivity(Intent intent) {
         super.startActivity(intent);
         if(intent.getComponent().getClassName().equals(PickPhotoActivity.class.getName())) {
-            overridePendingTransition(R.anim.pick_start_slide_in_right, 0);
+            overridePendingTransition(R.anim.pick_start_slide_in_left, 0);
         }
     }
 }

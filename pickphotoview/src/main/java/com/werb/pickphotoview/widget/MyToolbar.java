@@ -3,6 +3,8 @@ package com.werb.pickphotoview.widget;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ public class MyToolbar extends RelativeLayout {
     private ImageView leftIcon, rightIcon;
     private View slider;
     private int iconColor;
+    private Context mContext;
 
     public MyToolbar(Context context) {
         super(context);
@@ -41,13 +44,14 @@ public class MyToolbar extends RelativeLayout {
     }
 
     private void init(Context context){
+        mContext = context;
         container = (FrameLayout) LayoutInflater.from(context).inflate(R.layout.pick_widget_my_toolbar, null, false);
         leftLayout = (FrameLayout) container.findViewById(R.id.toolbar_left_layout);
         rightLayout = (FrameLayout) container.findViewById(R.id.toolbar_right_layout);
         photoDirName = (TextView) container.findViewById(R.id.tv_photo_type_name);
         leftIcon = (ImageView) container.findViewById(R.id.toolbar_left_icon);
         rightIcon = (ImageView) container.findViewById(R.id.toolbarc_right_icon);
-        rightIcon.setColorFilter(getResources().getColor(R.color.pick_white));
+        rightIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.pick_white));
         slider = container.findViewById(R.id.bottom_slider);
         addView(container);
     }
@@ -69,20 +73,41 @@ public class MyToolbar extends RelativeLayout {
     }
 
     public void setLeftIcon(int drawableId){
-        Drawable drawable = getResources().getDrawable(drawableId);
+        Drawable drawable = ContextCompat.getDrawable(mContext, drawableId);
         drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP);
-        leftIcon.setBackgroundDrawable(drawable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            leftIcon.setBackground(drawable);
+        }
+        else
+        {
+            //noinspection deprecation
+            leftIcon.setBackgroundDrawable(drawable);
+        }
     }
 
     public void setRightIcon(int drawableId){
-        Drawable drawable = getResources().getDrawable(drawableId);
+        Drawable drawable = ContextCompat.getDrawable(mContext, drawableId);
         drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP);
-        rightIcon.setBackgroundDrawable(drawable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            rightIcon.setBackground(drawable);
+        }
+        else
+        {
+            //noinspection deprecation
+            rightIcon.setBackgroundDrawable(drawable);
+        }
     }
 
     public void setRightIconDefault(int drawableId){
-        Drawable drawable = getResources().getDrawable(drawableId);
-        rightIcon.setBackgroundDrawable(drawable);
+        Drawable drawable = ContextCompat.getDrawable(mContext, drawableId);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            rightIcon.setBackground(drawable);
+        }
+        else
+        {
+            //noinspection deprecation
+            rightIcon.setBackgroundDrawable(drawable);
+        }
     }
 
     public void setBackgroundColor(int backgroundColor){
