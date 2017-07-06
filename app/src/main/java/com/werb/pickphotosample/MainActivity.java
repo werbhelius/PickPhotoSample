@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new PickPhotoView.Builder(MainActivity.this)
-                        .setPickPhotoSize(3)
+                        .setPickPhotoSize(6)
                         .setShowCamera(true)
                         .setSpanCount(4)
                         .setLightStatusBar(true)

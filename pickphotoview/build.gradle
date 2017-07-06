@@ -44,7 +44,7 @@ publish {
     userOrg = 'werbhelius'
     groupId = 'com.werb.pickphotoview'
     artifactId = 'pickphotoview'
-    publishVersion = '0.2.1'
+    publishVersion = '0.3.0'
     desc = 'Photo Picker Of Android Library'
     website = 'https://github.com/Werb/PickPhotoSample'
 }
