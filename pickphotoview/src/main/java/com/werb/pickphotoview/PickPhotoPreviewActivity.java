@@ -1,6 +1,7 @@
 package com.werb.pickphotoview;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,14 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.shizhefei.view.largeimage.LargeImageView;
 import com.shizhefei.view.largeimage.factory.FileBitmapDecoderFactory;
 import com.werb.pickphotoview.model.PickData;
 import com.werb.pickphotoview.model.PickHolder;
 import com.werb.pickphotoview.util.PickConfig;
+import com.werb.pickphotoview.util.PickUtils;
 import com.werb.pickphotoview.widget.MyToolbar;
+import com.werb.pickphotoview.widget.PinchImageView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -126,11 +134,18 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, final int position) {
             int i = position % 4;
             final LargeImageView pic = imageViews.get(i);
+            ImageView gif = new ImageView(container.getContext());
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            container.addView(pic,params);
             String path = allImagePath.get(position);
-            pic.setImage(new FileBitmapDecoderFactory(new File(path)));
-            return pic;
+            if(path.endsWith(".gif")) {
+                container.addView(gif,params);
+                Glide.with(PickPhotoPreviewActivity.this).asGif().load(new File(path)).into(gif);
+                return gif;
+            }else {
+                container.addView(pic,params);
+                pic.setImage(new FileBitmapDecoderFactory(new File(path)));
+                return pic;
+            }
         }
 
         @Override
