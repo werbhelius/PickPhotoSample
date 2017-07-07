@@ -82,6 +82,11 @@ public class PickPhotoView {
             return this;
         }
 
+        public Builder setShowGif(boolean showGif){
+            pickData.setShowGif(showGif);
+            return this;
+        }
+
         private PickPhotoView create(){
             return new PickPhotoView(this);
         }

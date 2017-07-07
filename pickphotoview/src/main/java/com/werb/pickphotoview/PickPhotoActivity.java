@@ -132,7 +132,7 @@ public class PickPhotoActivity extends AppCompatActivity {
                 }
             }
         });
-        helper.getImages();
+        helper.getImages(pickData.isShowGif());
     }
 
     private void initSelectLayout() {

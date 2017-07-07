@@ -32,19 +32,27 @@ public class PickPhotoHelper {
         this.listener = listener;
     }
 
-    public void getImages() {
+    public void getImages(final boolean showGif) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
                 ContentResolver mContentResolver = activity.getContentResolver();
 
-                //jpeg & png
-                Cursor mCursor = mContentResolver.query(mImageUri, null,
-                        MediaStore.Images.Media.MIME_TYPE + "=? or "
-                                + MediaStore.Images.Media.MIME_TYPE + "=? or "
-                                + MediaStore.Images.Media.MIME_TYPE + "=?",
-                        new String[]{"image/jpeg", "image/png", "image/gif"}, MediaStore.Images.Media.DATE_MODIFIED + " desc");
+                //jpeg & png & gif
+                Cursor mCursor;
+                if(showGif){
+                    mCursor = mContentResolver.query(mImageUri, null,
+                            MediaStore.Images.Media.MIME_TYPE + "=? or "
+                                    + MediaStore.Images.Media.MIME_TYPE + "=? or "
+                                    + MediaStore.Images.Media.MIME_TYPE + "=?",
+                            new String[]{"image/jpeg", "image/png", "image/gif"}, MediaStore.Images.Media.DATE_MODIFIED + " desc");
+                }else {
+                    mCursor = mContentResolver.query(mImageUri, null,
+                            MediaStore.Images.Media.MIME_TYPE + "=? or "
+                                    + MediaStore.Images.Media.MIME_TYPE + "=?",
+                            new String[]{"image/jpeg", "image/png"}, MediaStore.Images.Media.DATE_MODIFIED + " desc");
+                }
 
                 if (mCursor == null) {
                     return;
