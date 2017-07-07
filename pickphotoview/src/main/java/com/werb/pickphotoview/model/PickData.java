@@ -24,7 +24,7 @@ public class PickData implements Serializable {
     private String toolbarIconColor;
     private String selectIconColor;
     private boolean lightStatusBar;
-    private boolean isShowGif;
+    private boolean isShowGif = true;
 
     public boolean isShowGif() {
         return isShowGif;
