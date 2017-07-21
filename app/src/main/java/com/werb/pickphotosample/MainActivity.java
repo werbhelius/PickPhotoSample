@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -64,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
                         .setShowCamera(true)
                         .setSpanCount(4)
                         .setLightStatusBar(true)
-                        .setStatusBarColor("#ffffff")
-                        .setToolbarColor("#ffffff")
-                        .setToolbarIconColor("#000000")
-                        .setSelectIconColor("#00C07F")
+                        .setStatusBarColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.white)))
+                        .setToolbarColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.white)))
+                        .setToolbarIconColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.black)))
+                        .setSelectIconColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.pick_green)))
                         .setClickSelectable(true)
                         .start();
             }
@@ -83,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
                         .setShowCamera(true)
                         .setSpanCount(4)
                         .setLightStatusBar(true)
-                        .setStatusBarColor("#ffffff")
-                        .setToolbarColor("#ffffff")
-                        .setToolbarIconColor("#000000")
+                        .setStatusBarColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.white)))
+                        .setToolbarColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.white)))
+                        .setToolbarIconColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.black)))
                         .setClickSelectable(false)
                         .start();
             }

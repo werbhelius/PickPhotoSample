@@ -47,7 +47,6 @@ public class PickPhotoActivity extends AppCompatActivity {
     private MyToolbar myToolbar;
     private TextView selectText, selectImageSize;
     private ArrayList<String> allPhotos;
-    private RequestManager manager;
     private Context mContext;
 
     @Override
@@ -55,7 +54,6 @@ public class PickPhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pick_activity_pick_photo);
         mContext = getApplicationContext();
-        manager = Glide.with(mContext);
         pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INTENT_PICK_DATA);
         if (pickData != null) {
             PickPreferences.getInstance(PickPhotoActivity.this).savePickData(pickData);
@@ -115,7 +113,6 @@ public class PickPhotoActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, pickData.getSpanCount());
         photoList.setLayoutManager(layoutManager);
         photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.getInstance(PickPhotoActivity.this).dp2px(PickConfig.ITEM_SPACE), pickData.getSpanCount()));
-        photoList.addOnScrollListener(scrollListener);
         PickPhotoHelper helper = new PickPhotoHelper(PickPhotoActivity.this, new PickPhotoListener() {
             @Override
             public void pickSuccess() {
@@ -235,23 +232,4 @@ public class PickPhotoActivity extends AppCompatActivity {
             finish();
         }
     }
-
-    RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            if (Math.abs(dy) > PickConfig.SCROLL_THRESHOLD) {
-                manager.pauseRequests();
-            } else {
-                manager.resumeRequests();
-            }
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                manager.resumeRequests();
-            }
-        }
-    };
 }
