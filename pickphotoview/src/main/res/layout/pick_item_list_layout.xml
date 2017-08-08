@@ -36,5 +36,4 @@
         android:layout_height="15dp"
         android:layout_margin="15dp"
         android:layout_gravity="center_vertical" />
-
 </LinearLayout>

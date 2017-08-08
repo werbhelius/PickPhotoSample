@@ -63,7 +63,7 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
             imageViews.add(imageView);
         }
         initView();
-        Log.d("image size", allImagePath.size() + "");
+//        Log.d("image size", allImagePath.size() + "");
     }
 
     private void initView() {

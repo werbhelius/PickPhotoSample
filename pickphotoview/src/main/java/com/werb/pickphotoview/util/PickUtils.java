@@ -14,6 +14,7 @@ import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,27 +51,17 @@ public class PickUtils {
     }
 
     public int getWidthPixels() {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        Configuration cf = context.getResources().getConfiguration();
-        int ori = cf.orientation;
-        if (ori == Configuration.ORIENTATION_LANDSCAPE) {// 横屏
-            return displayMetrics.heightPixels;
-        } else if (ori == Configuration.ORIENTATION_PORTRAIT) {// 竖屏
-            return displayMetrics.widthPixels;
-        }
-        return 0;
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        wm.getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels;
     }
 
     public int getHeightPixels() {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        Configuration cf = context.getResources().getConfiguration();
-        int ori = cf.orientation;
-        if (ori == Configuration.ORIENTATION_LANDSCAPE) {// 横屏
-            return displayMetrics.widthPixels;
-        } else if (ori == Configuration.ORIENTATION_PORTRAIT) {// 竖屏
-            return displayMetrics.heightPixels;
-        }
-        return 0;
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        wm.getDefaultDisplay().getMetrics(dm);
+        return dm.heightPixels;
     }
 
     public int dp2px(float dpValue) {
@@ -129,7 +120,7 @@ public class PickUtils {
         try {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 String authority = context.getApplicationInfo().packageName + ".provider";
-                Log.d(PickConfig.TAG, "authority:" + authority);
+//                Log.d(PickConfig.TAG, "authority:" + authority);
                 return FileProvider.getUriForFile(context.getApplicationContext(), authority, file);
             } else {
                 return Uri.fromFile(file);

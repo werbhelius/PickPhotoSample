@@ -119,9 +119,9 @@ public class PickPhotoActivity extends AppCompatActivity {
                 GroupImage groupImage = PickPreferences.getInstance(PickPhotoActivity.this).getListImage();
                 allPhotos = groupImage.mGroupMap.get(PickConfig.ALL_PHOTOS);
                 if(allPhotos == null){
-                    Log.d("PickPhotoView","Image is Empty");
+//                    Log.d("PickPhotoView","Image is Empty");
                 }else {
-                    Log.d("All photos size:", String.valueOf(allPhotos.size()));
+//                    Log.d("All photos size:", String.valueOf(allPhotos.size()));
                 }
                 if (allPhotos != null && !allPhotos.isEmpty()) {
                     pickGridAdapter = new PickGridAdapter(PickPhotoActivity.this, allPhotos, pickData, imageClick);
