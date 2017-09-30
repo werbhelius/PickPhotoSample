@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="PickBlackTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/pick_black</item>
-        <item name="colorPrimaryDark">@color/pick_black</item>
-        <item name="android:windowBackground">@color/pick_white</item>
-        <item name="android:windowIsTranslucent">true</item>
+    <style name="PickBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
-    <style name="PickBottomUp">
-        <item name="android:windowEnterAnimation">@anim/pick_start_slide_in_bottom</item>
-    </style>
-
-    <style name="PickRightSlide">
-        <item name="android:windowEnterAnimation">@anim/pick_start_slide_in_left</item>
-    </style>
-
-    <style name="PickAppThemeBottom" parent="PickBlackTheme" >
-        <item name="android:windowAnimationStyle">@style/PickBottomUp</item>
-    </style>
-
-    <style name="PickAppThemeRight" parent="PickBlackTheme">
-        <item name="android:windowAnimationStyle">@style/PickRightSlide</item>
-    </style>
 </resources>

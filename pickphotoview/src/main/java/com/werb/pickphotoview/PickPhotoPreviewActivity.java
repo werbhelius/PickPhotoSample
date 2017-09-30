@@ -46,9 +46,9 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pick_activty_preview_photo);
-        pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INTENT_PICK_DATA);
-        path = getIntent().getStringExtra(PickConfig.INTENT_IMG_PATH);
-        allImagePath = (ArrayList<String>) getIntent().getSerializableExtra(PickConfig.INTENT_IMG_LIST);
+        pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INSTANCE.getINTENT_PICK_DATA());
+        path = getIntent().getStringExtra(PickConfig.INSTANCE.getINTENT_IMG_PATH());
+        allImagePath = (ArrayList<String>) getIntent().getSerializableExtra(PickConfig.INSTANCE.getINTENT_IMG_LIST());
         imageViews = new ArrayList<>();
         selectImagePath = PickHolder.getStringPaths();
         for (int i = 0; i < 4; i++) {
@@ -155,7 +155,6 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
     public void finish() {
         super.finish();
         viewPager = null;
-        overridePendingTransition(0, R.anim.pick_finish_slide_out_left);
     }
 
     //固定 toolbar
@@ -207,8 +206,8 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
     private void finishForResult(){
         Intent intent = new Intent();
         intent.setClass(PickPhotoPreviewActivity.this, PickPhotoActivity.class);
-        intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, selectImagePath);
-        setResult(PickConfig.PREVIEW_PHOTO_DATA,intent);
+        intent.putExtra(PickConfig.INSTANCE.getINTENT_IMG_LIST_SELECT(), selectImagePath);
+        setResult(PickConfig.INSTANCE.getPREVIEW_PHOTO_DATA(),intent);
         finish();
     }
 }

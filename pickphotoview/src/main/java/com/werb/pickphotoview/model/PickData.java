@@ -39,11 +39,11 @@ public class PickData implements Serializable {
     }
 
     public void setPickPhotoSize(int pickPhotoSize) {
-        if(pickPhotoSize > 0 && pickPhotoSize <= PickConfig.DEFAULT_PICK_SIZE){
+        if(pickPhotoSize > 0 && pickPhotoSize <= PickConfig.INSTANCE.getDEFAULT_PICK_SIZE()){
             this.pickPhotoSize = pickPhotoSize;
         }else {
-            Log.e(PickConfig.TAG,"Untrue size : photo size must between 1 and 9");
-            this.pickPhotoSize = PickConfig.DEFAULT_PICK_SIZE;
+            Log.e(PickConfig.INSTANCE.getTAG(),"Untrue size : photo size must between 1 and 9");
+            this.pickPhotoSize = PickConfig.INSTANCE.getDEFAULT_PICK_SIZE();
         }
     }
 
@@ -52,11 +52,11 @@ public class PickData implements Serializable {
     }
 
     public void setSpanCount(int spanCount) {
-        if(spanCount > 0 && spanCount <= PickConfig.DEFAULT_SPAN_COUNT ) {
+        if(spanCount > 0 && spanCount <= PickConfig.INSTANCE.getDEFAULT_SPAN_COUNT()) {
             this.spanCount = spanCount;
         }else {
-            Log.e(PickConfig.TAG,"Untrue count : span count must between 1 and 4");
-            this.spanCount = PickConfig.DEFAULT_SPAN_COUNT;
+            Log.e(PickConfig.INSTANCE.getTAG(),"Untrue count : span count must between 1 and 4");
+            this.spanCount = PickConfig.INSTANCE.getDEFAULT_SPAN_COUNT();
         }
     }
 

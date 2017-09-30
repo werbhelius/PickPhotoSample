@@ -129,7 +129,7 @@ public class PickUtils {
         try {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 String authority = context.getApplicationInfo().packageName + ".provider";
-                Log.d(PickConfig.TAG, "authority:" + authority);
+                Log.d(PickConfig.INSTANCE.getTAG(), "authority:" + authority);
                 return FileProvider.getUriForFile(context.getApplicationContext(), authority, file);
             } else {
                 return Uri.fromFile(file);

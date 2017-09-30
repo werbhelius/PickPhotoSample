@@ -11,15 +11,13 @@
 
         <activity android:name="com.werb.pickphotoview.PickPhotoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/PickAppThemeBottom"/>
+            android:theme="@style/PickBaseTheme"/>
 
         <activity android:name=".PickListActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/PickAppThemeRight"/>
+            android:screenOrientation="portrait" />
 
         <activity android:name=".PickPhotoPreviewActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/PickAppThemeRight"/>
+            android:screenOrientation="portrait" />
 
     </application>
 

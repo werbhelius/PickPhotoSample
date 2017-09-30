@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
                         .setShowCamera(true)
                         .setSpanCount(3)
                         .setLightStatusBar(true)
-                        .setStatusBarColor("#ffffff")
-                        .setToolbarColor("#ffffff")
-                        .setToolbarIconColor("#000000")
+                        .setStatusBarColor(R.color.colorPrimaryDark)
+                        .setToolbarColor(R.color.colorPrimary)
+                        .setToolbarIconColor(R.color.white)
                         .setClickSelectable(true)
                         .setShowGif(false)
                         .start();
@@ -60,17 +60,17 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new PickPhotoView.Builder(MainActivity.this)
-                        .setPickPhotoSize(3)
-                        .setShowCamera(true)
-                        .setSpanCount(4)
-                        .setLightStatusBar(true)
-                        .setStatusBarColor("#ffffff")
-                        .setToolbarColor("#ffffff")
-                        .setToolbarIconColor("#000000")
-                        .setSelectIconColor("#00C07F")
-                        .setClickSelectable(true)
-                        .start();
+//                new PickPhotoView.Builder(MainActivity.this)
+//                        .setPickPhotoSize(3)
+//                        .setShowCamera(true)
+//                        .setSpanCount(4)
+//                        .setLightStatusBar(true)
+//                        .setStatusBarColor("#ffffff")
+//                        .setToolbarColor("#ffffff")
+//                        .setToolbarIconColor("#000000")
+//                        .setSelectIconColor("#00C07F")
+//                        .setClickSelectable(true)
+//                        .start();
             }
         });
 
@@ -79,23 +79,23 @@ public class MainActivity extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new PickPhotoView.Builder(MainActivity.this)
-                        .setPickPhotoSize(6)
-                        .setShowCamera(true)
-                        .setSpanCount(4)
-                        .setLightStatusBar(true)
-                        .setStatusBarColor("#ffffff")
-                        .setToolbarColor("#ffffff")
-                        .setToolbarIconColor("#000000")
-                        .setClickSelectable(false)
-                        .start();
+//                new PickPhotoView.Builder(MainActivity.this)
+//                        .setPickPhotoSize(6)
+//                        .setShowCamera(true)
+//                        .setSpanCount(4)
+//                        .setLightStatusBar(true)
+//                        .setStatusBarColor("#ffffff")
+//                        .setToolbarColor("#ffffff")
+//                        .setToolbarIconColor("#000000")
+//                        .setClickSelectable(false)
+//                        .start();
             }
         });
 
         RecyclerView photoList = (RecyclerView) findViewById(R.id.photo_list);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         photoList.setLayoutManager(layoutManager);
-        photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.getInstance(MainActivity.this).dp2px(PickConfig.ITEM_SPACE), 3));
+        photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.getInstance(MainActivity.this).dp2px(PickConfig.INSTANCE.getITEM_SPACE()), 3));
         adapter = new SampleAdapter(this, null);
         photoList.setAdapter(adapter);
     }
@@ -109,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
         if(data == null){
             return;
         }
-        if (requestCode == PickConfig.PICK_PHOTO_DATA) {
-            ArrayList<String> selectPaths = (ArrayList<String>) data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
+        if (requestCode == PickConfig.INSTANCE.getPICK_PHOTO_DATA()) {
+            ArrayList<String> selectPaths = (ArrayList<String>) data.getSerializableExtra(PickConfig.INSTANCE.getINTENT_IMG_LIST_SELECT());
             adapter.updateData(selectPaths);
         }
     }

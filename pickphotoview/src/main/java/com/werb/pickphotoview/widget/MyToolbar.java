@@ -22,7 +22,7 @@ import com.werb.pickphotoview.util.PickConfig;
 
 public class MyToolbar extends RelativeLayout {
 
-    public FrameLayout leftLayout, rightLayout,container;
+    public FrameLayout leftLayout, rightLayout, container;
     private TextView photoDirName;
     private ImageView leftIcon, rightIcon;
     private View slider;
@@ -43,7 +43,7 @@ public class MyToolbar extends RelativeLayout {
         init(context);
     }
 
-    private void init(Context context){
+    private void init(Context context) {
         mContext = context;
         container = (FrameLayout) LayoutInflater.from(context).inflate(R.layout.pick_widget_my_toolbar, null, false);
         leftLayout = (FrameLayout) container.findViewById(R.id.toolbar_left_layout);
@@ -56,15 +56,15 @@ public class MyToolbar extends RelativeLayout {
         addView(container);
     }
 
-    public void setPhotoDirName(String dirName){
+    public void setPhotoDirName(String dirName) {
         photoDirName.setText(dirName);
     }
 
-    public void setLeftLayoutOnClickListener(View.OnClickListener clickListener){
+    public void setLeftLayoutOnClickListener(View.OnClickListener clickListener) {
         leftLayout.setOnClickListener(clickListener);
     }
 
-    public void setRightLayoutOnClickListener(View.OnClickListener clickListener){
+    public void setRightLayoutOnClickListener(View.OnClickListener clickListener) {
         rightLayout.setOnClickListener(clickListener);
     }
 
@@ -72,60 +72,54 @@ public class MyToolbar extends RelativeLayout {
         return rightLayout;
     }
 
-    public void setLeftIcon(int drawableId){
+    public void setLeftIcon(int drawableId) {
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableId);
         drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             leftIcon.setBackground(drawable);
-        }
-        else
-        {
+        } else {
             //noinspection deprecation
             leftIcon.setBackgroundDrawable(drawable);
         }
     }
 
-    public void setRightIcon(int drawableId){
+    public void setRightIcon(int drawableId) {
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableId);
         drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             rightIcon.setBackground(drawable);
-        }
-        else
-        {
+        } else {
             //noinspection deprecation
             rightIcon.setBackgroundDrawable(drawable);
         }
     }
 
-    public void setRightIconDefault(int drawableId){
+    public void setRightIconDefault(int drawableId) {
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableId);
         drawable.clearColorFilter();
         drawable.setColorFilter(selectColor, PorterDuff.Mode.SRC_ATOP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             rightIcon.setBackground(drawable);
-        }
-        else
-        {
+        } else {
             //noinspection deprecation
             rightIcon.setBackgroundDrawable(drawable);
         }
     }
 
-    public void setBackgroundColor(int backgroundColor){
+    public void setBackgroundColor(int backgroundColor) {
         container.setBackgroundColor(backgroundColor);
     }
 
-    public void setIconColor(int iconColor){
+    public void setIconColor(int iconColor) {
         this.iconColor = iconColor;
         photoDirName.setTextColor(iconColor);
     }
 
-    public void setSelectColor(int selectColor){
+    public void setSelectColor(int selectColor) {
         this.selectColor = selectColor;
     }
 
-    public void hideSlider(){
+    public void hideSlider() {
         slider.setVisibility(GONE);
     }
 

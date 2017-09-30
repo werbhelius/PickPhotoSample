@@ -27,7 +27,7 @@ public class PickListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pick_activity_pick_photo);
-        pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INTENT_PICK_DATA);
+        pickData = (PickData) getIntent().getSerializableExtra(PickConfig.INSTANCE.getINTENT_PICK_DATA());
         initToolbar();
         initRecyclerView();
     }
@@ -56,7 +56,7 @@ public class PickListActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        RecyclerView listPhoto = (RecyclerView) findViewById(R.id.photo_list);
+        RecyclerView listPhoto = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listPhoto.setLayoutManager(layoutManager);
@@ -67,7 +67,6 @@ public class PickListActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0,R.anim.pick_finish_slide_out_left);
     }
 
     private View.OnClickListener listener = new View.OnClickListener() {
@@ -76,8 +75,8 @@ public class PickListActivity extends AppCompatActivity {
             String dirName = (String) v.getTag(R.id.pick_dir_name);
             Intent intent = new Intent();
             intent.setClass(PickListActivity.this, PickPhotoActivity.class);
-            intent.putExtra(PickConfig.INTENT_DIR_NAME, dirName);
-            PickListActivity.this.setResult(PickConfig.LIST_PHOTO_DATA, intent);
+            intent.putExtra(PickConfig.INSTANCE.getINTENT_DIR_NAME(), dirName);
+            PickListActivity.this.setResult(PickConfig.INSTANCE.getLIST_PHOTO_DATA(), intent);
             PickListActivity.this.finish();
         }
     };
@@ -86,7 +85,6 @@ public class PickListActivity extends AppCompatActivity {
     public void startActivity(Intent intent) {
         super.startActivity(intent);
         if(intent.getComponent().getClassName().equals(PickPhotoActivity.class.getName())) {
-            overridePendingTransition(R.anim.pick_start_slide_in_left, 0);
         }
     }
 }
