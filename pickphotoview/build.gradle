@@ -35,7 +35,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
-    compile 'com.shizhefei:LargeImageView:1.0.7'
+    compile 'com.shizhefei:LargeImageView:1.0.9'
     compile 'com.google.code.gson:gson:2.8.0'
 }
 
@@ -44,7 +44,7 @@ publish {
     userOrg = 'werbhelius'
     groupId = 'com.werb.pickphotoview'
     artifactId = 'pickphotoview'
-    publishVersion = '0.3.0'
+    publishVersion = '0.3.1-beta1'
     desc = 'Photo Picker Of Android Library'
     website = 'https://github.com/Werb/PickPhotoSample'
 }
