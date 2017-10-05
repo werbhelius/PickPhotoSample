@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Select Single Image - When image is selected, gallery immediately closes and returns image.
-        CustomButton btn1 = (CustomButton) findViewById(R.id.btn1);
+        CustomButton btn1 = findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Select Multiple Images - User can select multiple images and click Select to confirm.
-        CustomButton btn2 = (CustomButton) findViewById(R.id.btn2);
+        CustomButton btn2 = findViewById(R.id.btn2);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,17 +66,17 @@ public class MainActivity extends AppCompatActivity {
                         .setShowCamera(true)
                         .setSpanCount(4)
                         .setLightStatusBar(true)
-                        .setStatusBarColor("#ffffff")
-                        .setToolbarColor("#ffffff")
-                        .setToolbarIconColor("#000000")
-                        .setSelectIconColor("#00C07F")
+                        .setStatusBarColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.white)))
+                        .setToolbarColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.white)))
+                        .setToolbarIconColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.black)))
+                        .setSelectIconColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.pick_green)))
                         .setClickSelectable(true)
                         .start();
             }
         });
 
         //Image Preview Select - Clicking on image opens Image Preview. Must click select icon to select image.
-        CustomButton btn3 = (CustomButton) findViewById(R.id.btn3);
+        CustomButton btn3 = findViewById(R.id.btn3);
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,15 +85,15 @@ public class MainActivity extends AppCompatActivity {
                         .setShowCamera(true)
                         .setSpanCount(4)
                         .setLightStatusBar(true)
-                        .setStatusBarColor("#ffffff")
-                        .setToolbarColor("#ffffff")
-                        .setToolbarIconColor("#000000")
+                        .setStatusBarColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.white)))
+                        .setToolbarColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.white)))
+                        .setToolbarIconColor('#' + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.black)))
                         .setClickSelectable(false)
                         .start();
             }
         });
 
-        RecyclerView photoList = (RecyclerView) findViewById(R.id.photo_list);
+        RecyclerView photoList = findViewById(R.id.photo_list);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         photoList.setLayoutManager(layoutManager);
         photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.getInstance(MainActivity.this).dp2px(PickConfig.ITEM_SPACE), 3));

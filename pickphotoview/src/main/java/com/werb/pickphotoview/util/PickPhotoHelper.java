@@ -29,7 +29,7 @@ public class PickPhotoHelper {
 
     public PickPhotoHelper(Activity activity, PickPhotoListener listener) {
         this.activity = activity;
-        this.listener = listener;
+        PickPhotoHelper.listener = listener;
     }
 
     public void getImages(final boolean showGif) {
@@ -70,7 +70,7 @@ public class PickPhotoHelper {
 
                     // get image parent name
                     String parentName = new File(path).getParentFile().getName();
-                    Log.d(PickConfig.TAG, parentName + ":" + path);
+//                    Log.d(PickConfig.TAG, parentName + ":" + path);
                     // save all Photo
                     if (!mGroupMap.containsKey(PickConfig.ALL_PHOTOS)) {
                         dirNames.add(PickConfig.ALL_PHOTOS);

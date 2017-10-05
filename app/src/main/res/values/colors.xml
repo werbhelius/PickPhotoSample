@@ -7,5 +7,6 @@
     <!-- Basic Colors -->
     <color name="white">#FFFFFF</color>
     <color name="white_pressed">#c8ffffff</color>
+    <color name="black">#000000</color>
     <color name="transparent">#00FFFFFF</color>
 </resources>

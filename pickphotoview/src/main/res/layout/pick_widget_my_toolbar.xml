@@ -20,9 +20,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center" />
-
         </FrameLayout>
-
 
         <TextView
             android:id="@+id/tv_photo_type_name"
@@ -31,7 +29,6 @@
             android:layout_centerHorizontal="true"
             android:textSize="16sp"
             android:gravity="center" />
-
 
         <FrameLayout
             android:id="@+id/toolbar_right_layout"
@@ -47,7 +44,6 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center" />
-
         </FrameLayout>
 
         <View
@@ -56,9 +52,5 @@
             android:layout_height="1px"
             android:layout_alignParentBottom="true"
             android:background="@color/pick_bottom"/>
-
     </RelativeLayout>
-
-
-
 </FrameLayout>
