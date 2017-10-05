@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Select Single Image - When image is selected, gallery immediately closes and returns image.
-        CustomButton btn1 = (CustomButton) findViewById(R.id.btn1);
+        CustomButton btn1 = findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Select Multiple Images - User can select multiple images and click Select to confirm.
-        CustomButton btn2 = (CustomButton) findViewById(R.id.btn2);
+        CustomButton btn2 = findViewById(R.id.btn2);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Image Preview Select - Clicking on image opens Image Preview. Must click select icon to select image.
-        CustomButton btn3 = (CustomButton) findViewById(R.id.btn3);
+        CustomButton btn3 = findViewById(R.id.btn3);
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView photoList = (RecyclerView) findViewById(R.id.photo_list);
+        RecyclerView photoList = findViewById(R.id.photo_list);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         photoList.setLayoutManager(layoutManager);
         photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.getInstance(MainActivity.this).dp2px(PickConfig.ITEM_SPACE), 3));

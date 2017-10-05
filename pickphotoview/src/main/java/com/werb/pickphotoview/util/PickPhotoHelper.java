@@ -29,7 +29,7 @@ public class PickPhotoHelper {
 
     public PickPhotoHelper(Activity activity, PickPhotoListener listener) {
         this.activity = activity;
-        this.listener = listener;
+        PickPhotoHelper.listener = listener;
     }
 
     public void getImages(final boolean showGif) {

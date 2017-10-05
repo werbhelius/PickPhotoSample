@@ -76,7 +76,7 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
         }
-        myToolbar = (MyToolbar) findViewById(R.id.toolbar);
+        myToolbar = findViewById(R.id.toolbar);
         myToolbar.setBackgroundColor(pickData.getToolbarColor());
         myToolbar.setIconColor(pickData.getToolbarIconColor());
         myToolbar.setSelectColor(pickData.getSelectIconColor());
@@ -87,7 +87,7 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
                 finishForResult();
             }
         });
-        viewPager = (ViewPager) findViewById(R.id.image_vp);
+        viewPager = findViewById(R.id.image_vp);
         int indexOf = allImagePath.indexOf(path);
         judgeSelect(allImagePath.get(indexOf));
         viewPager.setAdapter(new listPageAdapter());

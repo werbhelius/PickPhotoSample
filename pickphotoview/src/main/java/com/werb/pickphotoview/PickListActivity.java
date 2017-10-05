@@ -42,7 +42,7 @@ public class PickListActivity extends AppCompatActivity {
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
         }
-        MyToolbar myToolbar = (MyToolbar) findViewById(R.id.toolbar);
+        MyToolbar myToolbar = findViewById(R.id.toolbar);
         myToolbar.setBackgroundColor(pickData.getToolbarColor());
         myToolbar.setIconColor(pickData.getToolbarIconColor());
         myToolbar.setPhotoDirName(getString(R.string.pick_photos));
@@ -56,7 +56,7 @@ public class PickListActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        RecyclerView listPhoto = (RecyclerView) findViewById(R.id.photo_list);
+        RecyclerView listPhoto = findViewById(R.id.photo_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listPhoto.setLayoutManager(layoutManager);

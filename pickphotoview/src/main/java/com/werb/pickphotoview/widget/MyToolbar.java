@@ -46,11 +46,11 @@ public class MyToolbar extends RelativeLayout {
     private void init(Context context){
         mContext = context;
         container = (FrameLayout) LayoutInflater.from(context).inflate(R.layout.pick_widget_my_toolbar, null, false);
-        leftLayout = (FrameLayout) container.findViewById(R.id.toolbar_left_layout);
-        rightLayout = (FrameLayout) container.findViewById(R.id.toolbar_right_layout);
-        photoDirName = (TextView) container.findViewById(R.id.tv_photo_type_name);
-        leftIcon = (ImageView) container.findViewById(R.id.toolbar_left_icon);
-        rightIcon = (ImageView) container.findViewById(R.id.toolbarc_right_icon);
+        leftLayout = container.findViewById(R.id.toolbar_left_layout);
+        rightLayout = container.findViewById(R.id.toolbar_right_layout);
+        photoDirName = container.findViewById(R.id.tv_photo_type_name);
+        leftIcon = container.findViewById(R.id.toolbar_left_icon);
+        rightIcon = container.findViewById(R.id.toolbarc_right_icon);
         rightIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.pick_white));
         slider = container.findViewById(R.id.bottom_slider);
         addView(container);
