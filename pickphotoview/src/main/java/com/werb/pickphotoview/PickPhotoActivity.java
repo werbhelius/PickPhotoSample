@@ -34,7 +34,6 @@ import com.werb.pickphotoview.widget.MyToolbar;
 
 import java.util.ArrayList;
 
-
 /**
  * Created by wanbo on 2016/12/30.
  */
@@ -82,10 +81,10 @@ public class PickPhotoActivity extends AppCompatActivity {
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
         }
-        selectText = (TextView) findViewById(R.id.tv_pick_photo);
-        selectImageSize = (TextView) findViewById(R.id.tv_preview_photo);
+        selectText = findViewById(R.id.tv_pick_photo);
+        selectImageSize = findViewById(R.id.tv_preview_photo);
         selectImageSize.setText(String.valueOf("0"));
-        myToolbar = (MyToolbar) findViewById(R.id.toolbar);
+        myToolbar = findViewById(R.id.toolbar);
         myToolbar.setBackgroundColor(pickData.getToolbarColor());
         myToolbar.setIconColor(pickData.getToolbarIconColor());
         myToolbar.setLeftIcon(R.mipmap.pick_ic_open);
@@ -108,7 +107,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        photoList = (RecyclerView) findViewById(R.id.photo_list);
+        photoList = findViewById(R.id.photo_list);
         photoList.setItemAnimator(new DefaultItemAnimator());
         GridLayoutManager layoutManager = new GridLayoutManager(this, pickData.getSpanCount());
         photoList.setLayoutManager(layoutManager);
@@ -133,7 +132,7 @@ public class PickPhotoActivity extends AppCompatActivity {
     }
 
     private void initSelectLayout() {
-        LinearLayout selectLayout = (LinearLayout) findViewById(R.id.select_layout);
+        LinearLayout selectLayout = findViewById(R.id.select_layout);
         selectLayout.setVisibility(View.VISIBLE);
     }
 
