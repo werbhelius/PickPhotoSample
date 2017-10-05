@@ -73,10 +73,10 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         GroupImageViewHolder(View itemView) {
             super(itemView);
-            cover = (ImageView) itemView.findViewById(R.id.iv_cover);
-            open = (ImageView) itemView.findViewById(R.id.iv_list_open);
-            dirNameText = (TextView) itemView.findViewById(R.id.tv_dir_name);
-            photoSizeText = (TextView) itemView.findViewById(R.id.tv_photo_size);
+            cover = itemView.findViewById(R.id.iv_cover);
+            open = itemView.findViewById(R.id.iv_list_open);
+            dirNameText = itemView.findViewById(R.id.tv_dir_name);
+            photoSizeText = itemView.findViewById(R.id.tv_photo_size);
 
             Drawable drawable = ContextCompat.getDrawable(mContext, R.mipmap.pick_list_open);
             drawable.setColorFilter(ContextCompat.getColor(mContext, R.color.pick_gray), PorterDuff.Mode.SRC_ATOP);
