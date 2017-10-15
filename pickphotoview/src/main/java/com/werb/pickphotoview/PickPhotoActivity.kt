@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -19,10 +18,12 @@ import com.werb.eventbus.EventBus
 import com.werb.eventbus.Subscriber
 import com.werb.eventbus.ThreadMode
 import com.werb.library.MoreAdapter
+import com.werb.library.action.MoreClickListener
 import com.werb.library.link.RegisterItem
 import com.werb.pickphotoview.adapter.GridImageViewHolder
 import com.werb.pickphotoview.adapter.PickGridAdapter
 import com.werb.pickphotoview.adapter.SpaceItemDecoration
+import com.werb.pickphotoview.event.PickFinishEvent
 import com.werb.pickphotoview.model.GridImage
 import com.werb.pickphotoview.util.*
 import kotlinx.android.synthetic.main.pick_activity_pick_photo.*
@@ -102,13 +103,12 @@ class PickPhotoActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         GlobalData.model?.let {
-            recyclerView.itemAnimator = DefaultItemAnimator()
             recyclerView.addItemDecoration(SpaceItemDecoration(PickUtils.getInstance(this@PickPhotoActivity).dp2px(PickConfig.ITEM_SPACE.toFloat()), it.spanCount))
             recyclerView.layoutManager = GridLayoutManager(this, it.spanCount)
             recyclerView.addOnScrollListener(scrollListener)
 
             adapter.apply {
-                register(RegisterItem(R.layout.pick_item_grid_layout, GridImageViewHolder::class.java))
+                register(RegisterItem(R.layout.pick_item_grid_layout, GridImageViewHolder::class.java, selectListener))
                 attachTo(recyclerView)
             }
         }
@@ -140,6 +140,15 @@ class PickPhotoActivity : AppCompatActivity() {
             allPhotos?.forEach {
                 adapter.loadData(GridImage(it, false))
             }
+        }
+    }
+
+    private val selectListener = object : MoreClickListener() {
+        override fun onItemClick(view: View, position: Int) {
+            val gridImage = view.tag as GridImage
+            val data = adapter.getData(position) as GridImage
+            data.select = !gridImage.select
+            adapter.notifyItemChanged(position, data)
         }
     }
 

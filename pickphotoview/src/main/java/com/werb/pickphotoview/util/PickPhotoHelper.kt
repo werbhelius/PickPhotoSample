@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.provider.MediaStore
 import android.util.Log
 import com.werb.eventbus.EventBus
+import com.werb.pickphotoview.event.PickFinishEvent
 import com.werb.pickphotoview.model.DirImage
 import com.werb.pickphotoview.model.GroupImage
 import java.io.File

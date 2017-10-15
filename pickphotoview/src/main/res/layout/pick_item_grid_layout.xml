@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/image"
@@ -9,21 +11,32 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"/>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/selectLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true">
 
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/selectBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:scaleType="centerCrop"
             android:layout_margin="5dp"
-            android:layout_gravity="center" />
+            android:layout_centerInParent="true" />
 
-    </FrameLayout>
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/check"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:srcCompat="@drawable/pick_svg_check"
+            android:layout_centerInParent="true"
+            tools:ignore="VectorDrawableCompat" />
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

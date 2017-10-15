@@ -1,4 +1,4 @@
-package com.werb.pickphotoview.util
+package com.werb.pickphotoview.event
 
 import com.werb.eventbus.IEvent
 
