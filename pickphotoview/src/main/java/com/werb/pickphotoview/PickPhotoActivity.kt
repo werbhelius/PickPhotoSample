@@ -9,9 +9,12 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.werb.eventbus.EventBus
 import com.werb.eventbus.Subscriber
 import com.werb.eventbus.ThreadMode
@@ -21,7 +24,6 @@ import com.werb.pickphotoview.adapter.GridImageViewHolder
 import com.werb.pickphotoview.adapter.PickGridAdapter
 import com.werb.pickphotoview.adapter.SpaceItemDecoration
 import com.werb.pickphotoview.model.GridImage
-import com.werb.pickphotoview.model.PickModel
 import com.werb.pickphotoview.util.*
 import kotlinx.android.synthetic.main.pick_activity_pick_photo.*
 import kotlinx.android.synthetic.main.pick_widget_select_layout.*
@@ -37,6 +39,7 @@ class PickPhotoActivity : AppCompatActivity() {
     private var pickGridAdapter: PickGridAdapter? = null
     private var allPhotos: ArrayList<String>? = null
     private val adapter: MoreAdapter by lazy { MoreAdapter() }
+    private val manager: RequestManager by lazy { Glide.with(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +52,7 @@ class PickPhotoActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         EventBus.register(this)
-//        getData()
+        getData()
     }
 
     override fun onStop() {
@@ -68,7 +71,7 @@ class PickPhotoActivity : AppCompatActivity() {
 //        overridePendingTransition(0, R.anim.pick_finish_slide_out_bottom)
 //    }
 
-    private fun getData(){
+    private fun getData() {
         GlobalData.model?.let {
             PickPhotoHelper.start(it.isShowGif, this)
         }
@@ -102,6 +105,7 @@ class PickPhotoActivity : AppCompatActivity() {
             recyclerView.itemAnimator = DefaultItemAnimator()
             recyclerView.addItemDecoration(SpaceItemDecoration(PickUtils.getInstance(this@PickPhotoActivity).dp2px(PickConfig.ITEM_SPACE.toFloat()), it.spanCount))
             recyclerView.layoutManager = GridLayoutManager(this, it.spanCount)
+            recyclerView.addOnScrollListener(scrollListener)
 
             adapter.apply {
                 register(RegisterItem(R.layout.pick_item_grid_layout, GridImageViewHolder::class.java))
@@ -126,7 +130,7 @@ class PickPhotoActivity : AppCompatActivity() {
     }
 
     @Subscriber(mode = ThreadMode.MAIN)
-    private fun images(event: PickFinishEvent){
+    private fun images(event: PickFinishEvent) {
         val groupImage = PickPreferences.getInstance(this@PickPhotoActivity).listImage
         allPhotos = groupImage.mGroupMap[PickConfig.ALL_PHOTOS]
         if (allPhotos == null) {
@@ -231,35 +235,35 @@ class PickPhotoActivity : AppCompatActivity() {
         }
     }
 
-//    internal var scrollListener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
-//        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-//            super.onScrolled(recyclerView, dx, dy)
-//            if (Math.abs(dy) > PickConfig.SCROLL_THRESHOLD) {
-//                manager!!.pauseRequests()
-//            } else {
-//                manager!!.resumeRequests()
-//            }
-//        }
-//
-//        override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-//            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-//                manager!!.resumeRequests()
-//            }
-//        }
-//    }
+    private var scrollListener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            if (Math.abs(dy) > PickConfig.SCROLL_THRESHOLD) {
+                manager.pauseRequests()
+            } else {
+                manager.resumeRequests()
+            }
+        }
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                manager.resumeRequests()
+            }
+        }
+    }
 
 
     companion object {
-        fun startActivity(activity : Activity, requestCode: Int) {
-            val intent = Intent(activity , PickPhotoActivity::class.java)
+        fun startActivity(activity: Activity, requestCode: Int) {
+            val intent = Intent(activity, PickPhotoActivity::class.java)
             activity.startActivityForResult(intent, requestCode)
-            activity.overridePendingTransition(R.anim.activity_anim_bottom_to_top , R.anim.activity_anim_not_change)
+            activity.overridePendingTransition(R.anim.activity_anim_bottom_to_top, R.anim.activity_anim_not_change)
         }
     }
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(R.anim.activity_anim_not_change , R.anim.activity_anim_top_to_bottom)
+        overridePendingTransition(R.anim.activity_anim_not_change, R.anim.activity_anim_top_to_bottom)
     }
 
 }
