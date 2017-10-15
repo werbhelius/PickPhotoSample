@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.werb.eventbus.EventBus
@@ -24,6 +25,8 @@ import com.werb.pickphotoview.adapter.GridImageViewHolder
 import com.werb.pickphotoview.adapter.PickGridAdapter
 import com.werb.pickphotoview.adapter.SpaceItemDecoration
 import com.werb.pickphotoview.event.PickFinishEvent
+import com.werb.pickphotoview.extensions.color
+import com.werb.pickphotoview.extensions.string
 import com.werb.pickphotoview.model.GridImage
 import com.werb.pickphotoview.util.*
 import kotlinx.android.synthetic.main.pick_activity_pick_photo.*
@@ -41,13 +44,13 @@ class PickPhotoActivity : AppCompatActivity() {
     private var allPhotos: ArrayList<String>? = null
     private val adapter: MoreAdapter by lazy { MoreAdapter() }
     private val manager: RequestManager by lazy { Glide.with(this) }
+    private val selectImages: MutableList<String> by lazy { mutableListOf<String>() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pick_activity_pick_photo)
         initToolbar()
         initRecyclerView()
-        initSelectLayout()
     }
 
     override fun onStart() {
@@ -82,7 +85,7 @@ class PickPhotoActivity : AppCompatActivity() {
         GlobalData.model?.let {
             val window = window
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.statusBarColor = resources.getColor(it.statusBarColor)
+                window.statusBarColor = color(it.statusBarColor)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (!it.lightStatusBar) {
@@ -90,14 +93,17 @@ class PickPhotoActivity : AppCompatActivity() {
                 }
             }
             tv_preview_photo.text = "0"
-            toolbar.setBackgroundColor(resources.getColor(it.toolbarColor))
-            toolbar.setIconColor(resources.getColor(it.toolbarIconColor))
+            toolbar.setBackgroundColor(color(it.toolbarColor))
+            toolbar.setIconColor(color(it.toolbarIconColor))
             toolbar.setLeftIcon(R.mipmap.pick_ic_open)
             toolbar.setRightIcon(R.mipmap.pick_ic_close)
-            toolbar.setPhotoDirName(getString(R.string.pick_all_photo))
+            toolbar.setPhotoDirName(string(R.string.pick_all_photo))
             toolbar.setLeftLayoutOnClickListener { this@PickPhotoActivity.startPhotoListActivity() }
             toolbar.setRightLayoutOnClickListener { this@PickPhotoActivity.finish() }
             tv_pick_photo.setOnClickListener(selectClick)
+            if (!it.isClickSelectable){
+                select_layout.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -112,23 +118,9 @@ class PickPhotoActivity : AppCompatActivity() {
                 attachTo(recyclerView)
             }
         }
-
-//        val helper = PickPhotoHelper(this@PickPhotoActivity, PickPhotoListener {
-//            val groupImage = PickPreferences.getInstance(this@PickPhotoActivity).listImage
-//            allPhotos = groupImage!!.mGroupMap[PickConfig.ALL_PHOTOS]
-//            if (allPhotos == null) {
-//                Log.d("PickPhotoView", "Image is Empty")
-//            } else {
-//                Log.d("All photos size:", allPhotos!!.size.toString())
-//            }
-//            if (allPhotos != null && !allPhotos!!.isEmpty()) {
-//                pickGridAdapter = PickGridAdapter(this@PickPhotoActivity, allPhotos, pickData, imageClick)
-//                photoList!!.adapter = pickGridAdapter
-//            }
-//        })
-//        helper.getImages(pickData!!.isShowGif)
     }
 
+    /** load image into RecyclerView */
     @Subscriber(mode = ThreadMode.MAIN)
     private fun images(event: PickFinishEvent) {
         val groupImage = PickPreferences.getInstance(this@PickPhotoActivity).listImage
@@ -143,29 +135,54 @@ class PickPhotoActivity : AppCompatActivity() {
         }
     }
 
+    /** image select listener */
     private val selectListener = object : MoreClickListener() {
         override fun onItemClick(view: View, position: Int) {
-            val gridImage = view.tag as GridImage
-            val data = adapter.getData(position) as GridImage
-            data.select = !gridImage.select
-            adapter.notifyItemChanged(position, data)
+            //add to list
+            GlobalData.model?.let {
+                val gridImage = view.tag as GridImage
+                val data = adapter.getData(position) as GridImage
+                if (gridImage.select) {
+                    removeImage(data, position)
+                } else {
+                    if (selectImages.size >= it.pickPhotoSize) {
+                        Toast.makeText(this@PickPhotoActivity, String.format(string(R.string.pick_photo_size_limit), it.pickPhotoSize.toString()), Toast.LENGTH_SHORT).show()
+                        return
+                    } else {
+                        addImage(data, position)
+                    }
+                }
+            }
         }
     }
 
-    private fun initSelectLayout() {
-        val selectLayout = findViewById<View>(R.id.select_layout) as LinearLayout
-        selectLayout.visibility = View.VISIBLE
+    /** add image in list */
+    private fun addImage(image: GridImage, position: Int) {
+        image.select = true
+        selectImages.add(image.path)
+        adapter.notifyItemChanged(position, image)
+        updateSelectText()
     }
 
-    fun updateSelectText(selectSize: String) {
-        if (selectSize == "0") {
+    /** remove image in list */
+    private fun removeImage(image: GridImage, position: Int) {
+        image.select = false
+        selectImages.remove(image.path)
+        adapter.notifyItemChanged(position, image)
+        updateSelectText()
+    }
+
+    private fun updateSelectText() {
+        if (selectImages.isEmpty()) {
             tv_preview_photo.text = 0.toString()
             tv_pick_photo.setTextColor(ContextCompat.getColor(this, R.color.pick_gray))
             tv_pick_photo.isEnabled = false
         } else {
-            tv_preview_photo.text = selectSize
-            tv_pick_photo.setTextColor(GlobalData.model!!.selectIconColor)
-            tv_pick_photo.isEnabled = true
+            GlobalData.model?.let {
+                tv_preview_photo.text = selectImages.size.toString()
+                tv_pick_photo.setTextColor(color(it.selectIconColor))
+                tv_pick_photo.isEnabled = true
+            }
         }
     }
 
@@ -213,7 +230,6 @@ class PickPhotoActivity : AppCompatActivity() {
                 val selectPath = data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT) as ArrayList<String>
                 pickGridAdapter!!.selectPath = selectPath
                 pickGridAdapter!!.notifyDataSetChanged()
-                updateSelectText(selectPath.size.toString())
             }
         }
     }
