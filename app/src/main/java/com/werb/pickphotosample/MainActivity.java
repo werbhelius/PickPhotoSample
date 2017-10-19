@@ -60,17 +60,16 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                new PickPhotoView.Builder(MainActivity.this)
-//                        .setPickPhotoSize(3)
-//                        .setShowCamera(true)
-//                        .setSpanCount(4)
-//                        .setLightStatusBar(true)
-//                        .setStatusBarColor("#ffffff")
-//                        .setToolbarColor("#ffffff")
-//                        .setToolbarIconColor("#000000")
-//                        .setSelectIconColor("#00C07F")
-//                        .setClickSelectable(true)
-//                        .start();
+                new PickPhotoView.Builder(MainActivity.this)
+                        .setPickPhotoSize(3)
+                        .setShowCamera(true)
+                        .setSpanCount(4)
+                        .setLightStatusBar(true)
+                        .setStatusBarColor(R.color.white)
+                        .setToolbarColor(R.color.white)
+                        .setSelectIconColor(R.color.pick_black)
+                        .setClickSelectable(true)
+                        .start();
             }
         });
 
