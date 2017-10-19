@@ -1,6 +1,7 @@
 package com.werb.pickphotoview
 
 import android.app.Activity
+import android.app.FragmentTransaction
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -31,8 +32,10 @@ import java.io.Serializable
 
 class PickPhotoActivity : AppCompatActivity() {
 
-    private val mode = PickConfig.PICK_GIRD
+    private var mode = PickConfig.PICK_GIRD
     private val selectImages = PickPhotoHelper.selectImages
+    private val gridFragment: GridFragment by lazy { GridFragment.newInstance() }
+    private val listFragment: ListFragment by lazy { ListFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +95,7 @@ class PickPhotoActivity : AppCompatActivity() {
             selectArrow.setBackgroundDrawable(select)
 
             cancel.setOnClickListener { finish() }
+            midTitle.setOnClickListener { switch() }
 
             showFragment()
         }
@@ -100,8 +104,6 @@ class PickPhotoActivity : AppCompatActivity() {
     private fun showFragment() {
         val fm = supportFragmentManager
         val transaction = fm.beginTransaction()
-        val gridFragment = GridFragment.newInstance()
-        val listFragment = ListFragment.newInstance()
         if (supportFragmentManager.findFragmentByTag(gridFragment::class.java.simpleName) == null) {
             transaction.add(R.id.content, gridFragment, GridFragment::class.java.simpleName)
         }
@@ -110,44 +112,32 @@ class PickPhotoActivity : AppCompatActivity() {
         }
         when (mode) {
             PickConfig.PICK_GIRD -> {
-                transaction.show(gridFragment).hide(listFragment).commit()
+                transaction
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .show(gridFragment).hide(listFragment).commit()
             }
             PickConfig.PICK_LIST -> {
-                transaction.show(listFragment).hide(gridFragment).commit()
+                transaction
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .show(listFragment).hide(gridFragment).commit()
             }
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == 0) {
-            return
-        }
-        if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
-            var path: String?
-            if (data != null) {
-                path = data.data.path
-                if (path!!.contains("/pick_camera")) {
-                    path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera")
-                }
-            } else {
-                path = PickUtils.getInstance(this@PickPhotoActivity).getFilePath(this@PickPhotoActivity)
+    private fun switch() {
+        when (mode) {
+            PickConfig.PICK_GIRD -> {
+                mode = PickConfig.PICK_LIST
+                selectArrow.rotation = 180f
             }
-            sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path!!)))
-            val intent = Intent()
-            val list = ArrayList<String>()
-            list.add(path)
-            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, list)
-            setResult(PickConfig.PICK_PHOTO_DATA, intent)
-            finish()
-        } else if (requestCode == PickConfig.PREVIEW_PHOTO_DATA) {
-//            if (data != null) {
-//                val selectPath = data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT) as ArrayList<String>
-//                pickGridAdapter!!.selectPath = selectPath
-//                pickGridAdapter!!.notifyDataSetChanged()
-//            }
+            PickConfig.PICK_LIST -> {
+                mode = PickConfig.PICK_GIRD
+                selectArrow.rotation = 0f
+            }
         }
+        showFragment()
     }
+
 
 //    internal var imageClick: View.OnClickListener = View.OnClickListener { v ->
 //        val imgPath = v.getTag(R.id.pick_image_path) as String
