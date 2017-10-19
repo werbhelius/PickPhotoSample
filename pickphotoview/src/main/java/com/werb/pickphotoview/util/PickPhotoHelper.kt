@@ -20,6 +20,7 @@ object PickPhotoHelper {
 
     val selectImages: MutableList<String> by lazy { mutableListOf<String>() }
     private val mGroupMap = LinkedHashMap<String, ArrayList<String>>()
+    private val dirNames = ArrayList<String>()
     private var thread: Thread? = null
     private var run = true
 
@@ -33,6 +34,8 @@ object PickPhotoHelper {
     fun stop() {
         run = false
         selectImages.clear()
+        dirNames.clear()
+        mGroupMap.clear()
         Log.d("PickPhotoView", "PickPhotoHelper stop")
     }
 
@@ -60,7 +63,6 @@ object PickPhotoHelper {
                 if (mCursor == null) {
                     return@Runnable
                 }
-                val dirNames = ArrayList<String>()
                 while (mCursor.moveToNext()) {
                     // get image path
                     val path = mCursor.getString(mCursor
@@ -99,7 +101,7 @@ object PickPhotoHelper {
                 val dirImage = DirImage(dirNames)
                 PickPreferences.getInstance(activity).saveImageList(groupImage)
                 PickPreferences.getInstance(activity).saveDirNames(dirImage)
-                EventBus.post(PickFinishEvent(dirImage.dirName.size))
+                EventBus.post(PickFinishEvent())
             }
         })
     }

@@ -65,7 +65,7 @@ class GridFragment : Fragment() {
 
             adapter.apply {
                 register(RegisterItem(R.layout.pick_item_grid_layout, GridImageViewHolder::class.java, selectListener))
-                register(RegisterItem(R.layout.pick_item_camera_layout, CameraViewHolder::class.java ))
+                register(RegisterItem(R.layout.pick_item_camera_layout, CameraViewHolder::class.java))
                 attachTo(recyclerView)
             }
         }
@@ -124,46 +124,28 @@ class GridFragment : Fragment() {
     /** load image into RecyclerView */
     @Subscriber(mode = ThreadMode.MAIN)
     private fun images(event: PickFinishEvent) {
-
+        adapter.removeAllData()
         GlobalData.model?.let {
-            if (it.isShowCamera){
+            if (it.isShowCamera) {
                 adapter.loadData("camera")
             }
         }
 
         val groupImage = PickPreferences.getInstance(context).listImage
-        val allPhotos = groupImage.mGroupMap[PickConfig.ALL_PHOTOS]
+        val allPhotos = groupImage.mGroupMap[event.dirName]
         if (allPhotos == null) {
             Log.d("PickPhotoView", "Image is Empty")
         } else {
             Log.d("All photos size:", allPhotos.size.toString())
             allPhotos.forEach {
-                adapter.loadData(GridImage(it, false))
+                adapter.loadData(GridImage(it, selectImages.contains(it)))
             }
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == 0) {
-            return
-        }
-        if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
-            var path: String?
-            if (data != null) {
-                path = data.data.path
-                if (path.contains("/pick_camera")) {
-                    path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera")
-                }
-            } else {
-                path = PickUtils.getInstance(context).getFilePath(context)
-            }
-            context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path!!)))
-            val intent = Intent()
-            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, arrayListOf(path))
-            activity.setResult(PickConfig.PICK_PHOTO_DATA, intent)
-            activity.finish()
-        }
+    @Subscriber(mode = ThreadMode.MAIN, tag = "switch")
+    private fun switch(event: PickFinishEvent) {
+        images(event)
     }
 
     /** image load pause when recyclerView scroll quickly */

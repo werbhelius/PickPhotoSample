@@ -3,7 +3,6 @@ package com.werb.pickphotoview
 import android.app.Activity
 import android.app.FragmentTransaction
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
@@ -12,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.werb.eventbus.EventBus
 import com.werb.eventbus.Subscriber
+import com.werb.pickphotoview.event.PickFinishEvent
 import com.werb.pickphotoview.event.PickImageEvent
 import com.werb.pickphotoview.extensions.alphaColor
 import com.werb.pickphotoview.extensions.color
@@ -19,10 +19,10 @@ import com.werb.pickphotoview.extensions.drawable
 import com.werb.pickphotoview.extensions.string
 import com.werb.pickphotoview.ui.GridFragment
 import com.werb.pickphotoview.ui.ListFragment
-import com.werb.pickphotoview.util.*
-import kotlinx.android.synthetic.main.pick_activity_pick_photo.*
+import com.werb.pickphotoview.util.PickConfig
+import com.werb.pickphotoview.util.PickPhotoHelper
+import com.werb.pickphotoview.util.PickUtils
 import kotlinx.android.synthetic.main.pick_widget_my_toolbar.*
-import kotlinx.android.synthetic.main.pick_widget_select_layout.*
 import java.io.Serializable
 
 
@@ -95,7 +95,7 @@ class PickPhotoActivity : AppCompatActivity() {
             selectArrow.setBackgroundDrawable(select)
 
             cancel.setOnClickListener { finish() }
-            midTitle.setOnClickListener { switch() }
+            switchLayout.setOnClickListener { switch() }
 
             showFragment()
         }
@@ -170,6 +170,36 @@ class PickPhotoActivity : AppCompatActivity() {
                 sure.setTextColor(color(it.toolbarTextColor))
             }
             sure.text = String.format(string(R.string.pick_photo_sure), selectImages.size)
+        }
+    }
+
+    @Subscriber(tag = "switch")
+    private fun pick(event: PickFinishEvent) {
+        GlobalData.model?.let {
+            switch()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == 0) {
+            return
+        }
+        if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
+            var path: String?
+            if (data != null) {
+                path = data.data.path
+                if (path.contains("/pick_camera")) {
+                    path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera")
+                }
+            } else {
+                path = PickUtils.getInstance(this).getFilePath(this)
+            }
+            sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path!!)))
+            val intent = Intent()
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, arrayListOf(path))
+            setResult(PickConfig.PICK_PHOTO_DATA, intent)
+            finish()
         }
     }
 

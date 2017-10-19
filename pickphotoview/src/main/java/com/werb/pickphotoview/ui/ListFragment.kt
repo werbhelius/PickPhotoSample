@@ -10,12 +10,15 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.werb.eventbus.EventBus
+import com.werb.eventbus.Subscriber
+import com.werb.eventbus.ThreadMode
 import com.werb.library.MoreAdapter
 import com.werb.library.link.RegisterItem
 import com.werb.pickphotoview.GlobalData
 import com.werb.pickphotoview.R
 import com.werb.pickphotoview.adapter.DirImageViewHolder
 import com.werb.pickphotoview.adapter.SpaceItemDecoration
+import com.werb.pickphotoview.event.PickFinishEvent
 import com.werb.pickphotoview.util.PickConfig
 import com.werb.pickphotoview.util.PickPreferences
 import com.werb.pickphotoview.util.PickUtils
@@ -32,8 +35,13 @@ class ListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        EventBus.register(this)
         initView()
-        loadData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        EventBus.unRegister(this)
     }
 
     private fun initView() {
@@ -46,8 +54,10 @@ class ListFragment : Fragment() {
         }
     }
 
-    private fun loadData() {
+    @Subscriber(mode = ThreadMode.MAIN)
+    private fun images(event: PickFinishEvent) {
         val dirImage = PickPreferences.getInstance(context).dirImage
+        adapter.removeAllData()
         adapter.loadData(dirImage.dirName)
     }
 

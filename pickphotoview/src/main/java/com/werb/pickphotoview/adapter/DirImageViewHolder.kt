@@ -3,7 +3,9 @@ package com.werb.pickphotoview.adapter
 import android.net.Uri
 import android.view.View
 import com.bumptech.glide.Glide
+import com.werb.eventbus.EventBus
 import com.werb.library.MoreViewHolder
+import com.werb.pickphotoview.event.PickFinishEvent
 import com.werb.pickphotoview.model.GroupImage
 import com.werb.pickphotoview.util.GlideHelper
 import com.werb.pickphotoview.util.PickPreferences
@@ -25,6 +27,9 @@ class DirImageViewHolder(containerView: View) : MoreViewHolder<String>(container
                     .into(cover)
             photoSize.text = list.size.toString()
             dirName.text =  data
+            containerView.setOnClickListener {
+                EventBus.post(PickFinishEvent(data), "switch")
+            }
         }
     }
 }
