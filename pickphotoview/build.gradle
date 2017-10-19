@@ -31,6 +31,11 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -59,7 +64,4 @@ publish {
     publishVersion = '0.3.1-beta1'
     desc = 'Photo Picker Of Android Library'
     website = 'https://github.com/Werb/PickPhotoSample'
-}
-repositories {
-    mavenCentral()
 }
