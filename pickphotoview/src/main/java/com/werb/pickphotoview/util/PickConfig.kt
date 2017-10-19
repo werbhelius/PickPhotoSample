@@ -32,8 +32,6 @@ object PickConfig {
     // intent requestCode
     val PICK_PHOTO_DATA = 0x5521
     // intent requestCode
-    val LIST_PHOTO_DATA = 0x0821
-    // intent requestCode
     val CAMERA_PHOTO_DATA = 0x9949
     // intent requestCode
     val PREVIEW_PHOTO_DATA = 0x7763

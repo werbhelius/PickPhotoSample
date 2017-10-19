@@ -13,6 +13,7 @@ import com.werb.eventbus.EventBus
 import com.werb.eventbus.Subscriber
 import com.werb.pickphotoview.event.PickFinishEvent
 import com.werb.pickphotoview.event.PickImageEvent
+import com.werb.pickphotoview.event.PickPreviewEvent
 import com.werb.pickphotoview.extensions.alphaColor
 import com.werb.pickphotoview.extensions.color
 import com.werb.pickphotoview.extensions.drawable
@@ -24,6 +25,7 @@ import com.werb.pickphotoview.util.PickPhotoHelper
 import com.werb.pickphotoview.util.PickUtils
 import kotlinx.android.synthetic.main.pick_widget_my_toolbar.*
 import java.io.Serializable
+import java.util.ArrayList
 
 
 /**
@@ -41,10 +43,7 @@ class PickPhotoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pick_activity_pick_photo)
         initToolbar()
-    }
 
-    override fun onStart() {
-        super.onStart()
         EventBus.register(this)
         getData()
     }
@@ -54,12 +53,6 @@ class PickPhotoActivity : AppCompatActivity() {
         EventBus.unRegister(this)
         PickPhotoHelper.stop()
     }
-
-//    override fun finish() {
-//        super.finish()
-//        PickHolder.newInstance() //Reset stored selected image paths.
-//        overridePendingTransition(0, R.anim.pick_finish_slide_out_bottom)
-//    }
 
     private fun getData() {
         GlobalData.model?.let {
@@ -161,8 +154,7 @@ class PickPhotoActivity : AppCompatActivity() {
         }
     }
 
-    @Subscriber()
-    private fun textChange(event: PickImageEvent) {
+    private fun sure(){
         GlobalData.model?.let {
             if (selectImages.isEmpty()) {
                 sure.setTextColor(alphaColor(color(it.toolbarTextColor)))
@@ -171,6 +163,11 @@ class PickPhotoActivity : AppCompatActivity() {
             }
             sure.text = String.format(string(R.string.pick_photo_sure), selectImages.size)
         }
+    }
+
+    @Subscriber()
+    private fun textChange(event: PickImageEvent) {
+       sure()
     }
 
     @Subscriber(tag = "switch")
@@ -201,6 +198,9 @@ class PickPhotoActivity : AppCompatActivity() {
             intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, arrayListOf(path))
             setResult(PickConfig.PICK_PHOTO_DATA, intent)
             finish()
+        }
+        if (requestCode == PickConfig.PREVIEW_PHOTO_DATA) {
+            add()
         }
     }
 

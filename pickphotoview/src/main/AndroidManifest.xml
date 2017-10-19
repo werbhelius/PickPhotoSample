@@ -13,11 +13,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/PickBaseTheme"/>
 
-        <activity android:name=".PickListActivity"
-            android:screenOrientation="portrait" />
-
         <activity android:name=".PickPhotoPreviewActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Full.Theme"/>
 
     </application>
 

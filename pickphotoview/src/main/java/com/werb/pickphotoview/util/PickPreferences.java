@@ -8,7 +8,6 @@ import android.text.TextUtils;
 
 import com.werb.pickphotoview.model.DirImage;
 import com.werb.pickphotoview.model.GroupImage;
-import com.werb.pickphotoview.model.PickData;
 
 /**
  * Created by wanbo on 2017/1/3.
@@ -25,7 +24,6 @@ public class PickPreferences {
     private static final String PICK_DATA = "pick_data";
     private GroupImage listImage;
     private DirImage dirImage;
-    private PickData pickData;
 
     public static PickPreferences getInstance(Context context) {
         if (mInstance == null) {

@@ -19,7 +19,7 @@ class DirImageViewHolder(containerView: View) : MoreViewHolder<String>(container
     private val groupImage: GroupImage = PickPreferences.getInstance(context).listImage
 
     override fun bindData(data: String, payloads: List<Any>) {
-        val list = groupImage.mGroupMap[data] as List<String>
+        val list = groupImage.mGroupMap?.get(data) as List<String>
         if (list.isNotEmpty()) {
             Glide.with(context)
                     .load(Uri.parse("file://" + list[0]))

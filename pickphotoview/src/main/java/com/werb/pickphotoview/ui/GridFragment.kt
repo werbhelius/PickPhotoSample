@@ -26,6 +26,9 @@ import com.werb.pickphotoview.adapter.GridImageViewHolder
 import com.werb.pickphotoview.adapter.SpaceItemDecoration
 import com.werb.pickphotoview.event.PickFinishEvent
 import com.werb.pickphotoview.event.PickImageEvent
+import com.werb.pickphotoview.event.PickPreviewEvent
+import com.werb.pickphotoview.extensions.alphaColor
+import com.werb.pickphotoview.extensions.color
 import com.werb.pickphotoview.extensions.string
 import com.werb.pickphotoview.model.GridImage
 import com.werb.pickphotoview.util.PickConfig
@@ -33,6 +36,7 @@ import com.werb.pickphotoview.util.PickPhotoHelper
 import com.werb.pickphotoview.util.PickPreferences
 import com.werb.pickphotoview.util.PickUtils
 import kotlinx.android.synthetic.main.pick_fragment_grid.*
+import kotlinx.android.synthetic.main.pick_widget_my_toolbar.*
 import java.io.Serializable
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/10/18. */
@@ -101,7 +105,6 @@ class GridFragment : Fragment() {
         selectImages.add(image.path)
         adapter.notifyItemChanged(position, image)
         EventBus.post(PickImageEvent())
-
     }
 
     /** remove image in list */
@@ -132,7 +135,7 @@ class GridFragment : Fragment() {
         }
 
         val groupImage = PickPreferences.getInstance(context).listImage
-        val allPhotos = groupImage.mGroupMap[event.dirName]
+        val allPhotos = groupImage.mGroupMap?.get(event.dirName)
         if (allPhotos == null) {
             Log.d("PickPhotoView", "Image is Empty")
         } else {
@@ -146,6 +149,19 @@ class GridFragment : Fragment() {
     @Subscriber(mode = ThreadMode.MAIN, tag = "switch")
     private fun switch(event: PickFinishEvent) {
         images(event)
+    }
+
+    @Subscriber()
+    private fun select(event: PickPreviewEvent) {
+        adapter.list.forEach {
+            if (it is GridImage){
+                if (it.path == event.path) {
+                    it.select = selectImages.contains(event.path)
+                    adapter.notifyItemChanged(adapter.list.indexOf(it), it)
+                }
+            }
+        }
+        EventBus.post(PickImageEvent())
     }
 
     /** image load pause when recyclerView scroll quickly */

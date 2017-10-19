@@ -1,5 +1,7 @@
 package com.werb.pickphotoview.adapter
 
+import android.app.Activity
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.view.View
 import com.werb.library.MoreViewHolder
@@ -9,7 +11,9 @@ import com.werb.pickphotoview.util.PickConfig
 import com.werb.pickphotoview.util.PickUtils
 import kotlinx.android.synthetic.main.pick_item_grid_layout.*
 import com.bumptech.glide.Glide
+import com.werb.pickphotoview.PickPhotoPreviewActivity
 import com.werb.pickphotoview.R
+import com.werb.pickphotoview.extensions.color
 import com.werb.pickphotoview.extensions.drawable
 import com.werb.pickphotoview.model.PickModel
 import com.werb.pickphotoview.util.GlideHelper
@@ -34,6 +38,7 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
 
     override fun bindData(data: GridImage, payloads: List<Any>) {
         Glide.with(context)
+                .asBitmap()
                 .load(Uri.parse("file://" + data.path))
                 .apply(GlideHelper.imageLoadOption())
                 .into(image)
@@ -48,6 +53,12 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
             select(data)
         }
 
+        if (data.path.endsWith(".gif")) {
+            gif.visibility = View.VISIBLE
+        } else {
+            gif.visibility = View.GONE
+        }
+
         GlobalData.model?.let {
             if (it.isClickSelectable && it.pickPhotoSize == 1) {
                 selectLayout.tag = data
@@ -57,6 +68,9 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
             } else {
                 selectLayout.tag = data
                 addOnClickListener(selectLayout)
+                containerView.setOnClickListener {
+                    PickPhotoPreviewActivity.startActivity(context as Activity, PickConfig.PREVIEW_PHOTO_DATA, data.path)
+                }
             }
         }
     }
@@ -71,6 +85,9 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
             selectBack.visibility = View.VISIBLE
             val drawable = context.drawable(R.drawable.pick_svg_select_select)
             val back = context.drawable(R.drawable.pick_svg_select_back)
+            GlobalData.model?.selectIconColor?.let {
+                back.setColorFilter(context.color(it), PorterDuff.Mode.SRC_IN)
+            }
             selectLayout.setBackgroundDrawable(drawable)
             selectBack.setBackgroundDrawable(back)
         } else {

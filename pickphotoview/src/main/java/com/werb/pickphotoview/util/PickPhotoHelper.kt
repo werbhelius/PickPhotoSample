@@ -26,6 +26,7 @@ object PickPhotoHelper {
 
     fun start(showGif: Boolean, activity: Activity) {
         run = true
+        clear()
         thread = imageThread(showGif, activity)
         thread?.start()
         Log.d("PickPhotoView", "PickPhotoHelper start")
@@ -33,10 +34,14 @@ object PickPhotoHelper {
 
     fun stop() {
         run = false
+        clear()
+        Log.d("PickPhotoView", "PickPhotoHelper stop")
+    }
+
+    private fun clear(){
         selectImages.clear()
         dirNames.clear()
         mGroupMap.clear()
-        Log.d("PickPhotoView", "PickPhotoHelper stop")
     }
 
     private fun imageThread(showGif: Boolean, activity: Activity): Thread {

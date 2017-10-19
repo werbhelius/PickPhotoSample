@@ -1,9 +1,7 @@
 package com.werb.pickphotoview
 
 import android.app.Activity
-import android.content.Intent
 
-import com.werb.pickphotoview.model.PickData
 import com.werb.pickphotoview.model.PickModel
 import com.werb.pickphotoview.util.PickConfig
 
