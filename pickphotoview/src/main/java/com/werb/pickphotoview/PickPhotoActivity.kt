@@ -171,7 +171,7 @@ class PickPhotoActivity : AppCompatActivity() {
 //
 //    private val selectClick = View.OnClickListener { select() }
 
-    fun add() {
+    private fun add() {
         if (selectImages.isNotEmpty()) {
             val intent = Intent()
             intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, selectImages as Serializable)

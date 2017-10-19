@@ -1,5 +1,6 @@
 package com.werb.pickphotoview.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -30,6 +31,7 @@ import com.werb.pickphotoview.util.PickPhotoHelper
 import com.werb.pickphotoview.util.PickPreferences
 import com.werb.pickphotoview.util.PickUtils
 import kotlinx.android.synthetic.main.pick_fragment_grid.*
+import java.io.Serializable
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/10/18. */
 
@@ -81,6 +83,9 @@ class GridFragment : Fragment() {
                         return
                     } else {
                         addImage(data, position)
+                        if (it.isClickSelectable && it.pickPhotoSize == 1) {
+                            add()
+                        }
                     }
                 }
             }
@@ -102,6 +107,15 @@ class GridFragment : Fragment() {
         selectImages.remove(image.path)
         adapter.notifyItemChanged(position, image)
         EventBus.post(PickImageEvent())
+    }
+
+    private fun add() {
+        if (selectImages.isNotEmpty()) {
+            val intent = Intent()
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, selectImages as Serializable)
+            activity.setResult(PickConfig.PICK_PHOTO_DATA, intent)
+            activity.finish()
+        }
     }
 
     /** load image into RecyclerView */

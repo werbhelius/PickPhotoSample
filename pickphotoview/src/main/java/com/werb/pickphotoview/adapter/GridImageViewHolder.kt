@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.pick_item_grid_layout.*
 import com.bumptech.glide.Glide
 import com.werb.pickphotoview.R
 import com.werb.pickphotoview.extensions.drawable
+import com.werb.pickphotoview.model.PickModel
 import com.werb.pickphotoview.util.GlideHelper
 
 
@@ -39,7 +40,7 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
 
         if (payloads.isNotEmpty()) {
             payloads.forEach {
-                if (it is GridImage){
+                if (it is GridImage) {
                     select(it)
                 }
             }
@@ -47,8 +48,17 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
             select(data)
         }
 
-        selectLayout.tag = data
-        addOnClickListener(selectLayout)
+        GlobalData.model?.let {
+            if (it.isClickSelectable && it.pickPhotoSize == 1) {
+                selectLayout.tag = data
+                containerView.tag = data
+                addOnClickListener(selectLayout)
+                addOnClickListener(containerView)
+            } else {
+                selectLayout.tag = data
+                addOnClickListener(selectLayout)
+            }
+        }
     }
 
     override fun unBindData() {

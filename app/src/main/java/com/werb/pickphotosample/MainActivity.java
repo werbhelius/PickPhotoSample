@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         permissionChecker = new PermissionChecker(this);
-        if(permissionChecker.isLackPermissions(PERMISSIONS)){
+        if (permissionChecker.isLackPermissions(PERMISSIONS)) {
             permissionChecker.requestPermissions();
         }
 
@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 new PickPhotoView.Builder(MainActivity.this)
                         .setPickPhotoSize(1)
+                        .setClickSelectable(true)
                         .setShowCamera(true)
                         .setSpanCount(3)
                         .setLightStatusBar(true)
                         .setStatusBarColor(R.color.white)
                         .setToolbarColor(R.color.white)
                         .setToolbarTextcolor(R.color.pick_black)
-                        .setClickSelectable(false)
                         .setShowGif(false)
                         .start();
             }
@@ -103,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 0){
+        if (resultCode == 0) {
             return;
         }
-        if(data == null){
+        if (data == null) {
             return;
         }
         if (requestCode == PickConfig.INSTANCE.getPICK_PHOTO_DATA()) {
