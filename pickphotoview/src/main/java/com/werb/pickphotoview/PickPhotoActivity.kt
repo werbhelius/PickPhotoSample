@@ -177,6 +177,7 @@ class PickPhotoActivity : AppCompatActivity() {
     private fun pick(event: PickFinishEvent) {
         GlobalData.model?.let {
             switch()
+            midTitle.text = event.dirName
         }
     }
 
