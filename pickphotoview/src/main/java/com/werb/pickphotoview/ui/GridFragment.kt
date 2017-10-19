@@ -1,6 +1,7 @@
 package com.werb.pickphotoview.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -20,6 +21,7 @@ import com.werb.library.action.MoreClickListener
 import com.werb.library.link.RegisterItem
 import com.werb.pickphotoview.GlobalData
 import com.werb.pickphotoview.R
+import com.werb.pickphotoview.adapter.CameraViewHolder
 import com.werb.pickphotoview.adapter.GridImageViewHolder
 import com.werb.pickphotoview.adapter.SpaceItemDecoration
 import com.werb.pickphotoview.event.PickFinishEvent
@@ -63,6 +65,7 @@ class GridFragment : Fragment() {
 
             adapter.apply {
                 register(RegisterItem(R.layout.pick_item_grid_layout, GridImageViewHolder::class.java, selectListener))
+                register(RegisterItem(R.layout.pick_item_camera_layout, CameraViewHolder::class.java ))
                 attachTo(recyclerView)
             }
         }
@@ -121,6 +124,13 @@ class GridFragment : Fragment() {
     /** load image into RecyclerView */
     @Subscriber(mode = ThreadMode.MAIN)
     private fun images(event: PickFinishEvent) {
+
+        GlobalData.model?.let {
+            if (it.isShowCamera){
+                adapter.loadData("camera")
+            }
+        }
+
         val groupImage = PickPreferences.getInstance(context).listImage
         val allPhotos = groupImage.mGroupMap[PickConfig.ALL_PHOTOS]
         if (allPhotos == null) {
@@ -130,6 +140,29 @@ class GridFragment : Fragment() {
             allPhotos.forEach {
                 adapter.loadData(GridImage(it, false))
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == 0) {
+            return
+        }
+        if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
+            var path: String?
+            if (data != null) {
+                path = data.data.path
+                if (path.contains("/pick_camera")) {
+                    path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera")
+                }
+            } else {
+                path = PickUtils.getInstance(context).getFilePath(context)
+            }
+            context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path!!)))
+            val intent = Intent()
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, arrayListOf(path))
+            activity.setResult(PickConfig.PICK_PHOTO_DATA, intent)
+            activity.finish()
         }
     }
 

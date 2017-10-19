@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -117,46 +118,36 @@ class PickPhotoActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (resultCode == 0) {
-//            return
-//        }
-//        if (requestCode == PickConfig.LIST_PHOTO_DATA) {
-//            if (data != null) {
-//                val dirName = data.getStringExtra(PickConfig.INTENT_DIR_NAME)
-//                val listImage = PickPreferences.getInstance(this@PickPhotoActivity).listImage
-//                allPhotos = listImage!!.mGroupMap[dirName]
-//                pickGridAdapter!!.updateData(allPhotos)
-//                toolbar.setPhotoDirName(dirName)
-//                tv_pick_photo.text = getString(R.string.pick_pick)
-//                tv_pick_photo.setTextColor(ContextCompat.getColor(this, R.color.pick_black))
-//            }
-//        } else if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
-//            var path: String?
-//            if (data != null) {
-//                path = data.data.path
-//                if (path!!.contains("/pick_camera")) {
-//                    path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera")
-//                }
-//            } else {
-//                path = PickUtils.getInstance(this@PickPhotoActivity).getFilePath(this@PickPhotoActivity)
-//            }
-//            sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path!!)))
-//            val intent = Intent()
-//            val list = ArrayList<String>()
-//            list.add(path)
-//            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, list)
-//            setResult(PickConfig.PICK_PHOTO_DATA, intent)
-//            finish()
-//        } else if (requestCode == PickConfig.PREVIEW_PHOTO_DATA) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == 0) {
+            return
+        }
+        if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
+            var path: String?
+            if (data != null) {
+                path = data.data.path
+                if (path!!.contains("/pick_camera")) {
+                    path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera")
+                }
+            } else {
+                path = PickUtils.getInstance(this@PickPhotoActivity).getFilePath(this@PickPhotoActivity)
+            }
+            sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path!!)))
+            val intent = Intent()
+            val list = ArrayList<String>()
+            list.add(path)
+            intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, list)
+            setResult(PickConfig.PICK_PHOTO_DATA, intent)
+            finish()
+        } else if (requestCode == PickConfig.PREVIEW_PHOTO_DATA) {
 //            if (data != null) {
 //                val selectPath = data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT) as ArrayList<String>
 //                pickGridAdapter!!.selectPath = selectPath
 //                pickGridAdapter!!.notifyDataSetChanged()
 //            }
-//        }
-//    }
+        }
+    }
 
 //    internal var imageClick: View.OnClickListener = View.OnClickListener { v ->
 //        val imgPath = v.getTag(R.id.pick_image_path) as String
