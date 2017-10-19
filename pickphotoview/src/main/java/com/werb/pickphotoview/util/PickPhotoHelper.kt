@@ -18,6 +18,7 @@ import java.util.*
 
 object PickPhotoHelper {
 
+    val selectImages: MutableList<String> by lazy { mutableListOf<String>() }
     private val mGroupMap = LinkedHashMap<String, ArrayList<String>>()
     private var thread: Thread? = null
     private var run = true
@@ -31,6 +32,7 @@ object PickPhotoHelper {
 
     fun stop() {
         run = false
+        selectImages.clear()
         Log.d("PickPhotoView", "PickPhotoHelper stop")
     }
 
@@ -71,7 +73,7 @@ object PickPhotoHelper {
 
                     // get image parent name
                     val parentName = File(path).parentFile.name
-                    Log.d(PickConfig.TAG, parentName + ":" + path)
+//                    Log.d(PickConfig.TAG, parentName + ":" + path)
                     // save all Photo
                     if (!mGroupMap.containsKey(PickConfig.ALL_PHOTOS)) {
                         dirNames.add(PickConfig.ALL_PHOTOS)
@@ -94,8 +96,7 @@ object PickPhotoHelper {
                 mCursor.close()
                 val groupImage = GroupImage()
                 groupImage.mGroupMap = mGroupMap
-                val dirImage = DirImage()
-                dirImage.dirName = dirNames
+                val dirImage = DirImage(dirNames)
                 PickPreferences.getInstance(activity).saveImageList(groupImage)
                 PickPreferences.getInstance(activity).saveDirNames(dirImage)
                 EventBus.post(PickFinishEvent(dirImage.dirName.size))

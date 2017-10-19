@@ -46,5 +46,8 @@ object PickConfig {
     // toolbar icon color
     val PICK_BLACK_COLOR = R.color.pick_black
     val PICK_WHITE_COLOR = R.color.pick_white
+    // fragment switch
+    val PICK_GIRD = "pick_gird"
+    val PICK_LIST = "pick_list"
 
 }

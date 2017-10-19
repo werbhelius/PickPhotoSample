@@ -51,8 +51,8 @@ class PickPhotoView private constructor(private val builder: Builder) {
             return this
         }
 
-        fun setToolbarIconColor(toolbarIconColor: Int): Builder {
-            pickModel.toolbarIconColor = toolbarIconColor
+        fun setToolbarTextcolor(toolbarTextColor: Int): Builder {
+            pickModel.toolbarTextColor = toolbarTextColor
             return this
         }
 

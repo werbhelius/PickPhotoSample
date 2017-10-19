@@ -13,7 +13,7 @@ class PickModel : Serializable {
     var isClickSelectable = false
     var toolbarColor = PickConfig.PICK_WHITE_COLOR
     var statusBarColor = PickConfig.PICK_WHITE_COLOR
-    var toolbarIconColor = PickConfig.PICK_BLACK_COLOR
+    var toolbarTextColor = PickConfig.PICK_BLACK_COLOR
     var selectIconColor = PickConfig.PICK_BLACK_COLOR
     var lightStatusBar = false
     var isShowGif = true

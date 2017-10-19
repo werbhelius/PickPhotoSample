@@ -67,8 +67,7 @@ public class PickPreferences {
         dirImage = images;
         Editor editor = mSharedPreferences.edit();
         editor.putString(DIR_NAMES, PickGson.INSTANCE.toJson(images));
-        boolean result = editor.commit();
-        return result;
+        return editor.commit();
     }
 
     public DirImage getDirImage(){

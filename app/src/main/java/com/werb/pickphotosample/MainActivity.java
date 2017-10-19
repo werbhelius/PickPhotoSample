@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Select Single Image - When image is selected, gallery immediately closes and returns image.
-        CustomButton btn1 = (CustomButton) findViewById(R.id.btn1);
+        CustomButton btn1 = findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
                         .setShowCamera(true)
                         .setSpanCount(3)
                         .setLightStatusBar(true)
-                        .setStatusBarColor(R.color.colorPrimaryDark)
-                        .setToolbarColor(R.color.colorPrimary)
-                        .setToolbarIconColor(R.color.white)
+                        .setStatusBarColor(R.color.white)
+                        .setToolbarColor(R.color.white)
+                        .setToolbarTextcolor(R.color.pick_black)
                         .setClickSelectable(false)
                         .setShowGif(false)
                         .start();
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Select Multiple Images - User can select multiple images and click Select to confirm.
-        CustomButton btn2 = (CustomButton) findViewById(R.id.btn2);
+        CustomButton btn2 = findViewById(R.id.btn2);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

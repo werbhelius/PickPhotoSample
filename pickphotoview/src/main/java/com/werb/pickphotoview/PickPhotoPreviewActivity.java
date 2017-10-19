@@ -21,7 +21,6 @@ import com.shizhefei.view.largeimage.factory.FileBitmapDecoderFactory;
 import com.werb.pickphotoview.model.PickData;
 import com.werb.pickphotoview.model.PickHolder;
 import com.werb.pickphotoview.util.PickConfig;
-import com.werb.pickphotoview.widget.MyToolbar;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,7 +37,6 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
     private String path;
     private ViewPager viewPager;
     private ArrayList<LargeImageView> imageViews;
-    private MyToolbar myToolbar;
     private boolean mIsHidden,misSelect;
     private PickData pickData;
 
@@ -76,17 +74,6 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
         }
-        myToolbar = (MyToolbar) findViewById(R.id.toolbar);
-        myToolbar.setBackgroundColor(pickData.getToolbarColor());
-        myToolbar.setIconColor(pickData.getToolbarIconColor());
-        myToolbar.setSelectColor(pickData.getSelectIconColor());
-        myToolbar.setLeftIcon(R.mipmap.pick_ic_back);
-        myToolbar.setLeftLayoutOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishForResult();
-            }
-        });
         viewPager = (ViewPager) findViewById(R.id.image_vp);
         int indexOf = allImagePath.indexOf(path);
         judgeSelect(allImagePath.get(indexOf));
@@ -159,43 +146,43 @@ public class PickPhotoPreviewActivity extends AppCompatActivity {
 
     //固定 toolbar
     private void hideOrShowToolbar() {
-        myToolbar.animate()
-                .translationY(mIsHidden ? 0 : -myToolbar.getHeight())
-                .setInterpolator(new DecelerateInterpolator(2))
-                .start();
+//        myToolbar.animate()
+//                .translationY(mIsHidden ? 0 : -myToolbar.getHeight())
+//                .setInterpolator(new DecelerateInterpolator(2))
+//                .start();
         mIsHidden = !mIsHidden;
     }
 
     private void judgeSelect(final String path){
-        int indexOf = selectImagePath.indexOf(path);
-        if(indexOf != -1){
-            myToolbar.setRightIconDefault(R.mipmap.pick_ic_select);
-            misSelect = true;
-        }else {
-            myToolbar.setRightIcon(R.mipmap.pick_ic_un_select_black);
-            misSelect = false;
-        }
-
-        myToolbar.setRightLayoutOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(misSelect){
-                    myToolbar.setRightIcon(R.mipmap.pick_ic_un_select_black);
-                    selectImagePath.remove(path);
-                    PickHolder.setStringPaths(selectImagePath);
-                    misSelect = false;
-                }else {
-                    if(selectImagePath.size() < pickData.getPickPhotoSize()) {
-                        myToolbar.setRightIconDefault(R.mipmap.pick_ic_select);
-                        selectImagePath.add(path);
-                        PickHolder.setStringPaths(selectImagePath);
-                        misSelect = true;
-                    }else {
-                        Toast.makeText(PickPhotoPreviewActivity.this, String.format(v.getContext().getString(R.string.pick_photo_size_limit), String.valueOf(pickData.getPickPhotoSize())), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
+//        int indexOf = selectImagePath.indexOf(path);
+//        if(indexOf != -1){
+//            myToolbar.setRightIconDefault(R.mipmap.pick_ic_select);
+//            misSelect = true;
+//        }else {
+//            myToolbar.setRightIcon(R.mipmap.pick_ic_un_select_black);
+//            misSelect = false;
+//        }
+//
+//        myToolbar.setRightLayoutOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(misSelect){
+//                    myToolbar.setRightIcon(R.mipmap.pick_ic_un_select_black);
+//                    selectImagePath.remove(path);
+//                    PickHolder.setStringPaths(selectImagePath);
+//                    misSelect = false;
+//                }else {
+//                    if(selectImagePath.size() < pickData.getPickPhotoSize()) {
+//                        myToolbar.setRightIconDefault(R.mipmap.pick_ic_select);
+//                        selectImagePath.add(path);
+//                        PickHolder.setStringPaths(selectImagePath);
+//                        misSelect = true;
+//                    }else {
+//                        Toast.makeText(PickPhotoPreviewActivity.this, String.format(v.getContext().getString(R.string.pick_photo_size_limit), String.valueOf(pickData.getPickPhotoSize())), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override

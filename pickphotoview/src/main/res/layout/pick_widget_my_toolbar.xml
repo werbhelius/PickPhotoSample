@@ -1,64 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="0dp">
 
-        <FrameLayout
-            android:id="@+id/toolbar_left_layout"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="14dp"
-            android:background="@drawable/pick_btn_bg">
-
-            <ImageView
-                android:id="@+id/toolbar_left_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center" />
-
-        </FrameLayout>
-
-
-        <TextView
-            android:id="@+id/tv_photo_type_name"
-            android:layout_width="100dp"
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:textSize="16sp"
-            android:gravity="center" />
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="left"
+            android:gravity="center_vertical"
+            android:text="@string/pick_photo_cancel"
+            android:textSize="17sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/midTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/pick_black"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+            
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/selectArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/midTitle"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/sure"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:gravity="center_vertical"
+            android:layout_marginRight="16dp"
+            android:textSize="17sp" />
 
 
-        <FrameLayout
-            android:id="@+id/toolbar_right_layout"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="14dp"
-            android:background="@drawable/pick_btn_bg">
+    </android.support.v7.widget.Toolbar>
 
-            <ImageView
-                android:id="@+id/toolbarc_right_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center" />
-
-        </FrameLayout>
-
-        <View
-            android:id="@+id/bottom_slider"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_alignParentBottom="true"
-            android:background="@color/pick_bottom"/>
-
-    </RelativeLayout>
-
-
-
-</FrameLayout>
+</android.support.design.widget.AppBarLayout>

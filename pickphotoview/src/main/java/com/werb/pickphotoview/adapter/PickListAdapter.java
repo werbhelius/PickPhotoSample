@@ -49,7 +49,7 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(dirImage != null) {
-            String dirName = dirImage.dirName.get(position);
+            String dirName = dirImage.getDirName().get(position);
             ArrayList<String> paths = groupImage.mGroupMap.get(dirName);
             GroupImageViewHolder groupImageViewHolder = (GroupImageViewHolder) holder;
             groupImageViewHolder.bindItem(dirName, paths);
@@ -60,7 +60,7 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         if(dirImage != null ) {
-            return dirImage.dirName.size();
+            return dirImage.getDirName().size();
         }else {
             return 0;
         }
@@ -68,26 +68,17 @@ public class PickListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private class GroupImageViewHolder extends RecyclerView.ViewHolder{
 
-        private ImageView cover,open;
+        private ImageView cover;
         private TextView dirNameText,photoSizeText;
 
         GroupImageViewHolder(View itemView) {
             super(itemView);
-            cover = (ImageView) itemView.findViewById(R.id.iv_cover);
-            open = (ImageView) itemView.findViewById(R.id.iv_list_open);
-            dirNameText = (TextView) itemView.findViewById(R.id.tv_dir_name);
-            photoSizeText = (TextView) itemView.findViewById(R.id.tv_photo_size);
+            cover = (ImageView) itemView.findViewById(R.id.cover);
+            dirNameText = (TextView) itemView.findViewById(R.id.dirName);
+            photoSizeText = (TextView) itemView.findViewById(R.id.photoSize);
 
             Drawable drawable = ContextCompat.getDrawable(mContext, R.mipmap.pick_list_open);
             drawable.setColorFilter(ContextCompat.getColor(mContext, R.color.pick_gray), PorterDuff.Mode.SRC_ATOP);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                open.setBackground(drawable);
-            }
-            else
-            {
-                //noinspection deprecation
-                open.setBackgroundDrawable(drawable);
-            }
         }
 
         void bindItem(String dirName, ArrayList<String> paths){
