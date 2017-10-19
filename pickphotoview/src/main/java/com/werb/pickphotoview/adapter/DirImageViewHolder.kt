@@ -22,6 +22,7 @@ class DirImageViewHolder(containerView: View) : MoreViewHolder<String>(container
         val list = groupImage.mGroupMap?.get(data) as List<String>
         if (list.isNotEmpty()) {
             Glide.with(context)
+                    .asBitmap()
                     .load(Uri.parse("file://" + list[0]))
                     .apply(GlideHelper.imageLoadOption())
                     .into(cover)

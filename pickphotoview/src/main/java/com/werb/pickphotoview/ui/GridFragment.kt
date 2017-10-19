@@ -141,7 +141,7 @@ class GridFragment : Fragment() {
         } else {
             Log.d("All photos size:", allPhotos.size.toString())
             allPhotos.forEach {
-                adapter.loadData(GridImage(it, selectImages.contains(it)))
+                adapter.loadData(GridImage(it, selectImages.contains(it), event.dirName))
             }
         }
     }

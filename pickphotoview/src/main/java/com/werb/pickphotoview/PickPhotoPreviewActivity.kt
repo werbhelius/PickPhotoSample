@@ -32,6 +32,7 @@ import java.io.Serializable
 class PickPhotoPreviewActivity : AppCompatActivity() {
 
     private var path: String? = null
+    private var dir: String? = null
     private val selectImages = PickPhotoHelper.selectImages
     private val allImages: List<String> by lazy { allImage() }
     private val imageViews: List<PreviewImage> by lazy { imageViews() }
@@ -42,6 +43,7 @@ class PickPhotoPreviewActivity : AppCompatActivity() {
         EventBus.register(this)
         setContentView(R.layout.pick_activty_preview_photo)
         path = intent.getStringExtra("path")
+        dir = intent.getStringExtra("dir")
 
         initToolbar()
     }
@@ -76,7 +78,8 @@ class PickPhotoPreviewActivity : AppCompatActivity() {
             path?.let {
                 val index = allImages.indexOf(it)
                 val all = allImages.size
-                midTitle.text = "$index/$all"
+                val current = index + 1
+                midTitle.text = "$current/$all"
                 viewPager.adapter = ListPageAdapter()
                 viewPager.currentItem = index
                 viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -85,6 +88,8 @@ class PickPhotoPreviewActivity : AppCompatActivity() {
                     }
 
                     override fun onPageSelected(position: Int) {
+                        val i = position + 1
+                        midTitle.text = "$i/$all"
                     }
 
                     override fun onPageScrollStateChanged(state: Int) {
@@ -110,7 +115,7 @@ class PickPhotoPreviewActivity : AppCompatActivity() {
 
     private fun allImage(): List<String> {
         val groupImage = PickPreferences.getInstance(this).listImage
-        return groupImage.mGroupMap?.get(PickConfig.ALL_PHOTOS) ?: emptyList()
+        return groupImage.mGroupMap?.get(dir) ?: emptyList()
     }
 
     private fun full() {
@@ -178,9 +183,10 @@ class PickPhotoPreviewActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun startActivity(activity: Activity, requestCode: Int, currentPath: String) {
+        fun startActivity(activity: Activity, requestCode: Int, currentPath: String, dirName: String) {
             val intent = Intent(activity, PickPhotoPreviewActivity::class.java)
             intent.putExtra("path", currentPath)
+            intent.putExtra("dir", dirName)
             activity.startActivityForResult(intent, requestCode)
             activity.overridePendingTransition(R.anim.activity_anim_right_to_current, R.anim.activity_anim_not_change)
         }
@@ -189,10 +195,6 @@ class PickPhotoPreviewActivity : AppCompatActivity() {
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.activity_anim_not_change, R.anim.activity_anim_current_to_right)
-    }
-
-    override fun onBackPressed() {
-        finishForResult()
     }
 
     private fun finishForResult() {

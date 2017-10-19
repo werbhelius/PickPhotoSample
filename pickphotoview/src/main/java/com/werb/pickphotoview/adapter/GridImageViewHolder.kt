@@ -69,7 +69,7 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
                 selectLayout.tag = data
                 addOnClickListener(selectLayout)
                 containerView.setOnClickListener {
-                    PickPhotoPreviewActivity.startActivity(context as Activity, PickConfig.PREVIEW_PHOTO_DATA, data.path)
+                    PickPhotoPreviewActivity.startActivity(context as Activity, PickConfig.PREVIEW_PHOTO_DATA, data.path, data.dir)
                 }
             }
         }

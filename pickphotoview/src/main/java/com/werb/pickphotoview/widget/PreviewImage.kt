@@ -43,6 +43,7 @@ class PreviewImage : FrameLayout {
     fun setImage(path: String, full: () -> Unit) {
         select(path)
         image.setOnClickListener { full() }
+        image.isDrawingCacheEnabled = true
         selectLayout.setOnClickListener {
             if (images.contains(path)) {
                 removeImage(path)
