@@ -151,6 +151,7 @@ class PickPhotoPreviewActivity : AppCompatActivity() {
             }
             sure.text = String.format(string(R.string.pick_photo_sure), selectImages.size)
         }
+        if (full) full()
     }
 
     //通过ViewPager实现滑动的图片
