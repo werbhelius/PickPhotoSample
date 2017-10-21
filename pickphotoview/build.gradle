@@ -47,13 +47,13 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.1'
     implementation 'com.github.bumptech.glide:glide:4.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:design:26.1.0'
     implementation('com.werb.moretype:moretype:0.2.1', {
         exclude group: 'com.android.support'
     })
     implementation('com.werb.eventbuskotlin:eventbuskotlin:0.1.7', {
         exclude group: 'com.android.support'
     })
-    implementation 'com.android.support:design:26.1.0'
 }
 
 apply plugin: 'com.novoda.bintray-release'

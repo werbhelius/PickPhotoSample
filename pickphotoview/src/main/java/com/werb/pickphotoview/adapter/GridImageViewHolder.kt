@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.view.View
+import android.widget.ImageView
 import com.werb.library.MoreViewHolder
 import com.werb.pickphotoview.GlobalData
 import com.werb.pickphotoview.model.GridImage
@@ -17,6 +18,7 @@ import com.werb.pickphotoview.extensions.color
 import com.werb.pickphotoview.extensions.drawable
 import com.werb.pickphotoview.model.PickModel
 import com.werb.pickphotoview.util.GlideHelper
+import java.lang.ref.WeakReference
 
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/9/17. */
@@ -24,6 +26,7 @@ import com.werb.pickphotoview.util.GlideHelper
 class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(containerView) {
 
     private val context = containerView.context
+    private var weekImage: ImageView? = null
 
     init {
         GlobalData.model?.let {
@@ -33,6 +36,9 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
             val params = image.layoutParams
             params.width = scaleSize
             params.height = scaleSize
+
+            val imageViewWeakReference = WeakReference<ImageView>(image)
+            weekImage = imageViewWeakReference.get()
         }
     }
 
@@ -41,7 +47,7 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
                 .asBitmap()
                 .load(Uri.parse("file://" + data.path))
                 .apply(GlideHelper.imageLoadOption())
-                .into(image)
+                .into(weekImage)
 
         if (payloads.isNotEmpty()) {
             payloads.forEach {
@@ -76,7 +82,7 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
     }
 
     override fun unBindData() {
-        Glide.with(context).clear(image)
+        Glide.with(context).clear(weekImage)
     }
 
     private fun select(data: GridImage) {
