@@ -17,7 +17,7 @@ object GlideHelper {
                 .placeholder(R.color.pick_placeholder)
                 .error(R.color.pick_placeholder)
                 .priority(Priority.LOW)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
     }
 
 }
