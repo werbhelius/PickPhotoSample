@@ -185,7 +185,7 @@ class PickPhotoActivity : AppCompatActivity() {
         }
         if (requestCode == PickConfig.CAMERA_PHOTO_DATA) {
             var path: String?
-            if (data != null) {
+            if (data != null && data.data != null) {
                 path = data.data.path
                 if (path.contains("/pick_camera")) {
                     path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera")
