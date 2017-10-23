@@ -8,14 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:background="@drawable/bg_gradient_dusk"/>
+        android:background="@drawable/bg"/>
 
-    <ImageView
-        android:id="@+id/background_stars"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_stars"/>
 
     <ImageView
         android:layout_width="match_parent"

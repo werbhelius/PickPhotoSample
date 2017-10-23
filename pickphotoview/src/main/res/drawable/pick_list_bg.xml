@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/pick_white" />
-    <stroke
-        android:width="1px"
-        android:color="@color/pick_light" />
-    <padding
-        android:bottom="1dp"/>
-</shape>
