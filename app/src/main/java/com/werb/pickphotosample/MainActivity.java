@@ -42,16 +42,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new PickPhotoView.Builder(MainActivity.this)
-                        .setPickPhotoSize(1)
-                        .setClickSelectable(true)
-                        .setShowCamera(true)
-                        .setSpanCount(3)
-                        .setLightStatusBar(true)
-                        .setStatusBarColor(R.color.white)
-                        .setToolbarColor(R.color.white)
-                        .setToolbarTextColor(R.color.black)
-                        .setSelectIconColor(R.color.pink)
-                        .setShowGif(false)
+                        .setPickPhotoSize(1)                  // select image size
+                        .setClickSelectable(true)             // click one image immediately close and return image
+                        .setShowCamera(true)                  // is show camera
+                        .setSpanCount(3)                      // span count
+                        .setLightStatusBar(true)              // lightStatusBar used in Android M or higher
+                        .setStatusBarColor(R.color.white)     // statusBar color
+                        .setToolbarColor(R.color.white)       // toolbar color
+                        .setToolbarTextColor(R.color.black)   // toolbar text color
+                        .setSelectIconColor(R.color.pink)     // select icon color
+                        .setShowGif(false)                    // is show gif
                         .start();
             }
         });

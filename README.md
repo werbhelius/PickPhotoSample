@@ -6,23 +6,14 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
-## Last Update (2017.7.6)
-#### [v0.3.0](https://github.com/Werb/PickPhotoSample/releases/tag/v0.3.0)
-1. support select gif
-2. update image preview and select logic
-3. optimize UI
-
-Thanks [Ray Li](https://github.com/searchy2) Pull requests
-
+## Last Update (2017.10.2)
+#### [v0.3.5](https://github.com/Werb/PickPhotoSample/releases/tag/v0.3.5)
+1. Refactor with kotlin
+2. Optimized image load logic
 
 ## Screenshot
- <img src="/screenshots/custom_2.png" alt="screenshot" title="select" width="270" height="160" /><img src="/screenshots/custom_3.png" alt="screenshot" title="select" width="270" height="160" />
-
-
-<img src="/screenshots/pick.png" alt="screenshot" title="home" width="270" height="480" /> <img src="/screenshots/new_home.png" alt="screenshot" title="select" width="270" height="480" /><img src="/screenshots/new_preview.png" alt="screenshot" title="select" width="270" height="480" />
-
-<img src="/screenshots/list.png" alt="screenshot" title="preview" width="270" height="480" /><img src="/screenshots/camera.png" alt="screenshot" title="group" width="270" height="480" />
-
+![one](./screenshots/one.png)
+![two](./screenshots/two.png)
 
 ## Dependency
 
@@ -34,7 +25,7 @@ the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/r
 #### Gradle
 
 ```
-  compile 'com.werb.pickphotoview:pickphotoview:0.3.0'  // Last Version
+  compile 'com.werb.pickphotoview:pickphotoview:0.3.5'  // Last Version
 ```
 
 some Library already dependency
@@ -51,20 +42,6 @@ If you don't want to dependency this Library version , you can replace it just l
   })
   compile 'com.google.code.gson:gson:XXXX'
 ```
-
-#### Maven
-
-```
-  <dependency>
-    <groupId>com.werb.pickphotoview</groupId>
-    <artifactId>pickphotoview</artifactId>
-    <version>last-version</version>
-    <type>pom</type>
-  </dependency>
-```
-#### Eclipse
-
-Sorry ，You are out !
 
 ## Usage
 
@@ -88,22 +65,24 @@ Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE be
 
 #### Initialize PickPhotoView
 
-```
-  new PickPhotoView.Builder(context)
-        .setPickPhotoSize(9)   //select max size
-        .setShowCamera(true)   //is show camera
-        .setSpanCount(4)       //SpanCount
-        .setLightStatusBar(true)  // custom theme
-        .setStatusBarColor("#ffffff")   // custom statusBar
-        .setToolbarColor("#ffffff")   // custom toolbar
-        .setToolbarIconColor("#000000")   // custom toolbar icon
-        .setSelectIconColor("#00C07F")  // custom select icon
-        .start();
+```java
+ new PickPhotoView.Builder(MainActivity.this)
+    .setPickPhotoSize(1)                  // select image size
+    .setClickSelectable(true)             // click one image immediately close and return image
+    .setShowCamera(true)                  // is show camera
+    .setSpanCount(3)                      // span count
+    .setLightStatusBar(true)              // lightStatusBar used in Android M or higher
+    .setStatusBarColor(R.color.white)     // statusBar color
+    .setToolbarColor(R.color.white)       // toolbar color
+    .setToolbarTextColor(R.color.black)   // toolbar text color
+    .setSelectIconColor(R.color.pink)     // select icon color
+    .setShowGif(false)                    // is show gif
+    .start();
 ```
 
 #### onActivityResult
 
-```
+```java
   @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
