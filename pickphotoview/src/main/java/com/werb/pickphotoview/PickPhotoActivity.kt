@@ -32,7 +32,7 @@ import java.util.ArrayList
  * Created by wanbo on 2016/12/30.
  */
 
-class PickPhotoActivity : AppCompatActivity() {
+class PickPhotoActivity :  BasePickActivity() {
 
     private var mode = PickConfig.PICK_GIRD
     private val selectImages = PickPhotoHelper.selectImages
@@ -63,16 +63,7 @@ class PickPhotoActivity : AppCompatActivity() {
     private fun initToolbar() {
         val select = drawable(R.drawable.pick_svg_select)
         GlobalData.model?.let {
-            val window = window
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.statusBarColor = color(it.statusBarColor)
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (it.lightStatusBar) {
-                    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                }
-            }
-            toolbar.setBackgroundColor(color(it.toolbarColor))
+            appbar.setBackgroundColor(color(it.toolbarColor))
             midTitle.setTextColor(color(it.toolbarTextColor))
             cancel.setTextColor(color(it.toolbarTextColor))
             sure.setTextColor(alphaColor(color(it.toolbarTextColor)))
@@ -130,20 +121,6 @@ class PickPhotoActivity : AppCompatActivity() {
         }
         showFragment()
     }
-
-
-//    internal var imageClick: View.OnClickListener = View.OnClickListener { v ->
-//        val imgPath = v.getTag(R.id.pick_image_path) as String
-//        val intent = Intent()
-//        intent.setClass(this@PickPhotoActivity, PickPhotoPreviewActivity::class.java)
-//        intent.putExtra(PickConfig.INTENT_IMG_PATH, imgPath)
-//        intent.putExtra(PickConfig.INTENT_IMG_LIST, allPhotos)
-//        intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, pickGridAdapter!!.selectPath)
-//        intent.putExtra(PickConfig.INTENT_PICK_DATA, GlobalData.model)
-//        startActivityForResult(intent, PickConfig.PREVIEW_PHOTO_DATA)
-//    }
-//
-//    private val selectClick = View.OnClickListener { select() }
 
     private fun add() {
         if (selectImages.isNotEmpty()) {

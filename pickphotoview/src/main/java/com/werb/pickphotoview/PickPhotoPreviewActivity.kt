@@ -29,7 +29,7 @@ import java.io.Serializable
  * Created by wanbo on 2017/1/4.
  */
 
-class PickPhotoPreviewActivity : AppCompatActivity() {
+class PickPhotoPreviewActivity : BasePickActivity() {
 
     private var path: String? = null
     private var dir: String? = null
@@ -55,14 +55,6 @@ class PickPhotoPreviewActivity : AppCompatActivity() {
 
     private fun initToolbar() {
         GlobalData.model?.let {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.statusBarColor = color(it.statusBarColor)
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (it.lightStatusBar) {
-                    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                }
-            }
             appbar.setBackgroundColor(color(it.toolbarColor))
             midTitle.setTextColor(color(it.toolbarTextColor))
             cancel.setTextColor(color(it.toolbarTextColor))

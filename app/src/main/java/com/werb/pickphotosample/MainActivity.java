@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
                         .setLightStatusBar(true)
                         .setStatusBarColor(R.color.white)
                         .setToolbarColor(R.color.white)
-                        .setToolbarTextcolor(R.color.pick_black)
+                        .setToolbarTextColor(R.color.black)
+                        .setSelectIconColor(R.color.pink)
                         .setShowGif(false)
                         .start();
             }
@@ -64,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
                         .setPickPhotoSize(3)
                         .setShowCamera(true)
                         .setSpanCount(4)
-                        .setLightStatusBar(true)
-                        .setStatusBarColor(R.color.white)
-                        .setToolbarColor(R.color.white)
-                        .setSelectIconColor(R.color.pick_black)
-                        .setClickSelectable(true)
+                        .setLightStatusBar(false)
+                        .setStatusBarColor(R.color.green_primary_dark)
+                        .setToolbarColor(R.color.green_primary)
+                        .setToolbarTextColor(R.color.white)
+                        .setSelectIconColor(R.color.green_primary)
                         .start();
             }
         });
@@ -78,16 +79,16 @@ public class MainActivity extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                new PickPhotoView.Builder(MainActivity.this)
-//                        .setPickPhotoSize(6)
-//                        .setShowCamera(true)
-//                        .setSpanCount(4)
-//                        .setLightStatusBar(true)
-//                        .setStatusBarColor("#ffffff")
-//                        .setToolbarColor("#ffffff")
-//                        .setToolbarIconColor("#000000")
-//                        .setClickSelectable(false)
-//                        .start();
+                new PickPhotoView.Builder(MainActivity.this)
+                        .setPickPhotoSize(6)
+                        .setShowCamera(true)
+                        .setSpanCount(4)
+                        .setLightStatusBar(false)
+                        .setStatusBarColor(R.color.blue_primary_dark)
+                        .setToolbarColor(R.color.blue_primary)
+                        .setToolbarTextColor(R.color.white)
+                        .setSelectIconColor(R.color.blue_primary)
+                        .start();
             }
         });
 

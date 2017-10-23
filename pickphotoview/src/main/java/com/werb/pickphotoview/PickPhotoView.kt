@@ -34,6 +34,7 @@ class PickPhotoView private constructor(private val builder: Builder) {
             return this
         }
 
+        /** clickSelectable used with photoSize == 1  */
         fun setClickSelectable(clickSelectable: Boolean): Builder {
             pickModel.isClickSelectable = clickSelectable
             return this
@@ -49,7 +50,7 @@ class PickPhotoView private constructor(private val builder: Builder) {
             return this
         }
 
-        fun setToolbarTextcolor(toolbarTextColor: Int): Builder {
+        fun setToolbarTextColor(toolbarTextColor: Int): Builder {
             pickModel.toolbarTextColor = toolbarTextColor
             return this
         }
@@ -69,10 +70,10 @@ class PickPhotoView private constructor(private val builder: Builder) {
             return this
         }
 
-        fun setShowVideo(showVideo: Boolean): Builder {
-            pickModel.isShowVideo = showVideo
-            return this
-        }
+//        fun setShowVideo(showVideo: Boolean): Builder {
+//            pickModel.isShowVideo = showVideo
+//            return this
+//        }
 
         private fun create(): PickPhotoView {
             GlobalData.model = pickModel
