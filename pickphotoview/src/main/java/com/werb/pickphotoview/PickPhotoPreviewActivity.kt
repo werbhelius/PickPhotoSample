@@ -116,13 +116,7 @@ class PickPhotoPreviewActivity : BasePickActivity() {
         if (full) {
             window.decorView.systemUiVisibility = View.INVISIBLE
         } else {
-            GlobalData.model?.let {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (it.lightStatusBar) {
-                        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                    }
-                }
-            }
+            window.decorView.systemUiVisibility = View.VISIBLE
         }
     }
 
