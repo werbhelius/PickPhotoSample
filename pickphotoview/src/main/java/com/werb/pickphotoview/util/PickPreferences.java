@@ -8,7 +8,6 @@ import android.text.TextUtils;
 
 import com.werb.pickphotoview.model.DirImage;
 import com.werb.pickphotoview.model.GroupImage;
-import com.werb.pickphotoview.model.PickData;
 
 /**
  * Created by wanbo on 2017/1/3.
@@ -25,7 +24,6 @@ public class PickPreferences {
     private static final String PICK_DATA = "pick_data";
     private GroupImage listImage;
     private DirImage dirImage;
-    private PickData pickData;
 
     public static PickPreferences getInstance(Context context) {
         if (mInstance == null) {
@@ -46,7 +44,7 @@ public class PickPreferences {
     public boolean saveImageList(GroupImage images){
         listImage = images;
         Editor editor = mSharedPreferences.edit();
-        editor.putString(IMAGE_LIST, PickGson.toJson(images));
+        editor.putString(IMAGE_LIST, PickGson.INSTANCE.toJson(images));
         boolean result = editor.commit();
         return result;
     }
@@ -57,7 +55,7 @@ public class PickPreferences {
             if(TextUtils.isEmpty(ss)) {
                 return null;
             } else {
-                listImage = PickGson.fromJson(GroupImage.class, ss);
+                listImage = PickGson.INSTANCE.fromJson(GroupImage.class, ss);
             }
         }
         return listImage;
@@ -66,9 +64,8 @@ public class PickPreferences {
     public boolean saveDirNames(DirImage images){
         dirImage = images;
         Editor editor = mSharedPreferences.edit();
-        editor.putString(DIR_NAMES, PickGson.toJson(images));
-        boolean result = editor.commit();
-        return result;
+        editor.putString(DIR_NAMES, PickGson.INSTANCE.toJson(images));
+        return editor.commit();
     }
 
     public DirImage getDirImage(){
@@ -77,29 +74,10 @@ public class PickPreferences {
             if(TextUtils.isEmpty(ss)) {
                 return null;
             } else {
-                dirImage = PickGson.fromJson(DirImage.class, ss);
+                dirImage = PickGson.INSTANCE.fromJson(DirImage.class, ss);
             }
         }
         return dirImage;
     }
 
-    public boolean savePickData(PickData data){
-        pickData = data;
-        Editor editor = mSharedPreferences.edit();
-        editor.putString(PICK_DATA, PickGson.toJson(data));
-        boolean result = editor.commit();
-        return result;
-    }
-
-    public PickData getPickData(){
-        if(pickData == null) {
-            String ss = mSharedPreferences.getString(PICK_DATA, "");
-            if(TextUtils.isEmpty(ss)) {
-                return null;
-            } else {
-                pickData = PickGson.fromJson(PickData.class, ss);
-            }
-        }
-        return pickData;
-    }
 }

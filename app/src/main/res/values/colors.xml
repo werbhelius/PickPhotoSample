@@ -6,6 +6,16 @@
 
     <!-- Basic Colors -->
     <color name="white">#FFFFFF</color>
+    <color name="black">#191919</color>
+    <color name="pink">#FF0458</color>
     <color name="white_pressed">#c8ffffff</color>
     <color name="transparent">#00FFFFFF</color>
+
+    <color name="green_primary">#0f9f58</color>
+    <color name="green_primary_dark">#0c7e46</color>
+    <color name="green_accent">#0f9f58</color>
+
+    <color name="blue_primary">#4184f3</color>
+    <color name="blue_primary_dark">#346ac2</color>
+    <color name="blue_accent">#4184f3</color>
 </resources>

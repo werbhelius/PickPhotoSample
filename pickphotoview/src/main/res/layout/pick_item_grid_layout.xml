@@ -1,29 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/iv_grid"
+        android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
-    <FrameLayout
-        android:id="@+id/frame_select_layout"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+    <RelativeLayout
+        android:id="@+id/selectLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true">
 
-        <ImageView
-            android:id="@+id/iv_select"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/selectBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="5dp"
+            android:scaleType="centerCrop" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/check"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerInParent="true"
             android:scaleType="centerCrop"
-            android:layout_marginRight="3dp"
-            android:layout_marginTop="3dp"
-            android:layout_gravity="right|top" />
+            android:visibility="gone"
+            app:srcCompat="@drawable/pick_svg_check"
+            tools:ignore="VectorDrawableCompat" />
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/gif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:visibility="gone"
+            android:layout_margin="5dp"
+            android:text="GIF"
+            android:textSize="10sp"
+            android:background="@drawable/pick_gif_bg"/>
 
     </FrameLayout>
 

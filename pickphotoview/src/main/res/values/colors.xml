@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="pick_black">#191919</color>
+    <color name="pick_black">#333333</color>
+    <color name="pick_black_preview">#101010</color>
     <color name="pick_light">#E6E7EB</color>
     <color name="pick_white">#FFFFFF</color>
     <color name="pick_transparent">#00000000</color>
     <color name="pick_parse">#33999999</color>
-    <color name="pick_gray">#AFB0B3</color>
+    <color name="pick_gray">#858585</color>
     <color name="pick_green">#00C07F</color>
     <color name="pick_blue">#35C8E6</color>
-    <color name="pick_placeholder">#c5e1e1e1</color>
     <color name="pick_bottom">#E5E5E5</color>
+    <color name="pick_placeholder">#EFEFEF</color>
 </resources>

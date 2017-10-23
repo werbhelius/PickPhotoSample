@@ -2,7 +2,6 @@ package com.werb.pickphotosample;
 
 import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -33,31 +32,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         permissionChecker = new PermissionChecker(this);
-        if(permissionChecker.isLackPermissions(PERMISSIONS)){
+        if (permissionChecker.isLackPermissions(PERMISSIONS)) {
             permissionChecker.requestPermissions();
         }
 
         //Select Single Image - When image is selected, gallery immediately closes and returns image.
-        CustomButton btn1 = (CustomButton) findViewById(R.id.btn1);
+        CustomButton btn1 = findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new PickPhotoView.Builder(MainActivity.this)
                         .setPickPhotoSize(1)
+                        .setClickSelectable(true)
                         .setShowCamera(true)
                         .setSpanCount(3)
                         .setLightStatusBar(true)
-                        .setStatusBarColor("#ffffff")
-                        .setToolbarColor("#ffffff")
-                        .setToolbarIconColor("#000000")
-                        .setClickSelectable(true)
+                        .setStatusBarColor(R.color.white)
+                        .setToolbarColor(R.color.white)
+                        .setToolbarTextColor(R.color.black)
+                        .setSelectIconColor(R.color.pink)
                         .setShowGif(false)
                         .start();
             }
         });
 
         //Select Multiple Images - User can select multiple images and click Select to confirm.
-        CustomButton btn2 = (CustomButton) findViewById(R.id.btn2);
+        CustomButton btn2 = findViewById(R.id.btn2);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,11 +66,10 @@ public class MainActivity extends AppCompatActivity {
                         .setShowCamera(true)
                         .setSpanCount(4)
                         .setLightStatusBar(false)
-                        .setStatusBarColor("#0c7e46")
-                        .setToolbarColor("#0f9f58")
-                        .setToolbarIconColor("#000000")
-                        .setSelectIconColor("#00C07F")
-                        .setClickSelectable(true)
+                        .setStatusBarColor(R.color.green_primary_dark)
+                        .setToolbarColor(R.color.green_primary)
+                        .setToolbarTextColor(R.color.white)
+                        .setSelectIconColor(R.color.green_primary)
                         .start();
             }
         });
@@ -84,11 +83,11 @@ public class MainActivity extends AppCompatActivity {
                         .setPickPhotoSize(6)
                         .setShowCamera(true)
                         .setSpanCount(4)
-                        .setLightStatusBar(true)
-                        .setStatusBarColor("#ffffff")
-                        .setToolbarColor("#ffffff")
-                        .setToolbarIconColor("#000000")
-                        .setClickSelectable(false)
+                        .setLightStatusBar(false)
+                        .setStatusBarColor(R.color.blue_primary_dark)
+                        .setToolbarColor(R.color.blue_primary)
+                        .setToolbarTextColor(R.color.white)
+                        .setSelectIconColor(R.color.blue_primary)
                         .start();
             }
         });
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView photoList = (RecyclerView) findViewById(R.id.photo_list);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         photoList.setLayoutManager(layoutManager);
-        photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.getInstance(MainActivity.this).dp2px(PickConfig.ITEM_SPACE), 3));
+        photoList.addItemDecoration(new SpaceItemDecoration(PickUtils.getInstance(MainActivity.this).dp2px(PickConfig.INSTANCE.getITEM_SPACE()), 3));
         adapter = new SampleAdapter(this, null);
         photoList.setAdapter(adapter);
     }
@@ -104,14 +103,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 0){
+        if (resultCode == 0) {
             return;
         }
-        if(data == null){
+        if (data == null) {
             return;
         }
-        if (requestCode == PickConfig.PICK_PHOTO_DATA) {
-            ArrayList<String> selectPaths = (ArrayList<String>) data.getSerializableExtra(PickConfig.INTENT_IMG_LIST_SELECT);
+        if (requestCode == PickConfig.INSTANCE.getPICK_PHOTO_DATA()) {
+            ArrayList<String> selectPaths = (ArrayList<String>) data.getSerializableExtra(PickConfig.INSTANCE.getINTENT_IMG_LIST_SELECT());
             adapter.updateData(selectPaths);
         }
     }

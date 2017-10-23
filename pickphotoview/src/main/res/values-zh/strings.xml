@@ -4,4 +4,6 @@
     <string name="pick_pick">选取</string>
     <string name="pick_photo_size">(%1$s)</string>
     <string name="pick_photo_size_limit">最多选择%1$s张图片</string>
+    <string name="pick_photo_cancel">取消</string>
+    <string name="pick_photo_sure">添加(%1$d)</string>
 </resources>
