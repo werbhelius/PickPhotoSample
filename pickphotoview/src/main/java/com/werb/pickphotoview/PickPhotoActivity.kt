@@ -63,7 +63,8 @@ class PickPhotoActivity :  BasePickActivity() {
     private fun initToolbar() {
         val select = drawable(R.drawable.pick_svg_select)
         GlobalData.model?.let {
-            appbar.setBackgroundColor(color(it.toolbarColor))
+            toolbar.setBackgroundColor(color(it.toolbarColor))
+            statusBar.setBackgroundColor(color(it.statusBarColor))
             midTitle.setTextColor(color(it.toolbarTextColor))
             cancel.setTextColor(color(it.toolbarTextColor))
             sure.setTextColor(alphaColor(color(it.toolbarTextColor)))

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 new PickPhotoView.Builder(MainActivity.this)
                         .setPickPhotoSize(1)
-                        .setClickSelectable(true)
+                        .setClickSelectable(false)
                         .setShowCamera(true)
                         .setSpanCount(3)
                         .setLightStatusBar(true)

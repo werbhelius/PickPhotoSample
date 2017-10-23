@@ -55,7 +55,8 @@ class PickPhotoPreviewActivity : BasePickActivity() {
 
     private fun initToolbar() {
         GlobalData.model?.let {
-            appbar.setBackgroundColor(color(it.toolbarColor))
+            toolbar.setBackgroundColor(color(it.toolbarColor))
+            statusBar.setBackgroundColor(color(it.statusBarColor))
             midTitle.setTextColor(color(it.toolbarTextColor))
             cancel.setTextColor(color(it.toolbarTextColor))
             if (selectImages.size > 0) {
@@ -117,6 +118,13 @@ class PickPhotoPreviewActivity : BasePickActivity() {
             window.decorView.systemUiVisibility = View.INVISIBLE
         } else {
             window.decorView.systemUiVisibility = View.VISIBLE
+            GlobalData.model?.let {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (it.lightStatusBar) {
+                        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    }
+                }
+            }
         }
     }
 
