@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode PROJ_VERSIOM_CODE as int
+        versionName PROJ_VERSION
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -41,27 +41,17 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
-    implementation 'com.google.code.gson:gson:2.8.1'
-    implementation 'com.github.bumptech.glide:glide:4.1.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:design:26.1.0'
-    implementation('com.werb.moretype:moretype:0.2.1', {
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.github.bumptech.glide:glide:4.1.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile 'com.android.support:design:26.1.0'
+    compile('com.werb.moretype:moretype:0.2.1', {
         exclude group: 'com.android.support'
     })
-    implementation('com.werb.eventbuskotlin:eventbuskotlin:0.1.9', {
-        exclude group: 'com.android.support'
-    })
+    compile 'com.werb.eventbuskotlin:eventbuskotlin:0.2.0'
 }
 
-apply plugin: 'com.novoda.bintray-release'
-publish {
-    userOrg = 'werbhelius'
-    groupId = 'com.werb.pickphotoview'
-    artifactId = 'pickphotoview'
-    publishVersion = '0.3.6-beta1'
-    desc = 'Photo Picker Of Android Library'
-    website = 'https://github.com/Werb/PickPhotoSample'
-}
+apply from: './bintray.gradle'
