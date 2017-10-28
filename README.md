@@ -6,10 +6,11 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
-## Last Update (2017.10.2)
-#### [v0.3.5](https://github.com/Werb/PickPhotoSample/releases/tag/v0.3.5)
+## Last Update (2017.10.8)
+#### [v0.3.6](https://github.com/Werb/PickPhotoSample/releases/tag/v0.3.6)
 1. Refactor with kotlin
 2. Optimized image load logic
+3. Bug fixed
 
 ## Screenshot
 ![one](./screenshots/one.png)
@@ -25,7 +26,7 @@ the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/r
 #### Gradle
 
 ```
-  compile 'com.werb.pickphotoview:pickphotoview:0.3.5'  // Last Version
+  compile 'com.werb.pickphotoview:pickphotoview:0.3.6'  // Last Version
 ```
 
 some Library already dependency
@@ -33,6 +34,8 @@ some Library already dependency
 * Glide
 * Recyclerview
 * Gson
+* [Moretype - new method to build data in RecyclerView with Kotlin! ](https://github.com/Werb/MoreType)
+* [EventBusKotlin - A Simple EventBus](https://github.com/Werb/EventBusKotlin)
 
 If you don't want to dependency this Library version , you can replace it just like
 
@@ -42,6 +45,18 @@ If you don't want to dependency this Library version , you can replace it just l
   })
   compile 'com.google.code.gson:gson:XXXX'
 ```
+
+New Version 0.3.6+ build with Kotlin new feature `LayoutContainer` , so you must add this command in your **module build.gradle**
+```gradle
+apply plugin: 'kotlin-android-extensions'
+```
+and config this command in `android{}`
+```gradle
+androidExtensions {
+    experimental = true
+}
+```
+**when new feature published in kotlin release version it will built-in code and no need for config**
 
 ## Usage
 
