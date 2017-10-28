@@ -25,7 +25,7 @@ the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/r
 
 #### Gradle
 
-```
+```gradle
   compile 'com.werb.pickphotoview:pickphotoview:0.3.6'  // Last Version
 ```
 
