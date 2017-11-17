@@ -6,7 +6,10 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
-## Last Update (2017.10.8)
+## Last Update (2017.11.17)
+#### [v0.3.7](https://github.com/Werb/PickPhotoSample/releases/tag/v0.3.7)
+1. fixed memory leak error
+
 #### [v0.3.6](https://github.com/Werb/PickPhotoSample/releases/tag/v0.3.6)
 1. Refactor with kotlin
 2. Optimized image load logic
@@ -26,7 +29,7 @@ the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/r
 #### Gradle
 
 ```gradle
-  compile 'com.werb.pickphotoview:pickphotoview:0.3.6'  // Last Version
+  compile 'com.werb.pickphotoview:pickphotoview:0.3.7'  // Last Version
 ```
 
 some Library already dependency
