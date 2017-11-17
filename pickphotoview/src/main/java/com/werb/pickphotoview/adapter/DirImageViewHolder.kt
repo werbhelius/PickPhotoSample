@@ -8,7 +8,7 @@ import com.werb.library.MoreViewHolder
 import com.werb.pickphotoview.event.PickFinishEvent
 import com.werb.pickphotoview.model.GroupImage
 import com.werb.pickphotoview.util.GlideHelper
-import com.werb.pickphotoview.util.PickPreferences
+import com.werb.pickphotoview.util.PickPhotoHelper
 import kotlinx.android.synthetic.main.pick_item_list_layout.*
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/10/18. */
@@ -16,10 +16,10 @@ import kotlinx.android.synthetic.main.pick_item_list_layout.*
 class DirImageViewHolder(containerView: View) : MoreViewHolder<String>(containerView) {
 
     private val context = containerView.context
-    private val groupImage: GroupImage = PickPreferences.getInstance(context).listImage
+    private val groupImage = PickPhotoHelper.groupImage
 
     override fun bindData(data: String, payloads: List<Any>) {
-        val list = groupImage.mGroupMap?.get(data) as List<String>
+        val list = groupImage?.mGroupMap?.get(data) as List<String>
         if (list.isNotEmpty()) {
             Glide.with(context)
                     .asBitmap()

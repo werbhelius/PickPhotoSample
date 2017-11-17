@@ -5,15 +5,12 @@ import android.app.FragmentTransaction
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.view.View
+import android.support.v4.app.Fragment
 import com.werb.eventbus.EventBus
 import com.werb.eventbus.Subscriber
 import com.werb.pickphotoview.event.PickFinishEvent
 import com.werb.pickphotoview.event.PickImageEvent
-import com.werb.pickphotoview.event.PickPreviewEvent
 import com.werb.pickphotoview.extensions.alphaColor
 import com.werb.pickphotoview.extensions.color
 import com.werb.pickphotoview.extensions.drawable
@@ -25,7 +22,6 @@ import com.werb.pickphotoview.util.PickPhotoHelper
 import com.werb.pickphotoview.util.PickUtils
 import kotlinx.android.synthetic.main.pick_widget_my_toolbar.*
 import java.io.Serializable
-import java.util.ArrayList
 
 
 /**
@@ -36,8 +32,8 @@ class PickPhotoActivity :  BasePickActivity() {
 
     private var mode = PickConfig.PICK_GIRD
     private val selectImages = PickPhotoHelper.selectImages
-    private val gridFragment: GridFragment by lazy { GridFragment.newInstance() }
-    private val listFragment: ListFragment by lazy { ListFragment.newInstance() }
+    private val gridFragment = GridFragment()
+    private val listFragment = ListFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +48,12 @@ class PickPhotoActivity :  BasePickActivity() {
         super.onDestroy()
         EventBus.unRegister(this)
         PickPhotoHelper.stop()
+        setContentView(R.layout.pick_null_layout)
     }
 
     private fun getData() {
         GlobalData.model?.let {
-            PickPhotoHelper.start(it.isShowGif, this)
+            PickPhotoHelper.start(it.isShowGif, applicationContext.contentResolver)
         }
     }
 

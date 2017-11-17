@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
@@ -18,11 +17,9 @@ import com.werb.pickphotoview.extensions.color
 import com.werb.pickphotoview.extensions.string
 import com.werb.pickphotoview.util.PickConfig
 import com.werb.pickphotoview.util.PickPhotoHelper
-import com.werb.pickphotoview.util.PickPreferences
 import com.werb.pickphotoview.widget.PreviewImage
 import kotlinx.android.synthetic.main.pick_activty_preview_photo.*
 import kotlinx.android.synthetic.main.pick_widget_my_toolbar.*
-import java.io.Serializable
 
 
 /**
@@ -107,8 +104,8 @@ class PickPhotoPreviewActivity : BasePickActivity() {
     }
 
     private fun allImage(): List<String> {
-        val groupImage = PickPreferences.getInstance(this).listImage
-        return groupImage.mGroupMap?.get(dir) ?: emptyList()
+        val groupImage = PickPhotoHelper.groupImage
+        return groupImage?.mGroupMap?.get(dir) ?: emptyList()
     }
 
     private fun full() {

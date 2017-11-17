@@ -1,7 +1,6 @@
 package com.werb.pickphotoview.ui
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -27,25 +26,26 @@ import com.werb.pickphotoview.adapter.SpaceItemDecoration
 import com.werb.pickphotoview.event.PickFinishEvent
 import com.werb.pickphotoview.event.PickImageEvent
 import com.werb.pickphotoview.event.PickPreviewEvent
-import com.werb.pickphotoview.extensions.alphaColor
-import com.werb.pickphotoview.extensions.color
 import com.werb.pickphotoview.extensions.string
 import com.werb.pickphotoview.model.GridImage
 import com.werb.pickphotoview.util.PickConfig
 import com.werb.pickphotoview.util.PickPhotoHelper
-import com.werb.pickphotoview.util.PickPreferences
 import com.werb.pickphotoview.util.PickUtils
 import kotlinx.android.synthetic.main.pick_fragment_grid.*
-import kotlinx.android.synthetic.main.pick_widget_my_toolbar.*
 import java.io.Serializable
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/10/18. */
 
 class GridFragment : Fragment() {
 
-    private val adapter: MoreAdapter by lazy { MoreAdapter() }
+    private lateinit var adapter: MoreAdapter
     private val manager: RequestManager by lazy { Glide.with(this) }
     private val selectImages = PickPhotoHelper.selectImages
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        println("GridFragment create " + this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.pick_fragment_grid, container, false)
@@ -66,7 +66,7 @@ class GridFragment : Fragment() {
             recyclerView.addItemDecoration(SpaceItemDecoration(PickUtils.getInstance(context).dp2px(PickConfig.ITEM_SPACE.toFloat()), it.spanCount))
             recyclerView.layoutManager = GridLayoutManager(context, it.spanCount)
             recyclerView.addOnScrollListener(scrollListener)
-
+            adapter = MoreAdapter()
             adapter.apply {
                 register(RegisterItem(R.layout.pick_item_grid_layout, GridImageViewHolder::class.java, selectListener))
                 register(RegisterItem(R.layout.pick_item_camera_layout, CameraViewHolder::class.java))
@@ -134,8 +134,8 @@ class GridFragment : Fragment() {
             }
         }
 
-        val groupImage = PickPreferences.getInstance(context).listImage
-        val allPhotos = groupImage.mGroupMap?.get(event.dirName)
+        val groupImage = PickPhotoHelper.groupImage
+        val allPhotos = groupImage?.mGroupMap?.get(event.dirName)
         if (allPhotos == null) {
             Log.d("PickPhotoView", "Image is Empty")
         } else {
@@ -180,12 +180,6 @@ class GridFragment : Fragment() {
                 manager.resumeRequests()
             }
         }
-    }
-
-    companion object {
-
-        fun newInstance(): GridFragment = GridFragment()
-
     }
 
 }
