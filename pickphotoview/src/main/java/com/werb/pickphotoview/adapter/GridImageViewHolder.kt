@@ -30,8 +30,8 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
 
     init {
         GlobalData.model?.let {
-            val screenWidth = PickUtils.getInstance(context).widthPixels
-            val space = PickUtils.getInstance(context).dp2px(PickConfig.ITEM_SPACE.toFloat())
+            val screenWidth = PickUtils.getInstance(context.applicationContext).widthPixels
+            val space = PickUtils.getInstance(context.applicationContext).dp2px(PickConfig.ITEM_SPACE.toFloat())
             val scaleSize = (screenWidth - (it.spanCount + 1) * space) / it.spanCount
             val params = image.layoutParams
             params.width = scaleSize

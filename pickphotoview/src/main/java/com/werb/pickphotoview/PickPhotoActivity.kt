@@ -166,7 +166,7 @@ class PickPhotoActivity :  BasePickActivity() {
                     path = path.replace("/pick_camera", "/storage/emulated/0/DCIM/Camera")
                 }
             } else {
-                path = PickUtils.getInstance(this).getFilePath(this)
+                path = PickUtils.getInstance(this.applicationContext).getFilePath(this)
             }
             sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path!!)))
             val intent = Intent()

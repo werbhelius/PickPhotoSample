@@ -63,7 +63,7 @@ class GridFragment : Fragment() {
 
     private fun initView() {
         GlobalData.model?.let {
-            recyclerView.addItemDecoration(SpaceItemDecoration(PickUtils.getInstance(context).dp2px(PickConfig.ITEM_SPACE.toFloat()), it.spanCount))
+            recyclerView.addItemDecoration(SpaceItemDecoration(PickUtils.getInstance(context.applicationContext).dp2px(PickConfig.ITEM_SPACE.toFloat()), it.spanCount))
             recyclerView.layoutManager = GridLayoutManager(context, it.spanCount)
             recyclerView.addOnScrollListener(scrollListener)
             adapter = MoreAdapter()
