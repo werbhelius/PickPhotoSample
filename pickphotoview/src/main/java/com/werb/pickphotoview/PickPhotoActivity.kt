@@ -44,13 +44,6 @@ class PickPhotoActivity :  BasePickActivity() {
         getData()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.unRegister(this)
-        PickPhotoHelper.stop()
-        setContentView(R.layout.pick_null_layout)
-    }
-
     private fun getData() {
         GlobalData.model?.let {
             PickPhotoHelper.start(it.isShowGif, applicationContext.contentResolver)
@@ -190,6 +183,9 @@ class PickPhotoActivity :  BasePickActivity() {
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.activity_anim_not_change, R.anim.activity_anim_top_to_bottom)
+        EventBus.unRegister(this)
+        PickPhotoHelper.stop()
+        setContentView(R.layout.pick_null_layout)
     }
 
 }
