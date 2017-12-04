@@ -81,10 +81,6 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
         }
     }
 
-    override fun unBindData() {
-        Glide.with(context).clear(weekImage)
-    }
-
     private fun select(data: GridImage) {
         if (data.select) {
             check.visibility = View.VISIBLE
