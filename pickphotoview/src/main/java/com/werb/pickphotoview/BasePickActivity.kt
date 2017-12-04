@@ -5,6 +5,8 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.bumptech.glide.Glide
+import com.bumptech.glide.util.Util
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/10/23. */
 
@@ -14,6 +16,14 @@ open class BasePickActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         theme()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (Util.isOnMainThread() && !this.isFinishing) {
+            Glide.with(this).pauseRequests()
+        }
+    }
+
 
     private fun theme() {
         GlobalData.model?.let {
