@@ -85,7 +85,8 @@ class GridFragment : Fragment() {
                 if (gridImage.select) {
                     removeImage(data, position)
                 } else {
-                    if (selectImages.size >= it.pickPhotoSize) {
+                    val all = it.pickPhotoSize + it.hasPhotoSize
+                    if (selectImages.size >= all) {
                         Toast.makeText(context, String.format(context.string(R.string.pick_photo_size_limit), it.pickPhotoSize.toString()), Toast.LENGTH_SHORT).show()
                         return
                     } else {
@@ -154,7 +155,7 @@ class GridFragment : Fragment() {
     @Subscriber()
     private fun select(event: PickPreviewEvent) {
         adapter.list.forEach {
-            if (it is GridImage){
+            if (it is GridImage) {
                 if (it.path == event.path) {
                     it.select = selectImages.contains(event.path)
                     adapter.notifyItemChanged(adapter.list.indexOf(it), it)

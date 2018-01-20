@@ -24,6 +24,11 @@ class PickPhotoView private constructor(private val builder: Builder) {
             return this
         }
 
+        fun setHasPhotoSize(hasSize: Int): Builder {
+            pickModel.hasPhotoSize = hasSize
+            return this
+        }
+
         fun setSpanCount(spanCount: Int): Builder {
             pickModel.spanCount = spanCount
             return this

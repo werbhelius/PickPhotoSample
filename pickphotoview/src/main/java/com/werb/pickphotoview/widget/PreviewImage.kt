@@ -48,7 +48,8 @@ class PreviewImage : FrameLayout {
                 removeImage(path)
             } else {
                 GlobalData.model?.let {
-                    if (images.size >= it.pickPhotoSize) {
+                    val all = it.pickPhotoSize + it.hasPhotoSize
+                    if (images.size >= all) {
                         Toast.makeText(context, String.format(context.string(R.string.pick_photo_size_limit), it.pickPhotoSize.toString()), Toast.LENGTH_SHORT).show()
                         return@setOnClickListener
                     }
