@@ -85,8 +85,15 @@ class GridFragment : Fragment() {
                 if (gridImage.select) {
                     removeImage(data, position)
                 } else {
-                    val all = it.pickPhotoSize + it.hasPhotoSize
-                    if (selectImages.size >= all) {
+                    if (it.allPhotoSize != 0) {
+                        val pickSize = selectImages.size + it.hasPhotoSize
+                        if (pickSize >= it.allPhotoSize) {
+                            Toast.makeText(context, String.format(context.string(R.string.pick_photo_size_limit), it.allPhotoSize.toString()), Toast.LENGTH_SHORT).show()
+                            return
+                        }
+                    }
+                    val pickSize = selectImages.size
+                    if (pickSize >= it.pickPhotoSize) {
                         Toast.makeText(context, String.format(context.string(R.string.pick_photo_size_limit), it.pickPhotoSize.toString()), Toast.LENGTH_SHORT).show()
                         return
                     } else {

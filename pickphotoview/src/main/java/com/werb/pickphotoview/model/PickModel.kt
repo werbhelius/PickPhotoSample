@@ -9,6 +9,7 @@ class PickModel : Serializable {
 
     var pickPhotoSize: Int = 0
     var hasPhotoSize: Int = 0
+    var allPhotoSize: Int = 0
     var spanCount: Int = 0
     var isShowCamera = false
     var isClickSelectable = false
