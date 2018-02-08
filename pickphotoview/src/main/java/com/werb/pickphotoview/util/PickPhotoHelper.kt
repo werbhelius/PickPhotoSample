@@ -55,13 +55,15 @@ object PickPhotoHelper {
                 resolver.query(mImageUri, null,
                         MediaStore.Images.Media.MIME_TYPE + "=? or "
                                 + MediaStore.Images.Media.MIME_TYPE + "=? or "
+                                + MediaStore.Images.Media.MIME_TYPE + "=? or "
                                 + MediaStore.Images.Media.MIME_TYPE + "=?",
-                        arrayOf("image/jpeg", "image/png", "image/gif"), MediaStore.Images.Media.DATE_MODIFIED + " desc")
+                        arrayOf("image/jpeg", "image/png", "image/x-ms-bmp", "image/gif"), MediaStore.Images.Media.DATE_MODIFIED + " desc")
             } else {
                 resolver.query(mImageUri, null,
                         MediaStore.Images.Media.MIME_TYPE + "=? or "
+                                + MediaStore.Images.Media.MIME_TYPE + "=? or "
                                 + MediaStore.Images.Media.MIME_TYPE + "=?",
-                        arrayOf("image/jpeg", "image/png"), MediaStore.Images.Media.DATE_MODIFIED + " desc")
+                        arrayOf("image/jpeg", "image/png", "image/x-ms-bmp"), MediaStore.Images.Media.DATE_MODIFIED + " desc")
             }
 
             if (mCursor == null) {
