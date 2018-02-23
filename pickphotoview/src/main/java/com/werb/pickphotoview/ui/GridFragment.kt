@@ -47,11 +47,11 @@ class GridFragment : Fragment() {
         println("GridFragment create " + this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.pick_fragment_grid, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.pick_fragment_grid, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         EventBus.register(this)
         initView()
     }
@@ -63,7 +63,7 @@ class GridFragment : Fragment() {
 
     private fun initView() {
         GlobalData.model?.let {
-            recyclerView.addItemDecoration(SpaceItemDecoration(PickUtils.getInstance(context.applicationContext).dp2px(PickConfig.ITEM_SPACE.toFloat()), it.spanCount))
+            recyclerView.addItemDecoration(SpaceItemDecoration(PickUtils.getInstance(context?.applicationContext).dp2px(PickConfig.ITEM_SPACE.toFloat()), it.spanCount))
             recyclerView.layoutManager = GridLayoutManager(context, it.spanCount)
             recyclerView.addOnScrollListener(scrollListener)
             adapter = MoreAdapter()
@@ -88,13 +88,17 @@ class GridFragment : Fragment() {
                     if (it.allPhotoSize != 0) {
                         val pickSize = selectImages.size + it.hasPhotoSize
                         if (pickSize >= it.allPhotoSize) {
-                            Toast.makeText(context, String.format(context.string(R.string.pick_photo_size_limit), it.allPhotoSize.toString()), Toast.LENGTH_SHORT).show()
+                            context?.let {c ->
+                                Toast.makeText(c, String.format(c.string(R.string.pick_photo_size_limit), it.allPhotoSize.toString()), Toast.LENGTH_SHORT).show()
+                            }
                             return
                         }
                     }
                     val pickSize = selectImages.size
                     if (pickSize >= it.pickPhotoSize) {
-                        Toast.makeText(context, String.format(context.string(R.string.pick_photo_size_limit), it.pickPhotoSize.toString()), Toast.LENGTH_SHORT).show()
+                        context?.let {c ->
+                            Toast.makeText(c, String.format(c.string(R.string.pick_photo_size_limit), it.allPhotoSize.toString()), Toast.LENGTH_SHORT).show()
+                        }
                         return
                     } else {
                         addImage(data, position)
@@ -127,8 +131,8 @@ class GridFragment : Fragment() {
         if (selectImages.isNotEmpty()) {
             val intent = Intent()
             intent.putExtra(PickConfig.INTENT_IMG_LIST_SELECT, selectImages as Serializable)
-            activity.setResult(PickConfig.PICK_PHOTO_DATA, intent)
-            activity.finish()
+            activity?.setResult(PickConfig.PICK_PHOTO_DATA, intent)
+            activity?.finish()
         }
     }
 

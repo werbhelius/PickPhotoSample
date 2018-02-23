@@ -24,11 +24,11 @@ class ListFragment : Fragment() {
 
     private lateinit var adapter: MoreAdapter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.pick_fragment_grid, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.pick_fragment_grid, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         println("ListFragment onViewCreated" + System.currentTimeMillis())
         EventBus.register(this)
         initView()

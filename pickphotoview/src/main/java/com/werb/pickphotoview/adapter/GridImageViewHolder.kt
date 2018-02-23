@@ -43,11 +43,13 @@ class GridImageViewHolder(containerView: View) : MoreViewHolder<GridImage>(conta
     }
 
     override fun bindData(data: GridImage, payloads: List<Any>) {
-        Glide.with(context)
-                .asBitmap()
-                .load(Uri.parse("file://" + data.path))
-                .apply(GlideHelper.imageLoadOption())
-                .into(weekImage)
+        weekImage?.let {
+            Glide.with(context)
+                    .asBitmap()
+                    .load(Uri.parse("file://" + data.path))
+                    .apply(GlideHelper.imageLoadOption())
+                    .into(it)
+        }
 
         if (payloads.isNotEmpty()) {
             payloads.forEach {
