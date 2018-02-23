@@ -6,9 +6,9 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
-## Last Update (2018.2.8)
-#### [v0.4.4](https://github.com/Werb/PickPhotoSample/releases/tag/v0.4.4)
-1. support select bmp image
+## Last Update (2018.2.23)
+#### [v0.4.6](https://github.com/Werb/PickPhotoSample/releases/tag/v0.4.6)
+1. update glide version
 
 ## Screenshot
 ![one](./screenshots/one.png)
@@ -24,7 +24,7 @@ the last-version is [releases-version](https://github.com/Werb/PickPhotoSample/r
 #### Gradle
 
 ```gradle
-  compile 'com.werb.pickphotoview:pickphotoview:0.4.4'  // Last Version
+  compile 'com.werb.pickphotoview:pickphotoview:0.4.6'  // Last Version
 ```
 
 some Library already dependency
