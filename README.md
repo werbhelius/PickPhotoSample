@@ -112,6 +112,11 @@ Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE be
     }
 ```
 
+## proguard
+```
+
+```
+
 ## License
 
 [Apache2.0](https://github.com/Werb/PickPhotoSample/blob/master/LICENSE)
