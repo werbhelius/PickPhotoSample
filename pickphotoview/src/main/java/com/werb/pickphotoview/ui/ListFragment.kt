@@ -1,6 +1,7 @@
 package com.werb.pickphotoview.ui
 
 import android.os.Bundle
+import android.support.annotation.Keep
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.pick_fragment_grid.*
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/10/18. */
 
+@Keep
 class ListFragment : Fragment() {
 
     private lateinit var adapter: MoreAdapter
@@ -29,7 +31,6 @@ class ListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        println("ListFragment onViewCreated" + System.currentTimeMillis())
         EventBus.register(this)
         initView()
     }

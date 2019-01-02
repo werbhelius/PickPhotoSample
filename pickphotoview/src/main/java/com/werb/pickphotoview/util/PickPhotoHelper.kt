@@ -3,6 +3,7 @@ package com.werb.pickphotoview.util
 import android.content.ContentResolver
 import android.database.Cursor
 import android.provider.MediaStore
+import android.support.annotation.Keep
 import android.util.Log
 import com.werb.eventbus.EventBus
 import com.werb.pickphotoview.event.PickFinishEvent

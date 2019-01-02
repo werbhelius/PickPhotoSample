@@ -33,3 +33,15 @@
 -keepclassmembers class * extends com.werb.library.MoreViewHolder{
  public <init>(android.view.View);
 }
+
+#eventbus
+-keep class com.werb.eventbus.SubscriberMethodHunter {*;}
+-keep enum com.werb.eventbus.ThreadMode { *; }
+-keep class * implements com.werb.eventbus.IEvent
+-keepclassmembers class * {
+    @com.werb.eventbus.Subscribe <methods>;
+}
+
+# pickPhoto
+-keepattributes *Annotation*
+-keep @android.support.annotation.Keep class **

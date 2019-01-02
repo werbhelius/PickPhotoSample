@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.support.annotation.Keep
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.View
@@ -25,7 +26,7 @@ import kotlinx.android.synthetic.main.pick_widget_my_toolbar.*
 /**
  * Created by wanbo on 2017/1/4.
  */
-
+@Keep
 class PickPhotoPreviewActivity : BasePickActivity() {
 
     private var path: String? = null

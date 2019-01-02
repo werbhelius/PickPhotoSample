@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
+import android.support.annotation.Keep
 import android.support.v4.app.Fragment
 import com.werb.eventbus.EventBus
 import com.werb.eventbus.Subscriber
@@ -28,6 +29,7 @@ import java.io.Serializable
  * Created by wanbo on 2016/12/30.
  */
 
+@Keep
 class PickPhotoActivity :  BasePickActivity() {
 
     private var mode = PickConfig.PICK_GIRD

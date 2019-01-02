@@ -2,6 +2,7 @@ package com.werb.pickphotoview.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.Keep
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -36,16 +37,12 @@ import java.io.Serializable
 
 /** Created by wanbo <werbhelius@gmail.com> on 2017/10/18. */
 
+@Keep
 class GridFragment : Fragment() {
 
     private lateinit var adapter: MoreAdapter
     private val manager: RequestManager by lazy { Glide.with(this) }
     private val selectImages = PickPhotoHelper.selectImages
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        println("GridFragment create " + this)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.pick_fragment_grid, container, false)
