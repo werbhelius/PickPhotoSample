@@ -22,12 +22,6 @@
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">none</item>
-        <item name="btn_cornerRadius">20dp</item>
-        <item name="btn_strokeWidth">1dp</item>
-        <item name="btn_strokeColor">@color/white</item>
-        <item name="btn_unpressColor">@color/transparent</item>
-        <item name="btn_pressColor">@color/transparent</item>
-        <item name="btn_text_unpressColor">@color/white</item>
-        <item name="btn_text_pressColor">@color/white</item>
+        <item name="android:background">@drawable/btn_bg</item>
     </style>
 </resources>

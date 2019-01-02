@@ -47,17 +47,17 @@
             android:textSize="24sp"
             android:textColor="@color/white"/>
 
-        <com.werb.pickphotosample.CustomButton
+        <android.support.v7.widget.AppCompatTextView
             style="@style/CustomButtonStyle"
             android:id="@+id/btn1"
             android:text="Single Select"/>
 
-        <com.werb.pickphotosample.CustomButton
+        <android.support.v7.widget.AppCompatTextView
             style="@style/CustomButtonStyle"
             android:id="@+id/btn2"
             android:text="Multi Select"/>
 
-        <com.werb.pickphotosample.CustomButton
+        <android.support.v7.widget.AppCompatTextView
             style="@style/CustomButtonStyle"
             android:id="@+id/btn3"
             android:text="Photo Preview"/>
