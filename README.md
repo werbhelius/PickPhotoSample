@@ -113,9 +113,7 @@ Make sure you have permissions about CAMERA and WRITE／READ_EXTERNAL_STORAGE be
 ```
 
 ## proguard
-```
-
-```
+[proguard-rules.pro](./app/proguard-rules.pro)
 
 ## License
 
