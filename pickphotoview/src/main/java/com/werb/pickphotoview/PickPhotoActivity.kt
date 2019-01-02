@@ -37,17 +37,9 @@ class PickPhotoActivity :  BasePickActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        EventBus.register(this)
         setContentView(R.layout.pick_activity_pick_photo)
         initToolbar()
-
-        EventBus.register(this)
-        getData()
-    }
-
-    private fun getData() {
-        GlobalData.model?.let {
-            PickPhotoHelper.start(it.isShowGif, applicationContext.contentResolver)
-        }
     }
 
     private fun initToolbar() {

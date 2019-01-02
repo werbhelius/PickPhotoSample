@@ -54,6 +54,7 @@ class GridFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         EventBus.register(this)
         initView()
+        getData()
     }
 
     override fun onDestroyView() {
@@ -61,8 +62,14 @@ class GridFragment : Fragment() {
         EventBus.unRegister(this)
     }
 
-    private fun initView() {
+    private fun getData() {
         GlobalData.model?.let {
+            PickPhotoHelper.start(it.isShowGif, context?.applicationContext?.contentResolver ?: return)
+        }
+    }
+
+    private fun initView() {
+        GlobalData.model?.also {
             recyclerView.addItemDecoration(SpaceItemDecoration(PickUtils.getInstance(context?.applicationContext).dp2px(PickConfig.ITEM_SPACE.toFloat()), it.spanCount))
             recyclerView.layoutManager = GridLayoutManager(context, it.spanCount)
             recyclerView.addOnScrollListener(scrollListener)
