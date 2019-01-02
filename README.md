@@ -7,14 +7,14 @@ Click to download lastest demo ⬇️ or select [Release Version](https://github
 [![download](/app/src/main/res/mipmap-xhdpi/ic_launcher.png)](https://fir.im/hm38)
 
 ## Last Update (2019.1.2)
-#### [v0.4.6](https://github.com/Werb/PickPhotoSample/releases/tag/v0.4.8)
+#### [v0.4.8](https://github.com/Werb/PickPhotoSample/releases/tag/v0.4.8)
 1. update third part lib version
 2. fix some bug
 3. add proguard
 
 ## Screenshot
-![one](./screenshots/one.png)
-![two](./screenshots/two.png)
+![one](./screenshots/1.png)
+![two](./screenshots/2.png)
 
 ## Dependency
 
